@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, ScrollView } from 'react-native';
 
 // Using safeAreaView for the post screen
 import { SafeAir } from '../../Components/Utility/safe-area.component';
@@ -15,7 +15,12 @@ export const PostScreen = () => {
 
             <Story />
 
-            <CardStory />
+            <ScrollView>
+                <CardStory />
+                <CardStory />
+                <CardStory />
+                <CardStory />
+            </ScrollView>
             
             <Text>
                 

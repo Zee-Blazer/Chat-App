@@ -11,6 +11,8 @@ import { Feather } from '@expo/vector-icons';
 
 // Screens imported
 import { PostScreen } from '../../Features/Post';
+import { ChatScreen } from '../../Features/Chat';
+import { SettingsScreen } from '../../Features/Settings';
 
 // Instance of the Bottom Tab Navigator
 const MainTab = createBottomTabNavigator();
@@ -41,7 +43,7 @@ export const MainNavigation = () => {
 
             <MainTab.Screen 
                 name="Chat" 
-                component={ () => <Text>Chat Screen</Text> } 
+                component={ ChatScreen } 
                 options={{
                     tabBarLabel: 'Chat',
                     tabBarIcon: ({ color, size }) => (
@@ -52,7 +54,7 @@ export const MainNavigation = () => {
 
             <MainTab.Screen 
                 name="Settings" 
-                component={ () => <Text>Settings Screen</Text> } 
+                component={ SettingsScreen } 
                 options={{
                     tabBarLabel: 'Settings',
                     tabBarIcon: ({ color, size }) => (
