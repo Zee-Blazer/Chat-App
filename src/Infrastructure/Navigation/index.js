@@ -1,7 +1,9 @@
 import React from 'react';
 
 // Navigation container for the navigation contents
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer  } from '@react-navigation/native';
+// navigation ref
+import { navigationRef } from './root-navigation';
 
 // Imported the Main Bottom tab navigator
 import { MainNavigation } from './mainNavigation';
@@ -11,7 +13,7 @@ import { MainNavigation } from './mainNavigation';
 export const Navigation = () => {
 
     return (
-        <NavigationContainer>
+        <NavigationContainer ref={ navigationRef }>
             <MainNavigation />
         </NavigationContainer>
     )

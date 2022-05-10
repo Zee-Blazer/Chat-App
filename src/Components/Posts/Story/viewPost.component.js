@@ -1,6 +1,8 @@
 import React from 'react';
 import { Avatar } from 'react-native-paper';
 
+import { Navigation } from '../../../Infrastructure/Navigation';
+
 import { 
     ProfilePost,
     ProfileLabel,

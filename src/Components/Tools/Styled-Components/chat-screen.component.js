@@ -16,7 +16,7 @@ export const SplitText = styled.Text`
 `;
 
 export const Line = styled.View`
-    border: 2px solid grey;
+    border: 1px solid grey;
 `;
 
 export const FinderSearch = styled(Searchbar)`

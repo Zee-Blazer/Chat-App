@@ -21,8 +21,13 @@ export const GridDisplay = styled.View`
 export const FlexDisplay = styled.View`
     display: flex;
     flex-direction: row;
-    padding: 12px;
     justify-content: space-evenly;
+    border-top-width: 1px;
+    border-top-color: grey;
+`;
+
+export const LikeOption = styled.TouchableOpacity`
+    padding: 8px;
 `;
 
 export const SplitText = styled.Text`

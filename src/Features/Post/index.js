@@ -8,7 +8,11 @@ import { SafeAir } from '../../Components/Utility/safe-area.component';
 import { Story } from '../../Components/Posts/Story/story.component';
 import { CardStory } from '../../Components/Posts/Card-story';
 
-export const PostScreen = () => {
+export const PostScreen = ({ navigation }) => {
+
+    const navigateToScreen = (screen) => {
+        navigation.navigate(screen)
+    }
 
     return (
         <SafeAir>

@@ -14,7 +14,11 @@ import { StoryImage } from './image-story-container.component';
 import { ProfilePost } from './profile-post.component';
 
 // Styled components
-import { FlexDisplay } from '../../Tools/Styled-Components/post-card.component';
+import { 
+    FlexDisplay,
+    LikeOption
+} from '../../Tools/Styled-Components/post-card.component';
+import { Line } from '../../Tools/Styled-Components/post-card.component';
 
 export const CardStory = () => {
 
@@ -23,19 +27,21 @@ export const CardStory = () => {
             <StoryCard>
                 <StoryImage />
 
-                <ProfilePost />
+                <ProfilePost/>
 
                 <FlexDisplay>
 
-                    <TouchableOpacity>
+                    <LikeOption>
                         <AntDesign name="like2" size={24} color="black" />
                         <Text>Like</Text>
-                    </TouchableOpacity>
+                    </LikeOption>
 
-                    <TouchableOpacity>
+                    <Line />
+
+                    <LikeOption>
                         <FontAwesome name="commenting-o" size={24} color="black" />
                         <Text>Comment</Text>
-                    </TouchableOpacity>
+                    </LikeOption>
 
                 </FlexDisplay>
             </StoryCard>
