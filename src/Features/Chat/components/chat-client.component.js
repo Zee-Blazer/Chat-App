@@ -2,6 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-paper';
 
+// Root Navigation
+import * as RootNavigation from '../../../Infrastructure/Navigation/root-navigation';
+
 import { Entypo } from '@expo/vector-icons'; 
 
 // Chat Component styling
@@ -16,7 +19,7 @@ import {
 export const ChatClient = () => {
 
     return (
-        <TouchableOpacity>
+        <TouchableOpacity onPress={ () => RootNavigation.navigate("ChatSub") }>
             <ClientChatBox>
                 <TouchableOpacity>
                     <Avatar.Image 

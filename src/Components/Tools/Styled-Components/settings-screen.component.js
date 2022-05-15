@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-export const ProfileSet = styled.View`
+export const ProfileSet = styled.TouchableOpacity`
     display: flex;
     flex-direction: row;
     padding: 12px;

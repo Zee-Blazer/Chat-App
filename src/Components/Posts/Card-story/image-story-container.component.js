@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
+// Root Navigation
 import * as RootNavigation from '../../../Infrastructure/Navigation/root-navigation';
 
 import { ImgStry } from '../../Tools/Styled-Components/post-card.component';
