@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text } from 'react-native';
+
+// Authentication Context
+import { AuthContext } from '../../Services/Authentication/auth.context';
 
 // Expo Icon
 import { AntDesign } from '@expo/vector-icons'; 
@@ -21,6 +24,9 @@ import {
 import { ProfileSettings } from './components/profile-settings.component';
 
 export const SettingsScreen = () => {
+
+    const { Logout } = useContext(AuthContext);
+
     return (
         <SafeAir>
             <DoubleCont>
@@ -44,7 +50,7 @@ export const SettingsScreen = () => {
             <DoubleCont>
                 <ProfileSet>
                     <AntDesign name="logout" size={24} color="red" />
-                    <Logout>Logout</Logout>
+                    <Logout onPress={ () => Logout() }>Logout</Logout>
                 </ProfileSet>
             </DoubleCont>
         </SafeAir>
