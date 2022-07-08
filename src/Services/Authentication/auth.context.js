@@ -1,23 +1,28 @@
 import React, { useState, createContext, useEffect } from 'react';
 
-// Asyn Storage
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 // Firebase initialization
-import firebase from 'firebase/compat/app';
-import "firebase/compat/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+// import firebase from 'firebase/compat/app';
+// import "firebase/compat/auth";
+
+// // API's
+// import { SignupApi } from '../API\'s/Signup.api\'s';
+import { ManageUsers } from '../API\'s/Signup.api\'s';
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
 
+    const auth = getAuth();
+
     const [user, setUser] = useState(false);
+    const [user_id, setUser_id] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const Login = (email, pwd) => {
         console.log("Working");
         setIsLoading(true);
-        firebase.auth().signInWithEmailAndPassword(email, pwd)
+        signInWithEmailAndPassword(auth, email, pwd)
         .then( user => {
             setUser(user);
             console.log(user);
@@ -29,33 +34,34 @@ export const AuthContextProvider = ({ children }) => {
         } )
     }
 
-    const SignUp = (email, pwd, conPwd) => {
+    const SignUp = (email, pwd, username) => {
         setIsLoading(true);
+        const password = pwd;
 
-        if( pwd === conPwd ) {
-            firebase.auth().createUserWithEmailAndPassword(email, pwd)
-                .then( user => {
-                    setUser(user);
+        createUserWithEmailAndPassword(auth, email, password)
+        .then( user => {
+            const user_id = user.user.uid;
+            setUser_id(user_id);
+            ManageUsers({ username, email, user_id })
+            setUser(user);
+            setIsLoading(false);
+        } )
+        .catch( err => {
+            alert(err);
+            setIsLoading(true);
+        } )
 
-                    setIsLoading(false);
-                } )
-                .catch( err => {
-                    alert(err);
-                    setIsLoading(false);
-                } );
-        }
-        else setIsLoading(false);
-        
+        // SignupApi(email, pwd, setIsLoading)
+       
     }
 
-    const Logout = () => {
-        firebase.auth().signOut();
+    const LogOut = () => {
+        setUser(null);
+        signOut(auth);
     }
 
     useEffect( () => {
-        firebase.auth().onAuthStateChanged( user => {
-            if(user !== null) setUser(user);
-        } )
+        console.log(user);
     }, [] )
 
     return (
@@ -65,8 +71,9 @@ export const AuthContextProvider = ({ children }) => {
                 user,
                 Login,
                 SignUp,
-                Logout,
-                isLoading
+                LogOut,
+                isLoading,
+                user_id
             }}
         >
             { children }

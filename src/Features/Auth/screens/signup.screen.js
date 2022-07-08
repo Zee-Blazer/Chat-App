@@ -13,6 +13,9 @@ import { LogoNameHeader } from '../components/logo-name.component';
 // Authentication Context
 import { AuthContext } from '../../../Services/Authentication/auth.context';
 
+// Password Viewer component
+import { SeePassword } from '../components/see-password.component';
+
 // Styled components
 import { 
     AccountBackgroundForm,
@@ -31,16 +34,18 @@ import { IconedInput } from '../components/iconed-input.component';
 
 export const SignupScreen = ({ navigation }) => {
 
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [pwd, setPwd] = useState("");
-    const [conPwd, setConPwd] = useState("");
+    const [seePwd, setSeePwd] = useState(true);
 
     const { isLoading, SignUp } = useContext(AuthContext);
 
     // Functions
 
     const doSignUp = () => {
-        SignUp(email, pwd, conPwd);
+        SignUp(email, pwd, username);
+        // setIsLoading
     }
 
     return (
@@ -49,7 +54,7 @@ export const SignupScreen = ({ navigation }) => {
                 
                 <LogoNameHeader />
 
-                {/* <IconInputContainer>
+                <IconInputContainer>
                     <FontAwesome5 name="user" size={24} color="white" />
                     <UserInfoInput 
                         placeholder="Username" 
@@ -57,7 +62,7 @@ export const SignupScreen = ({ navigation }) => {
                         value={ username }
                         onChangeText={ setUsername }
                     />
-                </IconInputContainer> */}
+                </IconInputContainer>
 
                 <IconInputContainer>
                     <MaterialIcons name="email" size={24} color="white" />
@@ -74,21 +79,11 @@ export const SignupScreen = ({ navigation }) => {
                     <UserInfoInput 
                         placeholder="Password" 
                         autoCorrect={ false }
-                        secureTextEntry
+                        secureTextEntry={ seePwd }
                         value={ pwd }
                         onChangeText={ setPwd }
                     />
-                </IconInputContainer>
-
-                <IconInputContainer>
-                    <FontAwesome5 name="keycdn" size={24} color="white" />
-                    <UserInfoInput 
-                        placeholder="Confirm-Password" 
-                        autoCorrect={ false }
-                        secureTextEntry
-                        value={ conPwd }
-                        onChangeText={ setConPwd }
-                    />
+                    { pwd ? <SeePassword seePwd={ seePwd } setSeePwd={ setSeePwd } /> : null }
                 </IconInputContainer>
 
                 { !isLoading ? 

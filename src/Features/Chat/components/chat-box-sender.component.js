@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { LogBox } from 'react-native';
 import { Text, View } from 'react-native';
+
+// Auth Context
+import { AuthContext } from '../../../Services/Authentication/auth.context';
 
 // Icons
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+
+// Api's
+import { messageSender } from '../../../Services/API\'s/ChatBox.api';
 
 import { 
     ChatBox,
@@ -13,9 +20,19 @@ import {
 } from './chat-view.styles';
 
 export const ChatBoxSender = () => {
+    LogBox.ignoreLogs(['Setting a timer']);
+
+    const { user_id } = useContext(AuthContext);
 
     const [msg, setMsg] = useState();
     const [height, setHeight] = useState();
+
+    const sendMsg = () => {
+        messageSender({msg, user_id});
+        setMsg("");
+    }
+
+    useEffect( () => {}, [] )
 
     return (
         <ChatBox>
@@ -37,7 +54,7 @@ export const ChatBoxSender = () => {
             </MessagerNest>
 
             <SenderIcon>
-                <FontAwesome name="send-o" size={28} color="blue" />
+                <FontAwesome name="send-o" size={28} color="blue" onPress={ () => sendMsg() } />
             </SenderIcon>
 
         </ChatBox>

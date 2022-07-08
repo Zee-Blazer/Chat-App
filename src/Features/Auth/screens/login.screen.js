@@ -20,6 +20,9 @@ import {
     ButtonElementAction
 } from '../components/form.style';
 
+// Password Viewer Component
+import { SeePassword } from '../components/see-password.component';
+
 // Icons
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -31,11 +34,12 @@ export const LoginScreen = ({ navigation }) => {
 
     const { Login, isLoading } = useContext(AuthContext);
 
-    const  [username, setUsername] = useState("");
+    const  [email, setEmail] = useState("");
     const  [password, setPassword] = useState("");
+    const [seePwd, setSeePwd] = useState(true);
 
     const doLogin = () => {
-        Login( username, password );
+        Login( email, password );
         // console.log("Okay")
 
         // navigation.navigate("SignUp")
@@ -48,11 +52,11 @@ export const LoginScreen = ({ navigation }) => {
                 <LogoNameHeader />
 
                 <IconInputContainer>
-                    <FontAwesome5 name="user" size={24} color="white" />
+                    <MaterialIcons name="email" size={24} color="white" />
                     <UserInfoInput 
-                        placeholder="Username" 
+                        placeholder="E-mail" 
                         autoCorrect={ false }
-                        onChangeText={ setUsername }
+                        onChangeText={ setEmail }
                     />
                 </IconInputContainer>
 
@@ -61,9 +65,10 @@ export const LoginScreen = ({ navigation }) => {
                     <UserInfoInput 
                         placeholder="Password" 
                         autoCorrect={ false }
-                        secureTextEntry
+                        secureTextEntry={ seePwd }
                         onChangeText={ setPassword }
                     />
+                    { password ? <SeePassword seePwd={ seePwd } setSeePwd={ setSeePwd } /> : null }
                 </IconInputContainer>
 
                 <ButtonContainer style={{ marginTop: 58 }}>

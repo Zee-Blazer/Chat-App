@@ -43,11 +43,11 @@ export const UserInfoInput = styled.TextInput.attrs({
     placeholderTextColor: "white"
   })`
     color: white;
+    width: 250px;
     font-weight: 600;
     font-size: 18px;
     margin: 0px 4px;
     padding: 1px 6px;
-    margin-right: 16px;
 `;
 
 export const ButtonContainer = styled.View`

@@ -25,7 +25,7 @@ import { ProfileSettings } from './components/profile-settings.component';
 
 export const SettingsScreen = () => {
 
-    const { Logout } = useContext(AuthContext);
+    const { LogOut } = useContext(AuthContext);
 
     return (
         <SafeAir>
@@ -50,7 +50,7 @@ export const SettingsScreen = () => {
             <DoubleCont>
                 <ProfileSet>
                     <AntDesign name="logout" size={24} color="red" />
-                    <Logout onPress={ () => Logout() }>Logout</Logout>
+                    <Logout onPress={ () => LogOut() }>Logout</Logout>
                 </ProfileSet>
             </DoubleCont>
         </SafeAir>
