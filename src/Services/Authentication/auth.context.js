@@ -48,7 +48,7 @@ export const AuthContextProvider = ({ children }) => {
         } )
         .catch( err => {
             alert(err);
-            setIsLoading(true);
+            setIsLoading(false);
         } )
 
         // SignupApi(email, pwd, setIsLoading)

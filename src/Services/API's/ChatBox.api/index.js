@@ -13,13 +13,12 @@ export const messageSender = ({ msg, user_id }) => {
         .catch( err => console.log(err) )
 }
 
-export const allMessages = () => {
-    let messages = [];
+export const allMessages = (setMessages) => {
     onValue(ref(DB, 'Messages'), (snapshot) => {
         const msg = [];
-        snapshot.forEach( childSnapshot => msg.push({ id: childSnapshot.key, ...childSnapshot.val() }) )
-        // messages = msg;
+        snapshot.forEach( childSnapshot => msg.push({ 
+            id: childSnapshot.key, ...childSnapshot.val()
+        }) )
+        setMessages(msg);
     } )
-
-    console.log(messages)
 }

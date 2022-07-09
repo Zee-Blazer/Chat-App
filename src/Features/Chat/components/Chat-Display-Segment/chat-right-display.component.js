@@ -9,11 +9,13 @@ import {
     Chat
 } from '../chat-view.styles';
 
-export const RightDisplayChat = () => {
+export const RightDisplayChat = ({ ele }) => {
 
     return (
         <ChatRightDisplay>
-            <Chat style={{ color: "#195190FF" }}>How far guy jb nduhc dcbiou njkbefuicb endcbnkv efj jb d skjbc db j dsjsdbkb </Chat>
+            <Chat style={{ color: "#195190FF" }}>
+                { ele }
+            </Chat>
             <RightAngle />
 
             <Time>10:52PM</Time>
