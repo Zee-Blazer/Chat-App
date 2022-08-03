@@ -7,14 +7,15 @@ import { getDatabase, ref, push, onValue } from 'firebase/database';
 export const DB = getDatabase();
 
 export const messageSender = ({ msg, user_id }) => {
-    console.log(user_id);
-    push(ref(DB, 'Messages'), { msg, user_id })
-        .then( res => console.log(res) )
-        .catch( err => console.log(err) )
+    console.log(user_id, `This is working...`, msg);
+    push(ref(DB, 'Chats'), { messages: { msg, id: user_id }, user_id })
+        .then( res => {} )
+        .catch( err => {} )
 }
 
 export const allMessages = (setMessages) => {
-    onValue(ref(DB, 'Messages'), (snapshot) => {
+    console.log("Hello World")
+    onValue(ref(DB, 'Chats'), (snapshot) => {
         const msg = [];
         snapshot.forEach( childSnapshot => msg.push({ 
             id: childSnapshot.key, ...childSnapshot.val()

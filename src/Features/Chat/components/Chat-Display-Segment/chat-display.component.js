@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { ScrollView, FlatList, View } from 'react-native';
+import { ScrollView, FlatList, View, Text } from 'react-native';
 
 // Styled Components...
 import { ChatDisplay } from '../chat-view.styles';
@@ -17,6 +17,8 @@ import { allMessages } from '../../../../Services/API\'s/ChatBox.api';
 import { LeftDisplaychat } from './chat-left-display.component';
 import { RightDisplayChat } from './chat-right-display.component';
 
+import { ChatDisplayer } from './chat-displayer.component';
+
 export const ChatDisplaySegment = () => {
 
     const DB = getDatabase();
@@ -27,13 +29,14 @@ export const ChatDisplaySegment = () => {
     useEffect( () => {
         onValue(ref(DB, 'Messages'), (snapshot) => {
             const msg = [];
-            snapshot.forEach( childSnapshot => msg.push({ 
+            snapshot.forEach( childSnapshot => {
+                msg.push({ 
                 id: childSnapshot.key, ...childSnapshot.val()
-            }) )
+            }) })
             setMessages(msg);
         } )
 
-        console.log(messages);
+        
     }, [] )
 
     return (
@@ -43,9 +46,15 @@ export const ChatDisplaySegment = () => {
                 <FlatList 
                     data={messages}
                     renderItem={ ({ item }) => {
-                        console.log(item.msg);
+                        // console.log(item.user_id, user_id);
+                        // const checker = item.messages.id == user_id;
+                        // console.log(item.messages);
+
                         return (
-                            <LeftDisplaychat ele={ item.msg } />
+                            <View>
+                                <Text>{ item.messages.msg } - { checker.toString() }</Text>
+                                {/* <Text>`{ user_id } ~ = ~ { item.messages.id } `</Text> */}
+                            </View>
                         ) 
                     }}
                     keyExtractor={ item => item.id }
