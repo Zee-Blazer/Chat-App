@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-paper';
 
@@ -31,17 +31,17 @@ export const ChatClient = () => {
                 <ClientMsg>
 
                     <ClientMsgContainer>
-                        <ClientChatTextFirst>Name</ClientChatTextFirst>
+                        <ClientChatTextFirst>Name</ClientChatTextFirst> 
                         
                         <TouchableOpacity>
-                            <Entypo name="dots-three-vertical" size={24} color="balck" />
+                            <Entypo name="dots-three-vertical" size={24} color="black" />
                         </TouchableOpacity>
+                        
                     </ClientMsgContainer>
                     
                     <ClientMsgContainer>
-                        <ClientChatTextDown>Message</ClientChatTextDown>
-
-                        <Text>10:45PM</Text>
+                            <ClientChatTextDown>Message</ClientChatTextDown>
+                            <Text>10:45PM</Text>
                     </ClientMsgContainer>
                 
                 </ClientMsg>

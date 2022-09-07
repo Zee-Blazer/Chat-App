@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { Avatar } from 'react-native-paper';
+
+// Async Storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Root Navigation
 import * as RootNavigation from '../../../Infrastructure/Navigation/root-navigation';
@@ -15,6 +18,17 @@ import {
 
 export const ProfileSettings = () => {
 
+    const [userRecord, setUserRecord] = useState();
+
+    const getAllInfo = async () => {
+        const UserInfo = await AsyncStorage.getItem(`@user_details`);
+        setUserRecord(JSON.parse(UserInfo));
+    }
+
+    useEffect( () => {
+        getAllInfo();
+    }, [] )
+
     return (
         <ProfileSet onPress={ () => RootNavigation.navigate("SettingsSub") }>
             <Avatar.Image 
@@ -23,8 +37,8 @@ export const ProfileSettings = () => {
             />
             
             <Spread>
-                <BiggerTitle>Name</BiggerTitle>
-                <SmallerTitle>Sub Title</SmallerTitle>
+                <BiggerTitle>{ userRecord && userRecord.username }</BiggerTitle>
+                <SmallerTitle>{ userRecord && userRecord.email }</SmallerTitle>
             </Spread>
         </ProfileSet>
     )

@@ -1,10 +1,13 @@
 import React from 'react';
-import { Text } from 'react-native';
-
-import { Avatar } from 'react-native-paper';
+import { Text, ScrollView } from 'react-native';
 
 // Safe Area
 import { SafeAir } from '../../../Components/Utility/safe-area.component';
+
+// Components
+import { ProfileHeader } from '../components/profile-header.component';
+import { CardStory } from '../../../Components/Posts/Card-story';
+import { ProfileBios } from '../components/profile-bio.component';
 
 // Styled Components
 import { CoverImage } from '../components/profile-screen.style';
@@ -13,16 +16,20 @@ export const ProfileSettingsScreen = () => {
 
     return (
         <SafeAir>
-            <CoverImage 
-                source={{ uri: "https://cdn-images.zety.com/pages/best_font_for_cover_letter_6.jpg" }}
-            />
+            
+            <ScrollView>
+                
+                {/* The profile header with all Images/profile pictures */}
+                <ProfileHeader />
 
-            <Avatar.Image
-                size={ 108 }
-                source={{ uri: "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" }}
-            />
+                {/* Profile Bios were you can check and update profile */}
+                <ProfileBios />
 
-            <Text> Profile Settings Screen </Text>
+                <CardStory />
+                <CardStory />
+                <CardStory />
+            </ScrollView>
+
         </SafeAir>
     )
 }

@@ -59,3 +59,9 @@ export const ButtonContainer = styled.View`
 
 export const ButtonElementAction = styled(Button)`
 `;
+
+export const ErrorMsg = styled.Text`
+  color: red;
+  text-align: center;
+  font-size: 18px
+`;

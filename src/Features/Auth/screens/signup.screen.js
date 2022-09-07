@@ -22,7 +22,8 @@ import {
     IconInputContainer,
     UserInfoInput,
     ButtonContainer,
-    ButtonElementAction
+    ButtonElementAction,
+    ErrorMsg
 } from '../components/form.style';
 
 // Icons
@@ -39,9 +40,10 @@ export const SignupScreen = ({ navigation }) => {
     const [pwd, setPwd] = useState("");
     const [seePwd, setSeePwd] = useState(true);
 
-    const { isLoading, SignUp } = useContext(AuthContext);
+    const { isLoading, SignUp, errMsg } = useContext(AuthContext);
 
     // Functions
+    console.log(isLoading)
 
     const doSignUp = () => {
         SignUp(email, pwd, username);
@@ -53,6 +55,8 @@ export const SignupScreen = ({ navigation }) => {
             <SafeAir>
                 
                 <LogoNameHeader />
+
+                <ErrorMsg> { errMsg } </ErrorMsg>
 
                 <IconInputContainer>
                     <FontAwesome5 name="user" size={24} color="white" />
@@ -86,27 +90,27 @@ export const SignupScreen = ({ navigation }) => {
                     { pwd ? <SeePassword seePwd={ seePwd } setSeePwd={ setSeePwd } /> : null }
                 </IconInputContainer>
 
+            
+            <ButtonContainer>
                 { !isLoading ? 
-                    <ButtonContainer>
-                        <ButtonElementAction 
-                            mode="contained" 
-                            color="white"
-                            onPress={ () => doSignUp() }
-                        >
-                            Sign Up
-                        </ButtonElementAction>
-
-                        <ButtonElementAction 
-                            mode="text" 
-                            color="white" 
-                            onPress={ () => navigation.navigate("Login") }
-                        >
-                            Login
-                        </ButtonElementAction>
-                    </ButtonContainer>
+                    <ButtonElementAction 
+                        mode="contained" 
+                        color="white"
+                        onPress={ () => doSignUp() }
+                    >
+                        Sign Up
+                    </ButtonElementAction>
                 :
                     <ActivityIndicator animating={ true } color={ Colors.white700 } />
                 }
+                <ButtonElementAction 
+                    mode="text" 
+                    color="white" 
+                    onPress={ () => navigation.navigate("Login") }
+                >
+                    Login
+                </ButtonElementAction>
+            </ButtonContainer>
                 
             </SafeAir>
         </AccountBackgroundForm>

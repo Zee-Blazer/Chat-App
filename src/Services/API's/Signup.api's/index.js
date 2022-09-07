@@ -5,7 +5,7 @@ import { firebaseConfig } from "../../../../firebase-config";
 initializeApp(firebaseConfig);
 
 // Firebase Authentication Initialization
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 // Firebase Database Initialization
 import { getDatabase, ref, push } from "firebase/database";
@@ -17,9 +17,10 @@ export const DB = getDatabase();
 export const ManageUsers = ({ username, email, user_id }) => {
 
     push(ref(DB, "Users"), {
-        username,
-        email,
-        user_id
+        user_name: username,
+        user_email: email,
+        user_id,
+        FriendsId: {}
     })
 }
 

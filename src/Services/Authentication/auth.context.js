@@ -3,92 +3,82 @@ import React, { useState, createContext, useEffect } from 'react';
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Firebase initialization
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-// import firebase from 'firebase/compat/app';
-// import "firebase/compat/auth";
-
 // // API's
 // import { SignupApi } from '../API\'s/Signup.api\'s';
 import { ManageUsers } from '../API\'s/Signup.api\'s';
+
+// Express API
+import api from '../Axios/axios-api';
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
 
-    const auth = getAuth();
-
     const [user, setUser] = useState();
     const [user_id, setUser_id] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [errMsg, setErrMsg] = useState("");
 
-    const Login = (email, pwd) => {
-        setIsLoading(true);
-        signInWithEmailAndPassword(auth, email, pwd)
-        .then( async user => {
-            setUser(user);
-            const user_id = user.user.uid;
-
-            await AsyncStorage.setItem("@user_id", user_id);
-            await AsyncStorage.setItem("@user_info", JSON.stringify(user));
+    const Login = (email, password) => {
+        setIsLoading(true)
+        api.post('/auth/edit/login', { email, password })
+        .then( async response => {
+            if(!response.data.isAuth) {
+                setErrMsg(response.data.msg);
+                setIsLoading(false);
+            }
+            
+            await AsyncStorage.setItem("@user_details", JSON.stringify(response.data.user));
+            await AsyncStorage.setItem("@user_id", response.data.user._id);
+            setUser(response.data);
             setIsLoading(false);
         } )
         .catch( err => {
-            alert(err);
+            console.log(err);
             setIsLoading(false);
         } )
     }
 
-    const SignUp = (email, pwd, username) => {
+    const SignUp = (email, password, username) => {
         setIsLoading(true);
-        const password = pwd;
 
-        createUserWithEmailAndPassword(auth, email, password)
-        .then( async user => {
-            setUser(user);
-            const user_id = user.user.uid;
-            setUser_id(user_id);
-            ManageUsers({ username, email, user_id })
-            await AsyncStorage.setItem("@user_id", user_id);
-            await AsyncStorage.setItem("@user_info", JSON.stringify(user));
+        api.post('/auth/edit/signup', { email, password, username })
+        .then( async response => {
+            
+            if(!response.data.isAuth) {
+                setErrMsg(response.data.msg);
+                setIsLoading(false);
+            }
+
+            await AsyncStorage.setItem("@user_details", JSON.stringify(response.data));
+            await AsyncStorage.setItem("@user_id", response.data._id);
+            setUser(response.data);
             setIsLoading(false);
         } )
         .catch( err => {
-            alert(err);
+            console.log(err);
             setIsLoading(false);
         } )
-
-        // SignupApi(email, pwd, setIsLoading)
-       
     }
 
-    const createrFunction = async () => {
-        const user__identification = await AsyncStorage.getItem('@user_id');
-        const user__info = await AsyncStorage.getItem("@user_info");
-
-        const main_info = JSON.parse(user__info);
-        
-        if( user__identification || user__info )
-        {
-            setUser_id(user__identification);
-            setUser(main_info);
-        }
-
-    }
+    const createrFunction = async () => {}
 
     const LogOut = async () => {
+        const userDetails = JSON.parse(await AsyncStorage.getItem("@user_details"))
+       
+        api.post('/auth/edit/logout', userDetails)
+
+        await AsyncStorage.setItem("@user_details", "");
         await AsyncStorage.setItem("@user_id", "");
-        await AsyncStorage.setItem("@user_info", "");
         setUser(null);
-        signOut(auth);
     }
 
     useEffect( async () => {
-        createrFunction();
+        const userDetails = await AsyncStorage.getItem("@user_details");
 
-        const userIdentification = await AsyncStorage.getItem(`@user_id`);
-        if(userIdentification) setUser_id(userIdentification);
-        
+        if(userDetails){
+            setUser(userDetails);
+        }
     }, [] )
 
     return (
@@ -100,7 +90,8 @@ export const AuthContextProvider = ({ children }) => {
                 SignUp,
                 LogOut,
                 isLoading,
-                user_id
+                user_id,
+                errMsg
             }}
         >
             { children }

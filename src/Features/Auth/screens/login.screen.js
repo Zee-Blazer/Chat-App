@@ -17,7 +17,8 @@ import {
     IconInputContainer,
     UserInfoInput,
     ButtonContainer,
-    ButtonElementAction
+    ButtonElementAction,
+    ErrorMsg
 } from '../components/form.style';
 
 // Password Viewer Component
@@ -32,7 +33,7 @@ import { IconedInput } from '../components/iconed-input.component';
 
 export const LoginScreen = ({ navigation }) => {
 
-    const { Login, isLoading } = useContext(AuthContext);
+    const { Login, isLoading, errMsg } = useContext(AuthContext);
 
     const  [email, setEmail] = useState("");
     const  [password, setPassword] = useState("");
@@ -50,6 +51,10 @@ export const LoginScreen = ({ navigation }) => {
             <SafeAir>
                 
                 <LogoNameHeader />
+
+                <ErrorMsg>
+                    { errMsg }
+                </ErrorMsg>
 
                 <IconInputContainer>
                     <MaterialIcons name="email" size={24} color="white" />
@@ -74,15 +79,16 @@ export const LoginScreen = ({ navigation }) => {
                 <ButtonContainer style={{ marginTop: 58 }}>
                     
                     { !isLoading ? 
-                    <ButtonElementAction 
-                    mode="contained" 
-                    color="white"
-                    onPress={ () => doLogin() }
-                >
-                    Login
-                </ButtonElementAction> 
-                : <ActivityIndicator animating={ true } color={ Colors.white700 } />
-                }
+                        <ButtonElementAction 
+                            mode="contained" 
+                            color="white"
+                            onPress={ () => doLogin() }
+                        >
+                            Login
+                        </ButtonElementAction> 
+                        : 
+                        <ActivityIndicator animating={ true } color={ Colors.white700 } />
+                    }
 
                     <ButtonElementAction 
                         mode="text" 
