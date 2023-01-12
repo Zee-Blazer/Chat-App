@@ -10,14 +10,15 @@ import {
 import { ChatBoxSender } from '../components/chat-box-sender.component';
 import { ChatDisplaySegment } from '../components/Chat-Display-Segment/chat-display.component';
 
-export const ChatViewScreen = () => {
+export const ChatViewScreen = ({ route }) => {
+
 
     return (
         <AccountBackground>
             <AccountCover />
-            <ChatDisplaySegment />
+            <ChatDisplaySegment id={ route.params.id } />
 
-            <ChatBoxSender />
+            <ChatBoxSender id={ route.params.id } />
         </AccountBackground>
     )
 }

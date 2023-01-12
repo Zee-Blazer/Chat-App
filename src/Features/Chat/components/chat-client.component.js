@@ -16,10 +16,12 @@ import {
     ClientChatTextDown
 } from '../../../Components/Tools/Styled-Components/chat-screen.component';
 
-export const ChatClient = () => {
+export const ChatClient = ({ username, id }) => {
 
     return (
-        <TouchableOpacity onPress={ () => RootNavigation.navigate("ChatSub") }>
+        <TouchableOpacity onPress={ 
+            () => RootNavigation.navigate( "ChatSub", { screen: "ChatView", params: { id } } ) 
+        }>
             <ClientChatBox>
                 <TouchableOpacity>
                     <Avatar.Image 
@@ -31,7 +33,7 @@ export const ChatClient = () => {
                 <ClientMsg>
 
                     <ClientMsgContainer>
-                        <ClientChatTextFirst>Name</ClientChatTextFirst> 
+                        <ClientChatTextFirst>{username}</ClientChatTextFirst> 
                         
                         <TouchableOpacity>
                             <Entypo name="dots-three-vertical" size={24} color="black" />

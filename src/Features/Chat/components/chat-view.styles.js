@@ -99,7 +99,7 @@ export const ChatOwner = styled.Text`
 `;
 
 export const Chat = styled.Text`
-    color: white
+    color: black
 `;
 
 export const Time = styled.Text`

@@ -10,6 +10,9 @@ import { getDatabase, ref, push, onValue } from 'firebase/database';
 // Auth Context
 import { AuthContext } from '../../../../Services/Authentication/auth.context';
 
+// Async Storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 // Message Api
 import { allMessages } from '../../../../Services/API\'s/ChatBox.api';
 
@@ -19,48 +22,60 @@ import { RightDisplayChat } from './chat-right-display.component';
 
 import { ChatDisplayer } from './chat-displayer.component';
 
-export const ChatDisplaySegment = () => {
+export const ChatDisplaySegment = ({ id }) => {
 
     const DB = getDatabase();
-    const { user_id } = useContext(AuthContext);
 
     const [messages, setMessages] = useState();
+    const [user_id, setUser_id] = useState();
+    const [chatId, setChatId] = useState();
+
+    useEffect( async () => {
+        let user = await AsyncStorage.getItem("@user_id")
+        setUser_id(user);
+    }, [] );
 
     useEffect( () => {
-        onValue(ref(DB, 'Messages'), (snapshot) => {
-            const msg = [];
-            snapshot.forEach( childSnapshot => {
-                msg.push({ 
-                id: childSnapshot.key, ...childSnapshot.val()
-            }) })
-            setMessages(msg);
-        } )
+        console.log("working together")
+        if(id, user_id){
+            setChatId([id, user_id].sort());
+        }
+    }, [user_id] )
 
-        
-    }, [] )
+    useEffect( () => {
+        allMessages(setMessages, chatId);
+    }, [chatId] )
+
+    // console.log(user_id);
+    // console.log("Doing something new");
 
     return (
         <ChatDisplay>
 
-            { messages && 
+            { messages ? 
                 <FlatList 
                     data={messages}
-                    renderItem={ ({ item }) => {
-                        // console.log(item.user_id, user_id);
-                        // const checker = item.messages.id == user_id;
-                        // console.log(item.messages);
+                    renderItem={ ({item}) => {
+                        let user = item.messages.senderId == user_id;
+
+                        console.log(item.messages.msg);
 
                         return (
-                            <View>
-                                <Text>{ item.messages.msg } - { checker.toString() }</Text>
-                                {/* <Text>`{ user_id } ~ = ~ { item.messages.id } `</Text> */}
-                            </View>
-                        ) 
-                    }}
+                            <ScrollView>
+                                {
+                                    user ?
+                                    <RightDisplayChat ele={ item.messages.msg } image={ item.messages.img } />
+                                    : 
+                                    <LeftDisplaychat ele={ item.messages.msg } image={ item.messages.img } />
+                                }
+                            </ScrollView>
+                        )
+                    } }
                     keyExtractor={ item => item.id }
-                /> 
-            }
+                />
+            : <Text>Loading all messages from a secure source</Text> }
 
+            
         </ChatDisplay>
     )
 }

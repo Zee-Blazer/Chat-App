@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native'; 
+import { Text, View } from 'react-native'; 
 
 // Components 
 import { LeftDisplaychat } from './chat-left-display.component';
@@ -16,6 +16,8 @@ export const ChatDisplayer = ( checker, item ) => {
                 :
                     <LeftDisplaychat ele={ item.messages.msg } />
             } */}
+            <LeftDisplaychat ele="This is actually cool" />
+            <Text>This is happening realtime</Text>
         </View>
     )
 }

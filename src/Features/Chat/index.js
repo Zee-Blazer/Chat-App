@@ -16,6 +16,7 @@ import {
 
 import { ChatClient } from './components/chat-client.component';
 import { FindFriend } from './components/find-friend.component';
+import { ChatFriends } from './components/chat-friends.component';
 
 export const ChatScreen = () => {
 
@@ -49,17 +50,7 @@ export const ChatScreen = () => {
             <FinderSearch placeholder='Search' onChange={ (e) => console.log(e) } />
 
             { !displayer() ? 
-                <ScrollView>
-                    <ChatClient />
-                    <ChatClient />
-                    <ChatClient />
-                    <ChatClient />
-                    <ChatClient />
-                    <ChatClient />
-                    <ChatClient />
-                    <ChatClient />
-                    <ChatClient />
-                </ScrollView>
+                <ChatFriends />
                 :
                 <FindFriend />
             }

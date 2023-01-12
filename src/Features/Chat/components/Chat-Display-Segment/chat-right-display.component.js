@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, StyleSheet, Image } from 'react-native';
 
 // Styled Components
 import { 
@@ -9,15 +9,19 @@ import {
     Chat
 } from '../chat-view.styles';
 
-export const RightDisplayChat = ({ ele, checker }) => {
-
-    console.log(ele, checker);
+export const RightDisplayChat = ({ ele, image }) => {
+    console.log(ele, image);
 
     return (
-        <ChatRightDisplay  style={ checker ? styles.chatRight : styles.chatLeft }>
-            <Chat style={ checker ? styles.right : styles.left }>
-                { ele }
-            </Chat>
+        <ChatRightDisplay>
+            { 
+                !ele ?
+                <Chat>
+                    { ele }
+                </Chat>
+                :
+                <Image source={{ uri: image }} style={{ width: 224, height: 250 }} />
+            }
             <RightAngle />
 
             <Time>10:52PM</Time>

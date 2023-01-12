@@ -11,6 +11,7 @@ import { Feather } from '@expo/vector-icons';
 // Screens imported
 import { PostScreen } from '../../Features/Post';
 import { ChatScreen } from '../../Features/Chat';
+import { NotificationScreen } from '../../Features/Notifications';
 import { SettingsScreen } from '../../Features/Settings';
 
 // Instance of the Bottom Tab Navigator
@@ -45,6 +46,17 @@ export const MainNavigator = () => {
                     tabBarLabel: 'Chat',
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="md-chatbox-ellipses-outline" size={ size } color={ color } />
+                    ),
+                }}
+            />
+
+            <MainTab.Screen 
+                name="Notification" 
+                component={ NotificationScreen } 
+                options={{
+                    tabBarLabel: 'Notifications',
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="notifications" size={ size } color={ color } />
                     ),
                 }}
             />

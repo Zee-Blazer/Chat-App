@@ -20,6 +20,15 @@ export const SideDisplayView = styled.View`
     margin-top: -12px
 `;
 
+export const EditProfileImage = styled.Text`
+    margin: 214px 34px;
+    position: absolute;
+    background-color: blue;
+    padding: 2px 9px;
+    color: white;
+    border-radius: 4px;
+`;
+
 export const MainSpacer = styled.View`
     margin-top: 18px;
 `;

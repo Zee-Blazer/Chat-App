@@ -26,10 +26,6 @@ export const PostScreen = ({ navigation }) => {
                 <CardStory />
             </ScrollView>
             
-            <Text>
-                
-                Post Screen
-            </Text>
         </SafeAir>
     )
 }

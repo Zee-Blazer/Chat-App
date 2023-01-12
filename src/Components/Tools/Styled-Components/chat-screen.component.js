@@ -24,6 +24,12 @@ export const FinderSearch = styled(Searchbar)`
     margin: 7px 24px;
 `;
 
+export const ResponseMsg = styled.Text`
+    align-self: center;
+    font-size: 18px;
+    color: green;
+`
+
 export const ClientChatBox = styled.View`
     display: flex;
     flex-direction: row;
