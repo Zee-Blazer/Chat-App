@@ -22,6 +22,9 @@ import {
 
 import { Entypo } from '@expo/vector-icons';
 
+// Image Url Link
+import { uriLink } from '../../../Services/Axios/axios-api';
+
 // Auth Context
 import { AuthContext } from '../../../Services/Authentication/auth.context';
 
@@ -76,7 +79,9 @@ export const FindFriend = () => {
                                     <TouchableOpacity>
                                         <Avatar.Image
                                             size={58}
-                                            source={{ uri: "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" }}
+                                            source={{ uri: `${ item.profile ? uriLink + "profile/pic/" + item.profile : 
+                                                "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800"    
+                                            }` }}
                                         />
                                     </TouchableOpacity>
     

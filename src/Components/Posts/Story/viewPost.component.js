@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar } from 'react-native-paper';
 
 import { Navigation } from '../../../Infrastructure/Navigation';
+
+// Image Url
+import { uriLink } from '../../../Services/Axios/axios-api';
+
+// Axios API
+import { getUserName } from '../../../Services/API\'s/Story.api';
 
 import { 
     ProfilePost,
@@ -9,14 +15,22 @@ import {
     RoundedBorder
 } from '../../Tools/Styled-Components/box-container.component';
 
-export const ViewPost = () => (
-    <ProfilePost>
-        <RoundedBorder>
-            <Avatar.Image 
-                size={64} 
-                source={{ uri: "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" }} 
-            />
-        </RoundedBorder>
-        <ProfileLabel>Person's Name</ProfileLabel>
-    </ProfilePost>
-)
+export const ViewPost = ({ item }) => {
+    const [username, setUsername] = useState();
+
+    useEffect( () => {
+        getUserName(item.user_id, setUsername);
+    }, [] )
+
+    return (
+        <ProfilePost>
+            <RoundedBorder>
+                <Avatar.Image 
+                    size={64} 
+                    source={{ uri: uriLink + "status/image/" + item.fileUrl }} 
+                />
+            </RoundedBorder>
+            <ProfileLabel>{ username && username }</ProfileLabel>
+        </ProfilePost>
+    )
+}

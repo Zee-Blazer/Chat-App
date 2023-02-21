@@ -15,7 +15,7 @@ export const RightDisplayChat = ({ ele, image }) => {
     return (
         <ChatRightDisplay>
             { 
-                !ele ?
+                ele ?
                 <Chat>
                     { ele }
                 </Chat>

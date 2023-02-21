@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 // React native paper
@@ -8,49 +8,98 @@ import { Avatar } from 'react-native-paper';
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
+// Async Storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Post Profile api
+import { addProfileImage, getProfileImage } from '../../../Services/API\'s/Profile.api';
+
+// URI-Link for images
+import { uriLink } from '../../../Services/Axios/axios-api';
+
 // Gallary features
-import { launchImageLibrary } from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 
 // Styled
 import { CoverImage, SideDisplayView, EditProfileImage, MainSpacer } from './profile-screen.style';
 
-export const ProfileHeader = () => (
-    <View>
-        <CoverImage 
-            source={{ uri: "https://cdn-images.zety.com/pages/best_font_for_cover_letter_6.jpg" }}
-        />
+export const ProfileHeader = () => {
+    const [image, setImage] = useState(null);
+    const [userId, setUserId] = useState();
+    const [profileImg, setProfileImg] = useState();
 
-        <Avatar.Image
-            size={ 114 }
-            source={{ uri: "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" }}
-            style={styles.profileAvatar}
-            onPress={ () => console.log("This is working fine") }
-        />
-        <EditProfileImage 
-            onPress={ () => console.log("This should work perfectly well") }
-        >
-            Profile Edit
-        </EditProfileImage>
+    const picker = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
 
-        <SideDisplayView>
-            <MaterialIcons 
-                name="message" 
-                size={27} 
-                color="blue"  
-                style={ styles.buttonIcon }
+        if (!result.cancelled) {
+            setImage(result.uri);
+
+            const imageFileName = result.uri.split("file:/").join("").split('/').pop();
+            
+            const formData = new FormData();
+            formData.append("File", {
+                name: imageFileName,
+                type: `image/${imageFileName.split('.').pop()}`,
+                uri: result.uri
+            });  
+            formData.append("user_id", userId);
+
+            addProfileImage(formData);
+        }
+    }
+
+    useEffect(async () => {
+        let user = await AsyncStorage.getItem("@user_id")
+        setUserId(user);
+
+        getProfileImage(user, setProfileImg);
+    }, []);
+
+    return (
+        <View>
+            <CoverImage
+                source={{ uri: "https://cdn-images.zety.com/pages/best_font_for_cover_letter_6.jpg" }}
             />
 
-            <FontAwesome 
-                name="pencil" 
-                size={27} 
-                color="green"
-                style={ styles.buttonIcon }
+            <Avatar.Image
+                size={114}
+                source={{ uri: `${ profileImg ? 
+                    uriLink + "profile/pic/" + profileImg : 
+                    "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" }` }}
+                style={styles.profileAvatar}
+                onPress={() => console.log("This is working fine")}
             />
-        </SideDisplayView>
-        
-        <MainSpacer />
-    </View>
-)
+            <EditProfileImage
+                onPress={picker}
+            >
+                Profile Edit
+            </EditProfileImage>
+
+            <SideDisplayView>
+                <MaterialIcons
+                    name="message"
+                    size={27}
+                    color="blue"
+                    style={styles.buttonIcon}
+                />
+
+                <FontAwesome
+                    name="pencil"
+                    size={27}
+                    color="green"
+                    style={styles.buttonIcon}
+                />
+            </SideDisplayView>
+
+            <MainSpacer />
+        </View>
+    )
+}
 
 const styles = StyleSheet.create({
     profileAvatar: {
@@ -58,9 +107,9 @@ const styles = StyleSheet.create({
         marginTop: 120,
         marginLeft: 16,
     },
-    buttonIcon:  {
-        backgroundColor: 'lightgrey', 
-        padding: 7, 
+    buttonIcon: {
+        backgroundColor: 'lightgrey',
+        padding: 7,
         borderRadius: 50,
         marginLeft: 18
     }

@@ -13,6 +13,12 @@ export const CoverImage = styled.Image`
     shadow-radius: 3;
 `;
 
+export const LittleImage = styled.Image`
+    width: 50px;
+    height: 50px;
+    margin-left: 12px;
+`
+
 export const SideDisplayView = styled.View`
     flex-direction: row;
     align-self: flex-end;
@@ -36,7 +42,8 @@ export const MainSpacer = styled.View`
 export const BiosH1Tag = styled.Text`
     font-size: 18px;
     font-weight: 400;
-    margin-left: 14px
+    margin: 6px 14px;
+    margin-top: 21px;
 `;
 
 export const SideSpacer = styled.View`
@@ -51,6 +58,18 @@ export const BiosInputContainer = styled.View`
     border-radius: 12px;
     padding: 6px 12px;
 `;
+
+export const ErrorMsg = styled.Text`
+    text-align: center;
+    font-size: 16px;
+    color: red;
+`;
+
+export const imgUrl = styled.Text`
+    text-align: center;
+    font-size: 16px;
+    color: blue;
+`
 
 export const BiosInput = styled.TextInput`
     margin: 1px 8px;

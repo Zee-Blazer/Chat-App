@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { Avatar } from 'react-native-paper';
+// Axios API
+import { getAllStatus } from '../../../Services/API\'s/Story.api';
 
-import { 
+import { FlatList } from 'react-native';
+
+import {
     Box,
     Scroller,
     ProfilePost,
@@ -15,6 +18,11 @@ import { AddPost } from './addPost.component';
 import { ViewPost } from './viewPost.component';
 
 export const Story = () => {
+    const [stories, setStories] = useState();
+
+    useEffect(() => {
+        getAllStatus(setStories);
+    }, [])
 
     return (
         <Box>
@@ -23,11 +31,17 @@ export const Story = () => {
 
                 <AddPost />
 
-                <ViewPost />
-                <ViewPost />
-                <ViewPost />
-                <ViewPost />
-                <ViewPost />
+                { stories && <FlatList 
+                    horizontal
+                    data={stories}
+                    renderItem={ ({ item }) => {
+                        console.log(item)
+                        return (
+                            <ViewPost item={ item } />
+                        )
+                    } }
+                    keyExtractor={ item => item._id }
+                /> }
 
             </Scroller>
 

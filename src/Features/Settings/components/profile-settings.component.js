@@ -8,6 +8,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Root Navigation
 import * as RootNavigation from '../../../Infrastructure/Navigation/root-navigation';
 
+// Image URL Link
+import { uriLink } from '../../../Services/Axios/axios-api';
+
 // Setting styled components
 import { 
     ProfileSet,
@@ -23,17 +26,22 @@ export const ProfileSettings = () => {
     const getAllInfo = async () => {
         const UserInfo = await AsyncStorage.getItem(`@user_details`);
         setUserRecord(JSON.parse(UserInfo));
+        console.log(UserInfo);
     }
 
     useEffect( () => {
         getAllInfo();
     }, [] )
 
+    console.log(userRecord);
+
     return (
         <ProfileSet onPress={ () => RootNavigation.navigate("SettingsSub") }>
             <Avatar.Image 
                 size={84}
-                source={{ uri: "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" }}
+                source={{ uri: `${ userRecord && userRecord.profile ? uriLink + "profile/pic/" + userRecord.profile :
+                "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800"
+                }` }}
             />
             
             <Spread>

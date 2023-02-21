@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native';
 // Icon
 import { Entypo } from '@expo/vector-icons';
 
-export const HeaderRight = () => {
+export const HeaderRight = ({ route }) => {
     
     return (
         <TouchableOpacity>

@@ -26,6 +26,12 @@ export const FlexDisplay = styled.View`
     border-top-color: grey;
 `;
 
+export const RecCount = styled.Text`
+    padding-top: 18px;
+    padding-left: -18px;
+    font-size: 16px;
+`
+
 export const LikeOption = styled.TouchableOpacity`
     padding: 8px;
 `;

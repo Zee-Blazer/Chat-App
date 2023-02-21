@@ -4,14 +4,17 @@ import { TouchableOpacity } from 'react-native';
 // Root Navigation
 import * as RootNavigation from '../../../Infrastructure/Navigation/root-navigation';
 
+// Post Gallery URI
+import { uriLink } from '../../../Services/Axios/axios-api';
+
 import { ImgStry } from '../../Tools/Styled-Components/post-card.component';
 
-export const StoryImage = () => {
+export const StoryImage = ({ imgUri }) => {
 
     return (
         <TouchableOpacity onPress={ () => RootNavigation.navigate("Sub")}>
             <ImgStry 
-            source={{ uri: "https://media-exp1.licdn.com/dms/image/C4D08AQGWu1udLv006A/croft-frontend-shrinkToFit1024/0/1618353260341?e=2147483647&v=beta&t=eHy7UJU-r-lw5lNUDuyR-l4kQF47LNUAd13Rs8TwODY", }} 
+            source={{ uri: `${ imgUri ? uriLink + "post/image/" + imgUri : "" }` }} 
             />
         </TouchableOpacity>
     )

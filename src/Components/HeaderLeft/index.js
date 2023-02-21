@@ -4,6 +4,9 @@ import { Avatar } from 'react-native-paper';
 // Icon
 import { MaterialIcons } from '@expo/vector-icons';
 
+// Image Url Link
+import { uriLink } from '../../Services/Axios/axios-api';
+
 import { GroupEle } from '../../Features/Post/components/PostViewHeader/post-view-header.styling';
 
 export const HeaderLeft = ({ navigation, route }) => {
@@ -19,7 +22,11 @@ export const HeaderLeft = ({ navigation, route }) => {
 
             <Avatar.Image 
                 size={42}
-                source={{ uri: "https://loveshayariimages.in/wp-content/uploads/2021/10/1080p-Latest-Whatsapp-Profile-Images-1.jpg" }}
+                source={{ uri: `${ route.params.userProfile ? 
+                    uriLink + "profile/pic/" + route.params.userProfile 
+                    : 
+                    "https://loveshayariimages.in/wp-content/uploads/2021/10/1080p-Latest-Whatsapp-Profile-Images-1.jpg" 
+                }` }}
             />
         </GroupEle>
     )

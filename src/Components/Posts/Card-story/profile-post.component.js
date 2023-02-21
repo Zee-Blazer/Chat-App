@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { Avatar } from 'react-native-paper';
 
-
 import { Text, View } from 'react-native';
+
+// Get profile image API
+import { getProfileImage } from '../../../Services/API\'s/Profile.api';
+
+// URL link for pictures
+import { uriLink } from '../../../Services/Axios/axios-api';
 
 // Styled Grid components
 import { GridDisplay } from '../../Tools/Styled-Components/post-card.component';
@@ -14,16 +19,24 @@ const PersonThought = styled.Text`
     padding-top: 7px;
 `;
 
-export const ProfilePost = () => {
+export const ProfilePost = ({ user_id, msg }) => {
+    const [profile, setProfile] = useState();
+
+    useEffect( () => {
+        getProfileImage(user_id, setProfile);
+    }, [user_id] )
+
+    
+    console.log(profile)
 
     return (
         <GridDisplay>
             <Avatar.Image 
                 size={42}
-                source={{ uri: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80" }} 
+                source={{ uri: `${profile ? uriLink + 'profile/pic/' + profile : ""}` }} 
             />
 
-            <PersonThought>Testing the profile post</PersonThought>
+            <PersonThought>{ msg }</PersonThought>
 
         </GridDisplay>
     )

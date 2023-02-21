@@ -30,14 +30,14 @@ export const ChatNavigator = () => {
                 name="ChatView" 
                 component={ ChatViewScreen } 
                 options={ ({ navigation, route }) => ({
-                    title: "Name",
+                    title: route.params.username,
                     headerLeft: () => {
 
                         return <HeaderLeft navigation={ navigation } route={ route } />
                     },
                     headerRight: () => {
 
-                        return <HeaderRight />
+                        return <HeaderRight navigation={ navigation } route={ route } />
                     }
                 }) }
             />
