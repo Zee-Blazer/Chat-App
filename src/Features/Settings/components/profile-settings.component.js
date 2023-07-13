@@ -8,11 +8,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Root Navigation
 import * as RootNavigation from '../../../Infrastructure/Navigation/root-navigation';
 
+// Navigation
+import { useNavigation } from '@react-navigation/native';
+
 // Image URL Link
 import { uriLink } from '../../../Services/Axios/axios-api';
 
 // Setting styled components
-import { 
+import {
     ProfileSet,
     Spread,
     BiggerTitle,
@@ -20,6 +23,8 @@ import {
 } from '../../../Components/Tools/Styled-Components/settings-screen.component';
 
 export const ProfileSettings = () => {
+
+    const navigation = useNavigation();
 
     const [userRecord, setUserRecord] = useState();
 
@@ -29,24 +34,26 @@ export const ProfileSettings = () => {
         console.log(UserInfo);
     }
 
-    useEffect( () => {
+    useEffect(() => {
         getAllInfo();
-    }, [] )
+    }, [])
 
     console.log(userRecord);
 
     return (
-        <ProfileSet onPress={ () => RootNavigation.navigate("SettingsSub") }>
-            <Avatar.Image 
+        <ProfileSet onPress={() => navigation.navigate("SettingsSub", { screen: "Profile" })}>
+            <Avatar.Image
                 size={84}
-                source={{ uri: `${ userRecord && userRecord.profile ? uriLink + "profile/pic/" + userRecord.profile :
-                "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800"
-                }` }}
+                source={{
+                    uri: `${userRecord && userRecord.profile ? uriLink + "profile/pic/" + userRecord.profile :
+                        "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800"
+                        }`
+                }}
             />
-            
+
             <Spread>
-                <BiggerTitle>{ userRecord && userRecord.username }</BiggerTitle>
-                <SmallerTitle>{ userRecord && userRecord.email }</SmallerTitle>
+                <BiggerTitle>{userRecord && userRecord.username}</BiggerTitle>
+                <SmallerTitle>{userRecord && userRecord.email}</SmallerTitle>
             </Spread>
         </ProfileSet>
     )

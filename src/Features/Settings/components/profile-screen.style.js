@@ -35,6 +35,64 @@ export const EditProfileImage = styled.Text`
     border-radius: 4px;
 `;
 
+export const SecurityTitle = styled.Text`
+    font-size: 28px;
+    font-weight: 600;
+    margin: 36px 4px;
+    text-align: center;
+`;
+
+export const InputBox = styled.View`
+    margin: 16px 24px;
+`;
+
+export const InputLabel = styled.Text`
+    font-size: 21px;
+    font-weight: 400;
+`;
+
+export const MainInput = styled.TextInput.attrs({
+    placeholderTextColor: "black"
+  })`
+    margin-top: 12px;
+    padding: 12px;
+    color: black;
+    font-size: 16px;
+    height: 40px;
+    border: 1px;
+    border-radius: 3px;
+`;
+
+export const DeleteAccountText = styled.Text`
+    font-size: 16px;
+    text-align: center;
+    color: red;
+    margin-top: 160px;
+`;
+
+export const StoriesHeaderText = styled.Text`
+    font-size: 24px;
+    font-weight: 500;
+    margin: 10px 24px;
+    margin-top: 18px;
+`;
+
+export const ResettedPassword = styled.Text`
+    font-size: 18px;
+    color: green;
+    text-align: center;
+    margin: 12px;
+`;
+
+export const BtnUpdateCont = styled.View`
+    margin: 34px 24px;
+`;
+
+export const UpdateBtn = styled.Button`
+    width: 40px;
+    margin: 12px 38px;
+`;
+
 export const MainSpacer = styled.View`
     margin-top: 18px;
 `;

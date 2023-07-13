@@ -29,6 +29,8 @@ export const getSpecificStatus = (imgId) => {
 
 export const getUserName = (user_id, setUsername) => {
     api.get(`auth/read/specific/user/${user_id}`)
-        .then(response => setUsername(response.data.username))
+        .then(response => {
+            setUsername(response.data.username);
+        })
         .catch(err => console.log(err));
 }

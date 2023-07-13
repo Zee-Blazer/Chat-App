@@ -11,7 +11,9 @@ import { HeaderRight } from '../../../Components/HeaderRight';
 
 const SubStack = createStackNavigator();
 
+// Screens
 import { PostViewScreen } from '../../../Features/Post/screens/post-view.screen';
+import { PostCommentScreen } from '../../../Features/Post/screens/post-comment.screen';
 
 export const SubNavigation = () => (
     <SubStack.Navigator
@@ -30,15 +32,20 @@ export const SubNavigation = () => (
             options={({ navigation, route }) => ({ 
                 title: "My Home",
                 headerLeft: () => {
-
                     return <HeaderLeft navigation={ navigation } route={ route } />
                 },
                 headerRight: () => {
-
                     return <HeaderRight />
                 }
 
             })}
+        />
+        <SubStack.Screen 
+            name="PostComment"
+            component={ PostCommentScreen }
+            options={ () => {
+                title: "Comments"
+            } }
         />
     </SubStack.Navigator>
 )

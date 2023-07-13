@@ -40,3 +40,56 @@ export const CommentZone = styled.TouchableOpacity`
     text-align: center;
     color: rgba(0, 183, 255, 1);
 `;
+
+// Comment screen styling
+
+export const CommentTitle = styled.Text`
+    font-size: 24px;
+    margin: 12px 4px;
+    margin-left: 21px;
+    font-weight: 500;
+`;
+
+export const CommentInputCont = styled.View`
+    flex-direction: row;
+    margin: 12px 16px;
+`;
+
+export const CommentInput = styled.TextInput`
+    border: 2px;
+    padding: 12px 8px;
+    width: 80%
+`;
+
+export const CommentBox = styled.View`
+    background-color: blue;
+    margin-top: 3px;
+    margin-left: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    padding-right: 46px;
+    max-width: 320px;
+`;
+
+export const CommentUsername = styled.Text`
+    font-size: 12px;
+    color: yellow;
+`;
+
+export const MessageComment = styled.View`
+    flex-direction: row;
+    margin-top: 6px;
+    max-width: 200px;
+`;
+
+export const CommentMsg = styled.Text`
+    font-size: 16px;
+    color: white;
+`;
+
+export const CommentTime = styled.Text`
+    font-size: 10px;
+    margin-left: 10px;
+    margin-top: 8px;
+    color: lightgreen;
+`;

@@ -12,7 +12,6 @@ export const getCurrentFriends = (user_id, setallIds, data, setData) => {
         api.get(`/friends/get/myfriends?user_id=${user_id}`)
             .then(response => {
                 setallIds(response.data);
-                // console.log(response.data);
 
             })
             .catch(err => console.log(err))

@@ -18,6 +18,7 @@ export const AuthContextProvider = ({ children }) => {
     const [user_id, setUser_id] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [errMsg, setErrMsg] = useState("");
+    const [reset, setReset] = useState("");
 
     const Login = (email, password) => {
         setIsLoading(true)
@@ -61,6 +62,17 @@ export const AuthContextProvider = ({ children }) => {
         } )
     }
 
+    const changePassword = (email, password, newPwd) => {
+        api.post('/auth/edit/change-pwd', { email, password, newPwd })
+        .then( res => {
+            if(!res.data.isAuth){
+                setErrMsg(res.data.msg);
+            }
+            setReset("Password changed")
+        } )
+        .catch( err => console.log(err) )
+    }
+
     const createrFunction = async () => {}
 
     const LogOut = async () => {
@@ -89,6 +101,9 @@ export const AuthContextProvider = ({ children }) => {
                 Login,
                 SignUp,
                 LogOut,
+                changePassword,
+                reset,
+                setReset,
                 isLoading,
                 user_id,
                 errMsg

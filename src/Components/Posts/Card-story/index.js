@@ -3,13 +3,19 @@ import { Text, View, TouchableOpacity } from 'react-native';
 
 // Icons
 import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons'; 
+import { FontAwesome } from '@expo/vector-icons';
 
 // The container card
 import { StoryCard } from '../../Tools/Styled-Components/post-card.component';
 
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Navigation component
+import * as RootNavigation from '../../../Infrastructure/Navigation/root-navigation';
+
+// API request to get username
+// import { getUserName } from '../../../Services/API\'s/Story.api';
 
 // The Image Card
 import { StoryImage } from './image-story-container.component';
@@ -21,7 +27,7 @@ import { ProfilePost } from './profile-post.component';
 import { likePost } from '../../../Services/API\'s/Post.api';
 
 // Styled components
-import { 
+import {
     FlexDisplay,
     LikeOption,
     RecCount
@@ -36,25 +42,38 @@ export const CardStory = ({ item }) => {
         setUser_id(await AsyncStorage.getItem(`@user_id`));
     }, [])
 
+    useEffect( () => {
+        if(item.peopleLike.includes(user_id)){
+            setColor('blue')
+            console.log("Working");
+        }
+    }, [] )
+
     return (
         <>
             <StoryCard>
-                <StoryImage imgUri={ item.fileUrl } />
+                <StoryImage imgUri={item.fileUrl} user_id={item.user_id} />
 
-                <ProfilePost user_id={ item.user_id } msg={ item.msg } />
+                <ProfilePost user_id={item.user_id} msg={item.msg} />
+                {/* <Text onPress={ () => {console.log(item.peopleLike.includes(user_id))} } >Show</Text> */}
 
                 <FlexDisplay>
 
-                    <LikeOption onPress={ () => likePost(item._id, user_id, setColor) }>
+                    <LikeOption onPress={() => likePost(item._id, user_id, setColor)}>
                         <AntDesign name="like2" size={24} color={color} />
-                        <Text style={{ color }}>Like: { item.likes }</Text>
+                        <Text style={{ color }}>Like: {item.likes}</Text>
                     </LikeOption>
 
                     <Line />
 
-                    <LikeOption>
+                    <LikeOption
+                        onPress={() => RootNavigation.navigate("Sub", {
+                            screen: "PostComment",
+                            params: { user_id: item.user_id, id: item._id }
+                        })}
+                    >
                         <FontAwesome name="commenting-o" size={24} color="black" />
-                        <Text>Comment: { item.comments.length }</Text>
+                        <Text>Comment: {item.comments.length}</Text>
                     </LikeOption>
 
                 </FlexDisplay>
