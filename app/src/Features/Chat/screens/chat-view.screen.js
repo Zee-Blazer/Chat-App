@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 
 import { 
     AccountBackground,
@@ -10,11 +10,13 @@ import {
 import { ChatBoxSender } from '../components/chat-box-sender.component';
 import { ChatDisplaySegment } from '../components/Chat-Display-Segment/chat-display.component';
 
+const windowHeight = Dimensions.get("window").height;
+
 export const ChatViewScreen = ({ route }) => {
 
 
     return (
-        <AccountBackground>
+        <AccountBackground setHeight={ windowHeight }>
             <AccountCover />
             <ChatDisplaySegment id={ route.params.id } />
 

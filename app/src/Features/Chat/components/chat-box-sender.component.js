@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { LogBox } from 'react-native';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Keyboard, Dimensions } from 'react-native';
 
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,10 +25,14 @@ import {
     MessagerBox
 } from './chat-view.styles';
 
+const windowHeight = Dimensions.get("window").height;
+
 export const ChatBoxSender = ({ id }) => {
     LogBox.ignoreLogs(['Setting a timer']);
 
     // const { user_id } = useContext(AuthContext);
+
+    const [keyboardActive, setKeyboardActive] = useState(false);
 
     const [user_id, setUser_id] = useState();
     const [chatId, setChatId] = useState();
@@ -71,14 +75,20 @@ export const ChatBoxSender = ({ id }) => {
         if (id, user_id) {
             setChatId([id, user_id].sort());
         }
-    }, [user_id])
+    }, [user_id]);
+
+    const keyboardActiveListenerShow = () => setKeyboardActive(true)
+    const keyboardActiveListenerHide = () => setKeyboardActive(false)
+
+    Keyboard.addListener("keyboardDidShow", keyboardActiveListenerShow);
+    Keyboard.addListener('keyboardDidHide', keyboardActiveListenerHide);
 
     return (
-        <ChatBox>
+        <ChatBox windowHeight={ windowHeight } dimension={ keyboardActive }>
 
             <MessagerNest>
                 <MessagerBox
-                    style={{ minHeight: height < 60 ? height : 60 }}
+                    style={{ minHeight: height < 40 ? height : 40 }}
                     placeholder="Type a Message..."
                     value={msg}
                     onChangeText={setMsg}

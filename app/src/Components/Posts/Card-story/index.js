@@ -11,8 +11,9 @@ import { StoryCard } from '../../Tools/Styled-Components/post-card.component';
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Navigation component
-import * as RootNavigation from '../../../Infrastructure/Navigation/root-navigation';
+
+// Navigation
+import { useNavigation } from '@react-navigation/native';
 
 // API request to get username
 // import { getUserName } from '../../../Services/API\'s/Story.api';
@@ -38,6 +39,9 @@ import {
 import { Line } from '../../Tools/Styled-Components/post-card.component';
 
 export const CardStory = ({ item }) => {
+
+    const navigation = useNavigation();
+
     const [user_id, setUser_id] = useState();
     const [color, setColor] = useState(theme.colors.dark.text.primary);
     const [cmColor, setCmColor] = useState(theme.colors.dark.text.primary);
@@ -71,7 +75,7 @@ export const CardStory = ({ item }) => {
                     <Line />
 
                     <LikeOption
-                        onPress={() => RootNavigation.navigate("Sub", {
+                        onPress={() => navigation.navigate("Sub", {
                             screen: "PostComment",
                             params: { user_id: item.user_id, id: item._id }
                         })}

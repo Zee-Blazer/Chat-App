@@ -59,6 +59,7 @@ export const PostCommentScreen = ({ route }) => {
                 <CommentInput
                     multiline
                     placeholder="Write a message..."
+                    placeholderTextColor="white"
                     onChangeText={setCommentMsg}
                 />
 

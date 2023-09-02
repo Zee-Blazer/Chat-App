@@ -12,10 +12,12 @@ import { specificUserPost } from '../../../Services/API\'s/Post.api';
 
 // Components
 import { ProfileHeader } from '../components/profile-header.component';
-import { CardStory } from '../../../Components/Posts/Card-story';
-import { ProfileBios } from '../components/profile-bio.component';
-import { ProfileAbout } from '../components/profile-about.component';
-import { ProfileTabBar } from '../components/profile-tab-bar.component';
+import { ProfileInfo } from '../components/Profile-settings/profile-info.component';
+import { ProfileTabBar } from '../components/Profile-settings/profile-tab-bar.component';
+
+import { ProfilePicDisplay } from '../components/Profile-settings/profile-pic-display.component';
+
+import { ProfileTabDisplayer } from '../components/Profile-settings/profile-tab-displayer.component';
 
 // Styled Components
 import { CoverImage } from '../components/profile-screen.style';
@@ -23,6 +25,18 @@ import { CoverImage } from '../components/profile-screen.style';
 export const ProfileSettingsScreen = () => {
     const [user_id, setUser_id] = useState();
     const [data, setData] = useState();
+
+    // Tab displayer state
+    const [tabDisplayer, setTabDisplayer] = useState("Post");
+
+    // Picture display
+    const [showPic, setShowPic] = useState(false);
+
+    const navItems = [
+        { text: "Post" },
+        { text: "About" },
+        { text: "Friends" }
+    ]
 
     useEffect(async () => {
         setUser_id(await AsyncStorage.getItem(`@user_id`));
@@ -32,31 +46,31 @@ export const ProfileSettingsScreen = () => {
         specificUserPost(user_id, setData);
     }, [user_id] );
 
+    const changeTab = (text) => setTabDisplayer(text);
+
+    const showPicFunc = () => setShowPic(!showPic)
+
     return (
         <SafeAir>
             
             <ScrollView>
 
+                { showPic && <ProfilePicDisplay showPicFunc={ showPicFunc } /> }
+
                 {/* The profile header with all Images/profile pictures */}
-                <ProfileHeader />
+                <ProfileHeader showPicFunc={ showPicFunc } />
 
                 {/* Information about the current profile... It's following and bios  */}
-                <ProfileAbout />
+                <ProfileInfo />
 
                 {/* The Profile TabBar for smooth navigation in the profiles screen  */}
-                <ProfileTabBar />
+                <ProfileTabBar changeTab={ changeTab } active={ tabDisplayer } navItems={ navItems } />
 
                 {/* Profile Bios were you can check and update profile */}
                 {/* <ProfileBios /> */}
 
-                {/* A List of all personal posts */}
-                { data ? <FlatList 
-                    data={data}
-                    renderItem={ ({ item }) => (
-                        <CardStory item={ item } />
-                    ) }
-                    keyExtractor={ item => item._id }
-                /> : <Text>loading...</Text>}
+                {/* Profile Tab displayer... that display's all the elements of the tab  */}
+                <ProfileTabDisplayer text={ tabDisplayer } data={ data } />
 
             </ScrollView>
 

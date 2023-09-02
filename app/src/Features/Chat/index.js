@@ -17,6 +17,9 @@ import {
     FinderSearch
 } from '../../Components/Tools/Styled-Components/chat-screen.component';
 
+// Search Bar component
+import { SearchBar } from './components/search.component';
+
 import { ChatClient } from './components/chat-client.component';
 import { FindFriend } from './components/find-friend.component';
 import { ChatFriends } from './components/chat-friends.component';
@@ -52,25 +55,7 @@ export const ChatScreen = () => {
                     </TouchableOpacity>
                 </SplitScreen>
 
-                <FinderSearch 
-                    placeholder='Search' 
-                    placeholderTextColor={theme.colors.dark.text.primary}
-                    iconColor={theme.colors.dark.icon.secondary}
-                    onChange={ (e) => console.log(e) } 
-                    style={{
-                        ...Platform.select({
-                            ios: {
-                              shadowColor: 'black',
-                              shadowOffset: { width: 1, height: 3 },
-                              shadowOpacity: 0.6,
-                              shadowRadius: 8,
-                            },
-                            android: {
-                              elevation: 4,
-                            },
-                          }),
-                    }}
-                />
+                <SearchBar />
 
                 { !displayer() ? 
                     <ChatFriends />

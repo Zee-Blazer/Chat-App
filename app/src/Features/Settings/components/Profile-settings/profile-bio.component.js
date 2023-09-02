@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 
 // Api call
-import { newPost } from '../../../Services/API\'s/Post.api';
+import { newPost } from '../../../../Services/API\'s/Post.api';
 
 // Expo Icons
 import { Entypo } from '@expo/vector-icons';
@@ -24,7 +24,7 @@ import {
     ErrorMsg,
     BiosInput, 
     BiosInputContainer, 
-} from './profile-screen.style';
+} from '../profile-screen.style';
 
 export const ProfileBios = () => {
     const [img, setImg] = useState();

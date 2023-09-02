@@ -19,7 +19,8 @@ import { GridDisplay } from '../../Tools/Styled-Components/post-card.component';
 const PersonThought = styled.Text`
     font-size: ${ props => props.theme.fontSizes.lg };
     margin-left: ${ props => props.theme.space[4] };
-    color: ${ props => props.theme.colors.dark.text.primary }
+    color: ${ props => props.theme.colors.dark.text.primary };
+    width: 324px;
 `;
 
 const UsernameInfoText = styled.Text`
@@ -30,7 +31,7 @@ const UsernameInfoText = styled.Text`
     color: ${ props => props.theme.colors.dark.text.tertiary };
 `;
 
-export const ProfilePost = ({ user_id, msg }) => {
+export const ProfilePost = ({ user_id, msg, type }) => {
     const [profile, setProfile] = useState();
     const [username, setUsername] = useState();
 
@@ -46,12 +47,20 @@ export const ProfilePost = ({ user_id, msg }) => {
                 source={{ uri: `${profile ? uriLink + 'profile/pic/' + profile : ""}` }} 
             />
 
-            <View>
+            { type != "tweet" ? <View>
                 <PersonThought
                     onPress={ () => console.log(user_id, username) }
                 >{ msg }</PersonThought>
                 <UsernameInfoText>{ username && username }</UsernameInfoText>
             </View>
+            :
+            <View>
+                <UsernameInfoText>Mark Zukerburg</UsernameInfoText>
+                <PersonThought
+                    onPress={ () => console.log(user_id, username) }
+                    style={{ marginTop: 6, marginBottom: 4 }}
+                >The world of tech needs people who are fully dedicated to it all day lone and with alt-most impact.</PersonThought>
+            </View>}
 
         </GridDisplay>
     )

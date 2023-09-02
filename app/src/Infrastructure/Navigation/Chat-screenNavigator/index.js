@@ -3,6 +3,9 @@ import React from 'react';
 // Stack Navigator
 import { createStackNavigator } from '@react-navigation/stack';
 
+// Theme
+import { theme } from '../../Theme';
+
 // Chat View Screen
 import { ChatViewScreen } from '../../../Features/Chat/screens/chat-view.screen';
 
@@ -31,6 +34,9 @@ export const ChatNavigator = () => {
                 component={ ChatViewScreen } 
                 options={ ({ navigation, route }) => ({
                     title: route.params.username,
+                    headerStyle: {
+                        backgroundColor: `${theme.colors.dark.bg.primary}`,
+                      },
                     headerLeft: () => {
 
                         return <HeaderLeft navigation={ navigation } route={ route } />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 
 export const AccountBackground = styled.ImageBackground.attrs({
@@ -6,6 +7,7 @@ export const AccountBackground = styled.ImageBackground.attrs({
 })`
     flex: 1;
     background-color: #ddd;
+    height: ${ props => Platform.OS == "ios" ? props.setHeight : "" };
 `;
 
 export const AccountCover = styled.View`

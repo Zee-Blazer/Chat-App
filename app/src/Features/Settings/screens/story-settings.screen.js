@@ -13,7 +13,7 @@ import { specificUserPost } from '../../../Services/API\'s/Post.api';
 // Components
 import { ProfileHeader } from '../components/profile-header.component';
 import { CardStory } from '../../../Components/Posts/Card-story';
-import { ProfileBios } from '../components/profile-bio.component';
+import { ProfileBios } from '../components/Profile-settings/profile-bio.component';
 
 // Styled Components
 import { StoriesHeaderText } from '../components/profile-screen.style';

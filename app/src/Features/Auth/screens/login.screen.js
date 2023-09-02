@@ -48,7 +48,6 @@ export const LoginScreen = ({ navigation }) => {
 
     return (
         <AccountBackgroundForm>
-            <SafeAir>
                 
                 <LogoNameHeader />
 
@@ -100,7 +99,6 @@ export const LoginScreen = ({ navigation }) => {
                     </ButtonElementAction>
                 </ButtonContainer>
                 
-            </SafeAir>
         </AccountBackgroundForm>
     )
 }

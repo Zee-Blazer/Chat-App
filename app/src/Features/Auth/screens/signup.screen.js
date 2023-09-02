@@ -52,7 +52,6 @@ export const SignupScreen = ({ navigation }) => {
 
     return (
         <AccountBackgroundForm>
-            <SafeAir>
                 
                 <LogoNameHeader />
 
@@ -112,8 +111,6 @@ export const SignupScreen = ({ navigation }) => {
                     Login
                 </ButtonElementAction>
             </ButtonContainer>
-                
-            </SafeAir>
         </AccountBackgroundForm>
     )
 }

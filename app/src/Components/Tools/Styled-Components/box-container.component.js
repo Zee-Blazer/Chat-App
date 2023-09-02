@@ -34,3 +34,21 @@ export const ProfileLabel = styled.Text`
     font-weight: ${ props => props.theme.fontWeights.regular };
     margin-top: 4px;
 `;
+
+// Version 1.2.0 styling
+
+export const NewPostBox = styled.View`
+    background-color: ${ props => props.theme.colors.dark.bg.secondary };
+    width: 100%;
+    padding: 8px 14px;
+    margin: 6px 0px;
+    flex-direction: row;
+    justify-content: space-around;
+`;
+
+export const NewPostInput = styled.TextInput`
+    color: ${ props => props.theme.colors.dark.text.primary };
+    font-size: ${ props => props.theme.fontSizes.lg };
+    flex: 1;
+    margin-top: 6px;
+`;

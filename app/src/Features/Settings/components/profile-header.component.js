@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 // React native paper
 import { Avatar } from 'react-native-paper';
@@ -27,7 +27,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { CoverImage, SideDisplayView, EditProfileImage, MainSpacer } from './profile-screen.style';
 import { ActioIconCont } from '../../../Components/Tools/Styled-Components/settings-screen.component';
 
-export const ProfileHeader = () => {
+export const ProfileHeader = ({ showPicFunc }) => {
     const [image, setImage] = useState(null);
     const [userId, setUserId] = useState();
     const [profileImg, setProfileImg] = useState();
@@ -70,14 +70,18 @@ export const ProfileHeader = () => {
                 source={{ uri: "https://cdn-images.zety.com/pages/best_font_for_cover_letter_6.jpg" }}
             />
 
-            <Avatar.Image
-                size={114}
-                source={{ uri: `${ profileImg ? 
-                    uriLink + "profile/pic/" + profileImg : 
-                    "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" }` }}
+            <TouchableOpacity
+                onPress={ showPicFunc }
                 style={styles.profileAvatar}
-                onPress={() => console.log("This is working fine")}
-            />
+            >
+                <Avatar.Image
+                    size={114}
+                    source={{ uri: `${ profileImg ? 
+                        uriLink + "profile/pic/" + profileImg : 
+                        "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" }` }}
+                    // style={styles.profileAvatar}
+                />
+            </TouchableOpacity>
             <EditProfileImage
                 onPress={picker}
             >
@@ -115,7 +119,7 @@ const styles = StyleSheet.create({
     profileAvatar: {
         position: "absolute",
         marginTop: 120,
-        marginLeft: 16
+        marginLeft: 21
     },
     buttonIcon: {
         padding: 7,

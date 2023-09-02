@@ -48,6 +48,7 @@ export const CommentTitle = styled.Text`
     margin: 12px 4px;
     margin-left: 21px;
     font-weight: 500;
+    color: ${ props => props.theme.colors.dark.text.primary };
 `;
 
 export const CommentInputCont = styled.View`
@@ -56,19 +57,20 @@ export const CommentInputCont = styled.View`
 `;
 
 export const CommentInput = styled.TextInput`
-    border: 2px;
+    border: 2px solid ${ props => props.theme.colors.dark.borders.secondary };;
     padding: 12px 8px;
     width: 80%
 `;
 
 export const CommentBox = styled.View`
-    background-color: blue;
+    background-color: ${ props => props.theme.colors.dark.bg.primary };
     margin-top: 3px;
     margin-left: 12px;
     padding: 8px 12px;
     border-radius: 8px;
     padding-right: 46px;
     max-width: 320px;
+    border: 1px solid ${ props => props.theme.colors.dark.borders.secondary };
 `;
 
 export const CommentUsername = styled.Text`
@@ -92,4 +94,45 @@ export const CommentTime = styled.Text`
     margin-left: 10px;
     margin-top: 8px;
     color: lightgreen;
+`;
+
+export const NewPostImage = styled.Image`
+    width: 97%;
+    height: 78%;
+    margin: 24px auto;
+    border-radius: 6px;
+`;
+
+export const WriteCaption = styled.TextInput`
+    width: 82%;
+    padding: 10px 14px;
+    background-color: ${ props => props.theme.colors.dark.bg.secondary };
+    margin-left: 24px;
+    border-radius: 8px;
+    font-size: ${ props => props.theme.fontSizes.lg };
+    font-weight: ${ props => props.theme.fontWeights.medium }
+    color: ${ props => props.theme.colors.dark.text.primary };
+`;
+
+export const WriteCaptionCont = styled.View`
+    position: absolute;
+    top: 96%;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+
+export const BottomCamCont = styled.View`
+    flex: 0.1;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 12px 2px;
+    align-items: center;
+`;
+
+export const CapturePhoto = styled.TouchableOpacity`
+    width: 68px;
+    height: 68px;
+    align-self: center;
+    background-color: black;
+    border-radius: 50
 `;

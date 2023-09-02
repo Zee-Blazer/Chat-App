@@ -8,6 +8,7 @@ export const AccountBackgroundForm = styled.ImageBackground.attrs({
 })`
     flex: 1;
     background-color: #ddd;
+    padding-top: 58px;
 `;
 
 export const Logo = styled.Image`

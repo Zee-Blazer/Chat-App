@@ -22,6 +22,9 @@ import {
 
 import { Entypo } from '@expo/vector-icons';
 
+// Theme styling
+import { theme } from '../../../Infrastructure/Theme';
+
 // Image Url Link
 import { uriLink } from '../../../Services/Axios/axios-api';
 
@@ -78,7 +81,7 @@ export const FindFriend = () => {
                                 <ClientChatBox>
                                     <TouchableOpacity>
                                         <Avatar.Image
-                                            size={58}
+                                            size={54}
                                             source={{ uri: `${ item.profile ? uriLink + "profile/pic/" + item.profile : 
                                                 "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800"    
                                             }` }}
@@ -95,7 +98,7 @@ export const FindFriend = () => {
                                             <TouchableOpacity
                                                 onPress={() => addNewFriendRequest(item._id, JSON.parse(user_details), setResponse)}
                                             >
-                                                <Entypo name="add-user" size={24} color="blue" />
+                                                <Entypo name="add-user" size={24} color={ theme.colors.dark.icon.secondary } />
                                             </TouchableOpacity>
     
                                         </ClientMsgContainer>

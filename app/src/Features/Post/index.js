@@ -11,8 +11,17 @@ import { getAllPost } from '../../Services/API\'s/Post.api';
 import { Story } from '../../Components/Posts/Story/story.component';
 import { CardStory } from '../../Components/Posts/Card-story';
 
+// New Post component
+import { NewPost } from '../../Components/Posts/New-post';
+import { TweeetPost } from '../../Components/Posts/Card-story/tweet-post.component';
+
+// The Post action for both Status and normal posts
+import { PostAction } from '../../Components/Posts/New-post/post-action.component';
+
 export const PostScreen = ({ navigation }) => {
     const [data, setData] = useState();
+
+    const [display, setDisplay] = useState(false); // Display the Post & Status icons for selection
 
     const navigateToScreen = (screen) => {
         navigation.navigate(screen)
@@ -22,12 +31,19 @@ export const PostScreen = ({ navigation }) => {
         getAllPost(setData);
     }, [] )
 
+    const changeDisplay = () => setDisplay(!display);
+
     return (
         <SafeAir>
+            { display && <PostAction changeDisplay={ changeDisplay } /> }
 
             <ScrollView>
 
+                <NewPost changeDisplay={ changeDisplay } />
+
                 <Story />
+
+                <TweeetPost />
 
                 { data ? <FlatList 
                     data={data}
