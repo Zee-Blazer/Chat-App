@@ -20,6 +20,7 @@ import { PostAction } from '../../Components/Posts/New-post/post-action.componen
 
 export const PostScreen = ({ navigation }) => {
     const [data, setData] = useState();
+    const [type, setType] = useState();
 
     const [display, setDisplay] = useState(false); // Display the Post & Status icons for selection
 
@@ -31,25 +32,35 @@ export const PostScreen = ({ navigation }) => {
         getAllPost(setData);
     }, [] )
 
-    const changeDisplay = () => setDisplay(!display);
+    const changeDisplay = (e) => {
+        setDisplay(!display);
+        setType(e);
+    }
 
     return (
         <SafeAir>
-            { display && <PostAction changeDisplay={ changeDisplay } /> }
+            { display && <PostAction changeDisplay={ changeDisplay } type={ type } /> }
 
             <ScrollView>
 
                 <NewPost changeDisplay={ changeDisplay } />
 
-                <Story />
+                <Story changeDisplay={ changeDisplay } />
 
-                <TweeetPost />
+                {/* <Text onPress={() => navigation.navigate("Sub", {
+                    screen: "PostNew",
+                    params: { imgUrl: "Something" }
+                })}
+                >Navigate</Text> */}
 
                 { data ? <FlatList 
                     data={data}
-                    renderItem={ ({ item }) => (
-                        <CardStory item={ item } />
-                    ) }
+                    renderItem={ ({ item }) => {
+                        if(!item.fileUrl) return <TweeetPost item={ item } />
+                        return (
+                            <CardStory item={ item } />
+                        )
+                    } }
                     keyExtractor={ item => item._id }
                 /> : <Text>loading...</Text>}
 

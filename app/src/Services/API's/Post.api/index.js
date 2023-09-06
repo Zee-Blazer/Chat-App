@@ -16,6 +16,12 @@ export const newPost = (data, info) => {
         .catch(err => setErrMsg("An Error occured. Kindly try again"));
 }
 
+export const barePost = (data) => {
+    api.post( 'post/new-msg', data)
+    .then( doc => console.log(doc.data) )
+    .catch( err => console.log(err) );
+}
+
 export const specificUserPost = (user_id, setData) => {
     api.get(`post/specific/user/${user_id}`)
         .then(response => setData(response.data))

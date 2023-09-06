@@ -42,7 +42,7 @@ export const SubNavigation = () => (
                 title: "Mark Zukerburg",
                 headerShown: true,
                 headerStyle: {
-                    backgroundColor: '#15181B   ',
+                    backgroundColor: '#15181B',
                 },
                 headerLeft: () => {
                     return <HeaderLeft navigation={ navigation } route={ route } />
@@ -60,7 +60,7 @@ export const SubNavigation = () => (
         <SubStack.Screen 
             name="PostNew"
             component={ PostNew }
-            options={{ presentation: 'transparentModal' }}
+            options={({ route }) => ({})}
             headerShown={false}
         />
         <SubStack.Screen 

@@ -1,9 +1,16 @@
+import React, { useState, useEffect } from 'react';
 
 // React native paper components
 import { Avatar } from "react-native-paper";
 
 // Expo icons
 import { FontAwesome } from '@expo/vector-icons';
+
+// Async Storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Api call V1.2.0
+import { barePost } from '../../../Services/API\'s/Post.api';
 
 // Theme styling
 import { theme } from "../../../Infrastructure/Theme";
@@ -12,6 +19,19 @@ import { theme } from "../../../Infrastructure/Theme";
 import { NewPostBox, NewPostInput } from "../../Tools/Styled-Components/box-container.component"
 
 export const NewPost = ({ changeDisplay }) => {
+
+    const [user_id, setUserId] = useState();
+    const [msg, setMsg] = useState();
+
+    useEffect(async () => {
+        let user = await AsyncStorage.getItem("@user_id");
+        setUserId(user);
+    }, []);
+
+    const sendPost = () => {
+        barePost({user_id, msg});
+        setMsg();
+    }
 
     return (
         <NewPostBox>
@@ -26,13 +46,15 @@ export const NewPost = ({ changeDisplay }) => {
                 placeholder="What's on your mind?"
                 multiline
                 placeholderTextColor={ theme.colors.dark.text.primary }
+                onChangeText={ setMsg }
+                value={ msg }
             />
             <FontAwesome 
-                name="image" 
+                name={ msg ? "send" : "image" } 
                 size={24} 
                 color={ theme.colors.dark.icon.primary }
                 style={{ marginTop: 12, marginLeft: 21 }} 
-                onPress={ changeDisplay }
+                onPress={ () => msg ? sendPost() : changeDisplay("post") }
             />
         </NewPostBox>
     )

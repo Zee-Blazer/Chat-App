@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // React native default components
-import { Dimensions } from "react-native";
+import { Dimensions, Text } from "react-native";
 
 // Navigation
 import { useNavigation } from "@react-navigation/native";
@@ -28,32 +28,30 @@ import { BackgroundCover } from "../../../Features/Settings/components/profile-s
 const DimensionHeight = Dimensions.get("screen").height;
 const DimensionWidth = Dimensions.get("screen").width;
 
-export const PostAction = ({ changeDisplay }) => {
+export const PostAction = ({ changeDisplay, type }) => {
 
     const navigate = useNavigation();
 
+    const [img, setImg] = useState();
+    const [filename, setFileName] = useState();
+    const [imageFileName, setImageFileName] = useState();
     const [pic, setPic] = useState();
 
-    const selectFile = async () => {
-        try {
-            let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.All,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-            })
+    const picker = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [5, 4],
+            quality: 1,
+        });
 
-            if (!result.canceled) {
-                const source = { uri: result.uri };
-                const response = await fetch(source.uri);
-                const blob = await response.blob();
-                if(id, user_id){
-                    pic(source, blob, [id, user_id].sort());
-                }
-            }
-        }
-        catch (err) {
-            console.log(err)
+        if(!result.cancelled){
+            navigate.navigate("Sub", { screen: "PostNew", params: {
+                img: result.uri,
+                imageFileName: result.uri.split("file:/").join("").split('/').pop(),
+                fileName: result.uri.split("file:/").join("").split('/').pop().split('.').pop(),
+                type
+            } })
         }
     }
 
@@ -64,14 +62,14 @@ export const PostAction = ({ changeDisplay }) => {
 
                 <PostActionBox onPress={ () => {
                     changeDisplay();
-                    navigate.navigate("Sub", { screen: "CameraRoll" })
+                    navigate.navigate("Sub", { screen: "CameraRoll", params: { type } })
                 } }>
                     <Entypo name="camera" size={24} color={ theme.colors.dark.icon.primary } />
                     <PostActionText>Take Photo</PostActionText>
                 </PostActionBox>
 
                 <PostActionBox onPress={ () => {
-                    selectFile()
+                    picker();
                     changeDisplay();
                 } }>
                     <FontAwesome name="image" size={24} color={ theme.colors.dark.icon.primary } />

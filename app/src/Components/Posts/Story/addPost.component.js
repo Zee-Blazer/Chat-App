@@ -16,7 +16,7 @@ import {
     ProfileLabel, 
 } from '../../Tools/Styled-Components/box-container.component';
 
-export const AddPost = () => {
+export const AddPost = ({ open }) => {
     const [img, setImg] = useState();
     const [userId, setUserId] = useState();
     const [userDetails, setUserDetails] = useState();
@@ -57,7 +57,7 @@ export const AddPost = () => {
     }, []);
 
     return (
-        <TouchableOpacity onPress={ picker }>
+        <TouchableOpacity onPress={ () => open("status") }>
             <ProfilePost>
                 <Avatar.Text size={54} label="+" style={{ backgroundColor: "#6D6D6D" }} />
                 <ProfileLabel>Add Post</ProfileLabel>

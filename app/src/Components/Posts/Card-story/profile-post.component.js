@@ -55,11 +55,11 @@ export const ProfilePost = ({ user_id, msg, type }) => {
             </View>
             :
             <View>
-                <UsernameInfoText>Mark Zukerburg</UsernameInfoText>
+                <UsernameInfoText>{ username && username }</UsernameInfoText>
                 <PersonThought
                     onPress={ () => console.log(user_id, username) }
                     style={{ marginTop: 6, marginBottom: 4 }}
-                >The world of tech needs people who are fully dedicated to it all day lone and with alt-most impact.</PersonThought>
+                >{ msg }</PersonThought>
             </View>}
 
         </GridDisplay>

@@ -32,7 +32,7 @@ export const PostCaptionBg = styled.View`
 
 export const PostCaptionTxt = styled.Text`
     text-align: center;
-    color: rgba(0, 5, 167, 1);
+    color: white;
 `;
 
 export const CommentZone = styled.TouchableOpacity`
@@ -59,7 +59,8 @@ export const CommentInputCont = styled.View`
 export const CommentInput = styled.TextInput`
     border: 2px solid ${ props => props.theme.colors.dark.borders.secondary };;
     padding: 12px 8px;
-    width: 80%
+    width: 80%;
+    color: white
 `;
 
 export const CommentBox = styled.View`

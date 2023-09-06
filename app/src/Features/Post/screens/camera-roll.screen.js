@@ -5,6 +5,9 @@ import { Text, TouchableOpacity, SafeAreaView, StyleSheet, Image, Button } from 
 // Gesture handler
 import { PinchGestureHandler } from 'react-native-gesture-handler';
 
+// Navigation component
+import { useNavigation } from '@react-navigation/native';
+
 // Expo icons
 import { Entypo } from '@expo/vector-icons';
 
@@ -16,6 +19,8 @@ import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 
 export const CameraRoll = () => {
+
+    const navigation = useNavigation();
 
     let cameraRef = useRef();
 
@@ -61,6 +66,12 @@ export const CameraRoll = () => {
     if(pic){
         let savePhoto = () => {
             MediaLibrary.saveToLibraryAsync(pic.uri).then(() => {
+              navigation.navigate("Sub", { screen: "PostNew", params: {
+                img: pic.uri,
+                imageFileName: pic.uri.split("file:/").join("").split('/').pop(),
+                fileName: pic.uri.split("file:/").join("").split('/').pop().split('.').pop()
+              } })
+              console.log(pic.uri);
               setPic(undefined);
             });
           };

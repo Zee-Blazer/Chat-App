@@ -14,19 +14,21 @@ import {
 import { AddPost } from './addPost.component';
 import { ViewPost } from './viewPost.component';
 
-export const Story = () => {
+export const Story = ({ changeDisplay }) => {
     const [stories, setStories] = useState();
 
     useEffect(() => {
         getAllStatus(setStories);
     }, [])
 
+    const openDisplay = (e) => changeDisplay(e);
+
     return (
         <Box>
 
             <Scroller horizontal showsHorizontalScrollIndicator={false} >
 
-                <AddPost />
+                <AddPost open={ openDisplay } />
 
                 { stories && <FlatList 
                     horizontal

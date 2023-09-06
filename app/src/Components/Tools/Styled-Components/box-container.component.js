@@ -23,14 +23,13 @@ export const RoundedBorder = styled.View`
     border: 2px solid ${ props => props.theme.colors.dark.borders.primary };
     padding: 4px;
     border-radius: 50;
-    min-width: 64px;
     max-width: 78px;
 `;
 
 export const ProfileLabel = styled.Text`
     color: ${ props => props.theme.colors.dark.text.primary };
     text-align: center;
-    font-size: ${ props => props.theme.fontSizes.medium };
+    font-size: ${ props => props.theme.fontSizes.sm };
     font-weight: ${ props => props.theme.fontWeights.regular };
     margin-top: 4px;
 `;

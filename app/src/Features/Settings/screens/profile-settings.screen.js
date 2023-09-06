@@ -15,6 +15,8 @@ import { ProfileHeader } from '../components/profile-header.component';
 import { ProfileInfo } from '../components/Profile-settings/profile-info.component';
 import { ProfileTabBar } from '../components/Profile-settings/profile-tab-bar.component';
 
+import { ProfileBios } from '../components/Profile-settings/profile-bio.component';
+
 import { ProfilePicDisplay } from '../components/Profile-settings/profile-pic-display.component';
 
 import { ProfileTabDisplayer } from '../components/Profile-settings/profile-tab-displayer.component';
