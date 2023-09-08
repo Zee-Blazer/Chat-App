@@ -9,6 +9,9 @@ import { Story } from '../../Components/Posts/Story/story.component';
 //Them styling
 import { theme } from '../../Infrastructure/Theme';
 
+// Context Provider Version 1.2.0
+import { FriendsContextProvider } from '../../Services/Friends/friends.context';
+
 // Chat Screen Styled Components
 import { 
     SplitScreen,
@@ -55,13 +58,15 @@ export const ChatScreen = () => {
                     </TouchableOpacity>
                 </SplitScreen>
 
-                <SearchBar />
+                <FriendsContextProvider>
+                    <SearchBar />
 
-                { !displayer() ? 
-                    <ChatFriends />
-                    :
-                    <FindFriend />
-                }
+                    { !displayer() ? 
+                        <ChatFriends />
+                        :
+                        <FindFriend />
+                    }
+                </FriendsContextProvider>
                 
             </ScrollView>
             

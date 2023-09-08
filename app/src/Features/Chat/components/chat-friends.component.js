@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, FlatList } from 'react-native';
 
 import { ChatClient } from './chat-client.component';
 
 // Api call
 import api from '../../../Services/Axios/axios-api';
+
+// Context
+import { FriendsContext } from '../../../Services/Friends/friends.context';
 
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,25 +20,7 @@ import {
 
 export const ChatFriends = () => {
 
-    const [user_id, setUser_id] = useState();
-    const [allIds, setAllIds] = useState();
-    const [data, setData] = useState([]);
-
-    useEffect( async () => {
-        setUser_id( await AsyncStorage.getItem(`@user_id`) );
-        
-    }, [] )
-
-    useEffect( () => {
-        getCurrentFriends(user_id, setAllIds, data, setData);
-    }, [user_id] );
-
-    useEffect( () => {
-        setData([]);
-        if(allIds){
-            getTheUsers(allIds, data, setData);
-        }
-    }, [allIds] )
+    const { data } = useContext(FriendsContext) // Context provider for listing friends Version 1.2.0
 
     return (
         <>

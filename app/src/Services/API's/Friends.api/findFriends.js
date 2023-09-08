@@ -6,13 +6,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from "../../../Services/Axios/axios-api";
 
 // Getting the user_id of all a particular users friend.
-export const getCurrentFriends = (user_id, setallIds, data, setData) => {
+export const getCurrentFriends = (user_id, setallIds) => {
 
     if (user_id) {
         api.get(`/friends/get/myfriends?user_id=${user_id}`)
             .then(response => {
                 setallIds(response.data);
-
             })
             .catch(err => console.log(err))
     }
@@ -54,7 +53,7 @@ export const addNewFriendRequest = (user_id, details, reply) => {
 }
 
 // Get specific user
-export const getTheUsers = (allIds, data, setData) => {
+export const getTheUsers = (allIds, setData) => {
     // console.log(allIds);
     for (let i = 0; i < allIds.length; i++) {
         // console.log(allIds[i]);

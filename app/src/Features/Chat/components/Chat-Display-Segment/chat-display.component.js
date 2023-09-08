@@ -20,8 +20,6 @@ import { allMessages } from '../../../../Services/API\'s/ChatBox.api';
 import { LeftDisplaychat } from './chat-left-display.component';
 import { RightDisplayChat } from './chat-right-display.component';
 
-import { ChatDisplayer } from './chat-displayer.component';
-
 export const ChatDisplaySegment = ({ id }) => {
 
     const DB = getDatabase();
@@ -46,9 +44,6 @@ export const ChatDisplaySegment = ({ id }) => {
         allMessages(setMessages, chatId);
     }, [chatId] )
 
-    // console.log(user_id);
-    // console.log("Doing something new");
-
     return (
         <ChatDisplay>
 
@@ -58,15 +53,23 @@ export const ChatDisplaySegment = ({ id }) => {
                     renderItem={ ({item}) => {
                         let user = item.messages.senderId == user_id;
 
-                        console.log(item.messages.msg);
+                        console.log(item.messages.time.split(",")[0]);
 
                         return (
                             <ScrollView>
                                 {
                                     user ?
-                                    <RightDisplayChat ele={ item.messages.msg } image={ item.messages.img } />
+                                    <RightDisplayChat 
+                                        ele={ item.messages.msg } 
+                                        image={ item.messages.img } 
+                                        time={ item.messages.time } 
+                                    />
                                     : 
-                                    <LeftDisplaychat ele={ item.messages.msg } image={ item.messages.img } />
+                                    <LeftDisplaychat 
+                                        ele={ item.messages.msg } 
+                                        image={ item.messages.img } 
+                                        time={ item.messages.time } 
+                                    />
                                 }
                             </ScrollView>
                         )

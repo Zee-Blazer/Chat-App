@@ -11,7 +11,7 @@ import {
     Time
 } from '../chat-view.styles';
 
-export const LeftDisplaychat = ({ ele, image }) => {
+export const LeftDisplaychat = ({ ele, image, time }) => {
 
     return (
         <ChatLeftDisplay style={{ zIndex: 3 }}>
@@ -26,7 +26,7 @@ export const LeftDisplaychat = ({ ele, image }) => {
                 <Image source={{ uri: image }} style={{ width: 224, height: 250 }} />
             }
             <LeftAngle style={{ transform: [{ rotate: "45deg" }] }} />
-            <Time style={{ alignSelf: "flex-end" }}>10:45PM</Time>
+            <Time style={{ alignSelf: "flex-end" }}>{ time.split(',')[1] }</Time>
         </ChatLeftDisplay>
     )
 }

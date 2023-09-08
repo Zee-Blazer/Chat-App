@@ -21,7 +21,7 @@ export const ChatViewScreen = ({ route }) => {
 
     return (
         <AccountBackground setHeight={ windowHeight }>
-            <Text>Hello { reduce ? "Hey there" : "Just false" }</Text>
+            {/* <Text>Hello { reduce ? "Hey there" : "Just false" }</Text> */}
             <AccountCover />
             <ChatDisplaySegment id={ route.params.id } />
 

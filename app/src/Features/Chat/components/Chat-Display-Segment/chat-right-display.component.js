@@ -9,7 +9,7 @@ import {
     Chat
 } from '../chat-view.styles';
 
-export const RightDisplayChat = ({ ele, image }) => {
+export const RightDisplayChat = ({ ele, image, time }) => {
     console.log(ele, image);
 
     return (
@@ -24,7 +24,7 @@ export const RightDisplayChat = ({ ele, image }) => {
             }
             <RightAngle />
 
-            <Time>10:52PM</Time>
+            <Time>{ time.split(',')[1] }</Time>
         </ChatRightDisplay>
     )
 }
