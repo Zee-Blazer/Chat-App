@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // React native components
 import { Text } from 'react-native';
+
+// Async Storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // useNavigate
 import { useNavigation } from '@react-navigation/native';
@@ -9,6 +12,9 @@ import { useNavigation } from '@react-navigation/native';
 // Expo Icons
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
+
+// Theme styling
+import { theme } from '../../../Infrastructure/Theme';
 
 // Styled component
 import { StoryCard } from "../../Tools/Styled-Components/post-card.component";
@@ -26,7 +32,19 @@ export const TweeetPost = ({ item }) => {
 
     const navigation = useNavigation();
 
-    const [color, setColor] = useState('white');
+    const [user_id, setUser_id] = useState();
+    const [color, setColor] = useState(theme.colors.dark.text.primary);
+    const [cmColor, setCmColor] = useState(theme.colors.dark.text.primary);
+    const [add, setAdd] = useState(false);
+
+    useEffect(async () => {
+        setUser_id(await AsyncStorage.getItem(`@user_id`));
+    }, [])
+
+    useEffect( () => {
+        item.peopleLike.includes(user_id) && setColor(theme.colors.dark.text.secondary);
+        item.comments.some( ele => ele.user_id === user_id ) && setCmColor(theme.colors.dark.text.secondary);
+    }, [user_id] )
 
     return (
         <>
@@ -36,9 +54,12 @@ export const TweeetPost = ({ item }) => {
 
             <FlexDisplay>
 
-                <LikeOption onPress={() => likePost(item._id, item.user_id, setColor)}>
+                <LikeOption onPress={() => {
+                    likePost(item._id, item.user_id, setColor);
+                    setAdd(true);
+                }}>
                     <AntDesign name="like2" size={24} color={ color } />
-                    <Text style={{ color }}>Like: 0</Text>
+                    <Text style={{ color }}>Like: { add ? item.likes +1 : item.likes } </Text>
                 </LikeOption>
 
                 <Line />
@@ -49,8 +70,8 @@ export const TweeetPost = ({ item }) => {
                         params: { user_id: item.user_id, id: item._id }
                     })}
                 >
-                    <FontAwesome name="commenting-o" size={24} color="white" />
-                    <Text style={{ color: "white", fontSize: 16 }}>Comment: 0</Text>
+                    <FontAwesome name="commenting-o" size={24} color={ cmColor } />
+                    <Text style={{ color: cmColor, fontSize: 16 }}>Comment:  {item.comments.length}</Text>
                 </LikeOption>
 
             </FlexDisplay>

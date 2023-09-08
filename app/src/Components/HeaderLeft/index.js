@@ -35,12 +35,10 @@ export const HeaderLeft = ({ navigation, route }) => {
 
             <Avatar.Image
                 size={42}
-                // source={{ uri: `${ route.params.userProfile ? 
-                //     uriLink + "profile/pic/" + route.params.userProfile 
-                //     : 
-                //     "https://loveshayariimages.in/wp-content/uploads/2021/10/1080p-Latest-Whatsapp-Profile-Images-1.jpg" 
-                // }` }}
-                source={{ uri: "https://loveshayariimages.in/wp-content/uploads/2021/10/1080p-Latest-Whatsapp-Profile-Images-1.jpg" }}
+                source={{ uri: route.params.profile ? 
+                    uriLink + 'profile/pic/' + route.params.profile : 
+                    "https://loveshayariimages.in/wp-content/uploads/2021/10/1080p-Latest-Whatsapp-Profile-Images-1.jpg" 
+                }}
             />
         </GroupEle>
     )

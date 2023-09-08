@@ -1,6 +1,9 @@
 
 import api from '../../../Services/Axios/axios-api';
 
+// Theme styling Version 1.2.0
+import { theme } from '../../../Infrastructure/Theme';
+
 export const newPost = (data, info) => {
     const { setErrMsg, setMsg, setImg } = info;
 
@@ -35,7 +38,7 @@ export const getAllPost = (setData) => {
 
 export const likePost = (postId, user_id, setColor) => {
     api.post(`post/like`, { id: postId, user_id })
-        .then(response => setColor('blue'))
+        .then(response => setColor(theme.colors.dark.text.secondary))
         .catch(err => console.log(err));
 }
 

@@ -18,7 +18,7 @@ import { BottomCamCont, CapturePhoto } from '../components/PostViewHeader/post-v
 import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 
-export const CameraRoll = () => {
+export const CameraRoll = ({ route }) => {
 
     const navigation = useNavigation();
 
@@ -36,6 +36,7 @@ export const CameraRoll = () => {
         setHasCameraPermission(cameraPermission.status == "granted")
         setHasMediaPermission(mediaLibraryPermission.status == "granted");
     }
+    console.log(route.params.type);
 
     const snapPic = async () => {
         let options = {
@@ -69,7 +70,8 @@ export const CameraRoll = () => {
               navigation.navigate("Sub", { screen: "PostNew", params: {
                 img: pic.uri,
                 imageFileName: pic.uri.split("file:/").join("").split('/').pop(),
-                fileName: pic.uri.split("file:/").join("").split('/').pop().split('.').pop()
+                fileName: pic.uri.split("file:/").join("").split('/').pop().split('.').pop(),
+                type: route.params.type
               } })
               console.log(pic.uri);
               setPic(undefined);

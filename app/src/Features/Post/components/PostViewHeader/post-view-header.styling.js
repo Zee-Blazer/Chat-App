@@ -33,6 +33,7 @@ export const PostCaptionBg = styled.View`
 export const PostCaptionTxt = styled.Text`
     text-align: center;
     color: white;
+    font-size: ${ props => props.theme.fontSizes.xlg }
 `;
 
 export const CommentZone = styled.TouchableOpacity`

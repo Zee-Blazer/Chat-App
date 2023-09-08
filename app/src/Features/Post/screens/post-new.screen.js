@@ -38,7 +38,9 @@ export const PostNew = ({ route }) => {
     const [msg, setMsg] = useState();
     const [errMsg, setErrMsg] = useState();
 
-    const data = route.params
+    const data = route.params;
+
+    console.log(data.type);
 
     const sendPost = () => {
         if(data.img != undefined){
@@ -56,9 +58,11 @@ export const PostNew = ({ route }) => {
 
             if(data.type == "post"){
                 newPost(formData, { setErrMsg, setMsg, setImg });
+                console.log("Posted on post Feed")
             }
             else{
                 postStory(formData);
+                console.log("Posted on Status")
             }
             navigation.navigate("Post")
         }

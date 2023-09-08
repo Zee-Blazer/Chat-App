@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Text, ScrollView, FlatList } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Text, ScrollView, FlatList, RefreshControl } from 'react-native';
 
 // Using safeAreaView for the post screen
 import { SafeAir } from '../../Components/Utility/safe-area.component';
+
+// React Native paper Spinner
+import { ActivityIndicator, Colors } from 'react-native-paper';
 
 // Axios API
 import { getAllPost } from '../../Services/API\'s/Post.api';
@@ -21,6 +24,7 @@ import { PostAction } from '../../Components/Posts/New-post/post-action.componen
 export const PostScreen = ({ navigation }) => {
     const [data, setData] = useState();
     const [type, setType] = useState();
+    const [refresh, setRefresh] = useState(false);
 
     const [display, setDisplay] = useState(false); // Display the Post & Status icons for selection
 
@@ -37,21 +41,37 @@ export const PostScreen = ({ navigation }) => {
         setType(e);
     }
 
+    const onRefresh = React.useCallback(() => {
+        setRefresh(true);
+        getAllPost(setData);
+        setTimeout(() => {
+          setRefresh(false);
+        }, 1500);
+    }, []);
+
     return (
         <SafeAir>
             { display && <PostAction changeDisplay={ changeDisplay } type={ type } /> }
 
-            <ScrollView>
+            {/* Spinner Loader  */}
+            { 
+                refresh && 
+                <ActivityIndicator 
+                    animating={true} 
+                    color={Colors.blue300} 
+                    style={{ marginTop: 4 }} 
+                /> 
+            }
+
+            <ScrollView
+                refreshControl={
+                    <RefreshControl refreshing={ refresh } onRefresh={ onRefresh } />
+                  }
+            >
 
                 <NewPost changeDisplay={ changeDisplay } />
 
-                <Story changeDisplay={ changeDisplay } />
-
-                {/* <Text onPress={() => navigation.navigate("Sub", {
-                    screen: "PostNew",
-                    params: { imgUrl: "Something" }
-                })}
-                >Navigate</Text> */}
+                <Story changeDisplay={ changeDisplay } refresh={ refresh } />
 
                 { data ? <FlatList 
                     data={data}

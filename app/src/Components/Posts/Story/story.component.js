@@ -14,7 +14,7 @@ import {
 import { AddPost } from './addPost.component';
 import { ViewPost } from './viewPost.component';
 
-export const Story = ({ changeDisplay }) => {
+export const Story = ({ changeDisplay, refresh }) => {
     const [stories, setStories] = useState();
 
     useEffect(() => {
@@ -22,6 +22,10 @@ export const Story = ({ changeDisplay }) => {
     }, [])
 
     const openDisplay = (e) => changeDisplay(e);
+
+    useEffect( () => {
+        getAllStatus(setStories);
+    }, [refresh] )
 
     return (
         <Box>

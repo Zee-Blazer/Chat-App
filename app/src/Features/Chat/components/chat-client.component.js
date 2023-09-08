@@ -29,7 +29,7 @@ export const ChatClient = ({ userProfile, username, id }) => {
     
     return (
         <TouchableOpacity onPress={ 
-            () => RootNavigation.navigate( "ChatSub", { screen: "ChatView", params: { id, username, userProfile } } ) 
+            () => RootNavigation.navigate( "ChatSub", { screen: "ChatView", params: { id, username, profile: userProfile } } ) 
         }>
             <ClientChatBox>
                 <TouchableOpacity>

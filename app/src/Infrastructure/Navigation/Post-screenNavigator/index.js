@@ -5,7 +5,6 @@ import { TouchableOpacity } from 'react-native';
 import { TransitionPresets } from '@react-navigation/stack';
 import { HeaderStyleInterpolators } from '@react-navigation/stack';
 
-
 // Stack Navigator
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -39,7 +38,7 @@ export const SubNavigation = () => (
             name="PostView" 
             component={ PostViewScreen } 
             options={({ navigation, route }) => ({ 
-                title: "Mark Zukerburg",
+                title: route.params.username,
                 headerShown: true,
                 headerStyle: {
                     backgroundColor: '#15181B',
@@ -66,6 +65,7 @@ export const SubNavigation = () => (
         <SubStack.Screen 
             name="CameraRoll"
             component={ CameraRoll }
+            options={({ route }) => ({})}
         />
     </SubStack.Navigator>
 )

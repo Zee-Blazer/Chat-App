@@ -31,7 +31,7 @@ const UsernameInfoText = styled.Text`
     color: ${ props => props.theme.colors.dark.text.tertiary };
 `;
 
-export const ProfilePost = ({ user_id, msg, type }) => {
+export const ProfilePost = ({ user_id, msg, type, item }) => {
     const [profile, setProfile] = useState();
     const [username, setUsername] = useState();
 

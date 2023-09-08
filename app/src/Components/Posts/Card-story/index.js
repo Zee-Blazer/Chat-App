@@ -11,7 +11,6 @@ import { StoryCard } from '../../Tools/Styled-Components/post-card.component';
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 // Navigation
 import { useNavigation } from '@react-navigation/native';
 
@@ -45,31 +44,33 @@ export const CardStory = ({ item }) => {
     const [user_id, setUser_id] = useState();
     const [color, setColor] = useState(theme.colors.dark.text.primary);
     const [cmColor, setCmColor] = useState(theme.colors.dark.text.primary);
+    const [add, setAdd] = useState(false);
 
     useEffect(async () => {
         setUser_id(await AsyncStorage.getItem(`@user_id`));
     }, [])
 
     useEffect( () => {
-        if(item.peopleLike.includes(user_id)){
-            setColor(theme.colors.dark.text.primary)
-            console.log("Working");
-        }
-    }, [] )
+        item.peopleLike.includes(user_id) && setColor(theme.colors.dark.text.secondary);
+        item.comments.some( ele => ele.user_id === user_id ) && setCmColor(theme.colors.dark.text.secondary);
+    }, [user_id] )
 
     return (
         <>
             <StoryCard>
-                <StoryImage imgUri={item.fileUrl} user_id={item.user_id} />
+                <StoryImage imgUri={item.fileUrl} user_id={item.user_id} item={ item } />
 
                 <ProfilePost user_id={item.user_id} msg={item.msg} />
                 {/* <Text onPress={ () => {console.log(item.peopleLike.includes(user_id))} } >Show</Text> */}
 
                 <FlexDisplay>
 
-                    <LikeOption onPress={() => likePost(item._id, user_id, setColor)}>
+                        <LikeOption onPress={() => {
+                            likePost(item._id, user_id, setColor)
+                            setAdd(true);
+                        }}>
                         <AntDesign name="like2" size={24} color={color} />
-                        <Text style={{ color }}>Like: {item.likes}</Text>
+                        <Text style={{ color }}>Like: { add ? item.likes +1 : item.likes } </Text>
                     </LikeOption>
 
                     <Line />
