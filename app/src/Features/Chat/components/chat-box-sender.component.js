@@ -16,7 +16,12 @@ import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 // Api's
-import { messageSender, sendPic } from '../../../Services/API\'s/ChatBox.api';
+import { 
+    messageSender, 
+    sendPic, 
+    messageNotification, 
+    deleteNotification 
+} from '../../../Services/API\'s/ChatBox.api';
 
 import {
     ChatBox,
@@ -41,7 +46,12 @@ export const ChatBoxSender = ({ id }) => {
 
     const sendMsg = () => {
         messageSender({ msg, user_id, chatId });
+        messageNotification({ msg, user_id, id  })
         setMsg("");
+    }
+
+    const delNot = () => {
+        deleteNotification({ user_id, id })
     }
 
     const selectFile = async () => {

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-paper';
 
 // Root Navigation
 import * as RootNavigation from '../../../Infrastructure/Navigation/root-navigation';
+
+// Friends Context Version 1.2.0
+import { FriendsContext } from '../../../Services/Friends/friends.context';
 
 // Image Url Link
 import { uriLink } from '../../../Services/Axios/axios-api';
@@ -26,10 +29,25 @@ import {
 // ******************************************************************** // 
 
 export const ChatClient = ({ userProfile, username, id }) => {
+
+    const { getLastMsg } = useContext(FriendsContext);
+
+    const [lastMsg, setLastMsg] = useState();
+    const [time, setTime] = useState();
+    const [messages, setMessages] = useState();
+
+    useEffect( () => {
+        getLastMsg(id, setLastMsg, setMessages, setTime);
+    }, [] )
     
     return (
         <TouchableOpacity onPress={ 
-            () => RootNavigation.navigate( "ChatSub", { screen: "ChatView", params: { id, username, profile: userProfile } } ) 
+            () => 
+                {
+                    RootNavigation.navigate( "ChatSub", { screen: "ChatView", params: { id, username, profile: userProfile } } )
+                    // console.log(lastMsg)
+                }
+            
         }>
             <ClientChatBox>
                 <TouchableOpacity>
@@ -54,8 +72,18 @@ export const ChatClient = ({ userProfile, username, id }) => {
                     </ClientMsgContainer>
                     
                     <ClientMsgContainer>
-                            <ClientChatTextDown>Message</ClientChatTextDown>
-                            <ClientChatTextTime>10:45PM</ClientChatTextTime>
+                            <ClientChatTextDown>
+                                { messages ? 
+                                    lastMsg ? 
+                                        lastMsg[1] == id ? `Friend: ${lastMsg[0]}` : `You: ${lastMsg[0]}` : 
+                                        "Start a conversation." 
+                                    : 
+                                    "Loading messages..." 
+                                }
+                            </ClientChatTextDown>
+                            <ClientChatTextTime style={{ color: '#D6FF62' }}>
+                                { messages && time && time }
+                            </ClientChatTextTime>
                     </ClientMsgContainer>
                 
                 </ClientMsg>

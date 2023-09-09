@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Text, TouchableOpacity, ScrollView } from 'react-native';
 
 import { SafeAir } from '../../Components/Utility/safe-area.component';
@@ -10,13 +10,15 @@ import { Story } from '../../Components/Posts/Story/story.component';
 import { theme } from '../../Infrastructure/Theme';
 
 // Context Provider Version 1.2.0
-import { FriendsContextProvider } from '../../Services/Friends/friends.context';
+import { FriendsContextProvider, FriendsContext } from '../../Services/Friends/friends.context';
 
 // Chat Screen Styled Components
 import { 
     SplitScreen,
     SplitText, 
     Line,
+    NewNotification,
+    NotificationText,
     FinderSearch
 } from '../../Components/Tools/Styled-Components/chat-screen.component';
 
@@ -28,6 +30,8 @@ import { FindFriend } from './components/find-friend.component';
 import { ChatFriends } from './components/chat-friends.component';
 
 export const ChatScreen = () => {
+
+    // const { func } = useContext(FriendsContext);
 
     const [choose, setChoose] = useState("Friends");
     const [searchVal, setSearchVal] = useState();
@@ -46,19 +50,23 @@ export const ChatScreen = () => {
 
                 <Story />
 
-                <SplitScreen>
-                    <TouchableOpacity onPress={ () => doFunc("Friends") }>
-                        <SplitText>Friends</SplitText>
-                    </TouchableOpacity>
-
-                    <Line />
-
-                    <TouchableOpacity onPress={ () => doFunc("Find") }>
-                        <SplitText>Find</SplitText>
-                    </TouchableOpacity>
-                </SplitScreen>
-
                 <FriendsContextProvider>
+                    <SplitScreen>
+                        <TouchableOpacity onPress={ () => doFunc("Friends") } style={{ flexDirection: "row" }}>
+                            <SplitText style={{ marginRight: 6 }}>Friends</SplitText>
+                            <NewNotification>
+                                <NotificationText>4</NotificationText>
+                            </NewNotification>
+                        </TouchableOpacity>
+
+                        <Line />
+
+                        <TouchableOpacity onPress={ () => doFunc("Find") }>
+                            <SplitText>Find</SplitText>
+                        </TouchableOpacity>
+                    </SplitScreen>
+
+                    
                     <SearchBar />
 
                     { !displayer() ? 
@@ -66,6 +74,7 @@ export const ChatScreen = () => {
                         :
                         <FindFriend />
                     }
+                    
                 </FriendsContextProvider>
                 
             </ScrollView>

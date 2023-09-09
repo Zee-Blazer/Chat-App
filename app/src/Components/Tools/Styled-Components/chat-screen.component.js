@@ -71,4 +71,19 @@ export const ClientChatTextDown = styled.Text`
 export const ClientChatTextTime = styled.Text`
     color: ${ props => props.theme.colors.dark.text.primary };
     font-size: 12px;
-`
+`;
+
+export const NewNotification = styled.View`
+    width: 24px;
+    height: 24px;
+    border-radius: 50;
+    margin-top: 10px;
+    background-color: ${ props => props.theme.colors.dark.bg.plain };
+`;
+
+export const NotificationText = styled.Text`
+    text-align: center;
+    color: ${ props => props.theme.colors.dark.text.primary };
+    margin-top: 1px;
+    font-size: ${ props => props.theme.fontSizes.lg }
+`;
