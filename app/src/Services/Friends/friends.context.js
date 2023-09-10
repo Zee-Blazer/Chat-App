@@ -44,16 +44,13 @@ export const FriendsContextProvider = ({ children }) => {
         lastMessage(setMessages, setLastMsg, setTime, chatId);
     }
 
-     const func = () => console.log(allNewNotifications);
-
     return (
         <FriendsContext.Provider
             value={{
                 data,
                 searchFriend,
                 getLastMsg,
-                allNewNotifications,
-                func
+                allNewNotifications
             }}
         >
             { children }

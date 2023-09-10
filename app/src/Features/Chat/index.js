@@ -25,6 +25,9 @@ import {
 // Search Bar component
 import { SearchBar } from './components/search.component';
 
+// Component
+import { FriendTouch } from './components/Chat-Display-Segment/friend-touch.component';
+
 import { ChatClient } from './components/chat-client.component';
 import { FindFriend } from './components/find-friend.component';
 import { ChatFriends } from './components/chat-friends.component';
@@ -52,12 +55,7 @@ export const ChatScreen = () => {
 
                 <FriendsContextProvider>
                     <SplitScreen>
-                        <TouchableOpacity onPress={ () => doFunc("Friends") } style={{ flexDirection: "row" }}>
-                            <SplitText style={{ marginRight: 6 }}>Friends</SplitText>
-                            <NewNotification>
-                                <NotificationText>4</NotificationText>
-                            </NewNotification>
-                        </TouchableOpacity>
+                        <FriendTouch doFunc={ doFunc } />
 
                         <Line />
 
