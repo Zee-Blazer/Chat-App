@@ -20,9 +20,12 @@ export const FriendTouch = ({ doFunc }) => {
         <>
             <TouchableOpacity onPress={ () => doFunc("Friends") } style={{ flexDirection: "row" }}>
                 <SplitText style={{ marginRight: 6 }}>Friends</SplitText>
-                <NewNotification>
-                    <NotificationText>{ allNewNotifications && allNewNotifications }</NotificationText>
-                </NewNotification>
+                { 
+                    allNewNotifications && allNewNotifications.length > 0 &&
+                    <NewNotification>
+                        <NotificationText>{ allNewNotifications.length }</NotificationText>
+                    </NewNotification>
+                }
             </TouchableOpacity>
         </>
     )

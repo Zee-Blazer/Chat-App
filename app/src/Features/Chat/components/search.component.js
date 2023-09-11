@@ -18,6 +18,7 @@ export const SearchBar = () => {
             placeholderTextColor={theme.colors.dark.text.primary}
             iconColor={theme.colors.dark.icon.secondary}
             onChangeText={ searchFriend } 
+            color="white"
             style={{
                 ...Platform.select({
                     ios: {

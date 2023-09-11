@@ -34,9 +34,7 @@ export const messageSender = async ({ msg, userId, chatId }) => {
         ref( DB, `Chats/${chatId[0] + chatId[1]}` ), 
         { messages: { msg, senderId: valueOfPerson, time: moment().format('MM/DD/YY, h:mm a') } }
     )
-        .then(res => {
-            
-        })
+        .then(res => {})
         .catch(err => console.log(err));
 }
 
@@ -46,17 +44,18 @@ export const messageNotification = ({msg, user_id, id}) => {
         ref( DB, `Notification/${ id }/${ user_id }` ), 
         { messages: { msg, senderId: id, time: moment().format('MM/DD/YY, h:mm a') } } 
     )
-    .then( res => console.log(res) )
+    .then( res => {} )
     .catch( err => console.log(err) );
 }
 
 // Delete a specific notification
 export const deleteNotification = ({ user_id, id }) => {
     remove(
-        ref( DB, `Notification/${ id }/${ user_id }` )
+        ref( DB, `Notification/${ user_id }/${ id }` )
     )
-    .then( res => console.log(res) )
+    .then( res => console.log("deleted") )
     .catch( err => console.log(err) );
+    console.log(user_id, id)
 }
 
 // Get all the messages in the firebase realtime chat collection
@@ -145,6 +144,20 @@ export const getAllNew = ({ setAllNewNotifications, user_id }) => {
             })
         })
         // console.log(msg);
-        setAllNewNotifications(msg.length);
+        setAllNewNotifications(msg);
+    })
+}
+
+// Get all new notifications of a specific user
+export const getAllNewSpecificId = (setNotify, user_id, id) => {
+    onValue(ref(DB, `Notification/${ user_id }/${ id }`), (snapshot) => {
+        const msg = [];
+        snapshot.forEach(childSnapshot => {
+            msg.push({
+                id: childSnapshot.key, ...childSnapshot.val()
+            })
+        })
+        console.log(msg, id);
+        setNotify(msg);
     })
 }

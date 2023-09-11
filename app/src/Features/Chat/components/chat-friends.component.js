@@ -20,25 +20,43 @@ import {
 
 export const ChatFriends = () => {
 
-    const { data } = useContext(FriendsContext) // Context provider for listing friends Version 1.2.0
+    const { data, filterData, search } = useContext(FriendsContext) // Context provider for listing friends Version 1.2.0
 
     return (
         <>
-            { !data ?
-                <Text>Add Friends</Text>
-            :
-                <FlatList 
-                    data={ data }
-                    renderItem={ ({item}) => {
+            { 
+                search ? 
+                    !filterData ? 
+                    <Text>No search found</Text>
+                    :
+                    <FlatList 
+                        data={ filterData }
+                        renderItem={ ({item}) => {
 
-                        return (
-                            <>
-                                <ChatClient userProfile={ item.profile } username={ item.username } id={ item._id } />
-                            </>
-                        )
-                    } } 
-                    keyExtractor={ item => item }
-                />
+                            return (
+                                <>
+                                    <ChatClient userProfile={ item.profile } username={ item.username } id={ item._id } />
+                                </>
+                            )
+                        } } 
+                        keyExtractor={ item => item }
+                    />
+                :
+                !data ?
+                    <Text>Add Friends</Text>
+                :
+                    <FlatList 
+                        data={ data }
+                        renderItem={ ({item}) => {
+
+                            return (
+                                <>
+                                    <ChatClient userProfile={ item.profile } username={ item.username } id={ item._id } />
+                                </>
+                            )
+                        } } 
+                        keyExtractor={ item => item }
+                    />
             }
         </>
     )

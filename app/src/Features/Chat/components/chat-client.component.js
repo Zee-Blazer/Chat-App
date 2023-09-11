@@ -11,6 +11,9 @@ import { FriendsContext } from '../../../Services/Friends/friends.context';
 // Image Url Link
 import { uriLink } from '../../../Services/Axios/axios-api';
 
+// Firebase API Version 1.2.0
+import { getAllNewSpecificId } from '../../../Services/API\'s/ChatBox.api';
+
 import { Entypo } from '@expo/vector-icons'; 
 
 // Chat Component styling
@@ -20,8 +23,12 @@ import {
     ClientMsgContainer,
     ClientChatTextFirst,
     ClientChatTextDown,
-    ClientChatTextTime
+    ClientChatTextTime,
+    NewNotification,
+    NotificationText
 } from '../../../Components/Tools/Styled-Components/chat-screen.component';
+
+// import { NewNotification } from '../../../Components/Tools/Styled-Components/chat-screen.component';
 
 
 // ********************************************************************  //
@@ -30,14 +37,17 @@ import {
 
 export const ChatClient = ({ userProfile, username, id }) => {
 
-    const { getLastMsg } = useContext(FriendsContext);
+    const { getLastMsg, specificNote, deleteSpecificNote } = useContext(FriendsContext);
 
     const [lastMsg, setLastMsg] = useState();
     const [time, setTime] = useState();
     const [messages, setMessages] = useState();
+    const [notify, setNotify] = useState();
+    const [change, setChange] = useState(false);
 
     useEffect( () => {
         getLastMsg(id, setLastMsg, setMessages, setTime);
+        specificNote(setNotify, id);
     }, [] )
     
     return (
@@ -45,7 +55,7 @@ export const ChatClient = ({ userProfile, username, id }) => {
             () => 
                 {
                     RootNavigation.navigate( "ChatSub", { screen: "ChatView", params: { id, username, profile: userProfile } } )
-                    // console.log(lastMsg)
+                    deleteSpecificNote(id);
                 }
             
         }>
@@ -65,9 +75,11 @@ export const ChatClient = ({ userProfile, username, id }) => {
                     <ClientMsgContainer>
                         <ClientChatTextFirst>{username}</ClientChatTextFirst> 
                         
-                        <TouchableOpacity>
-                            <Entypo name="dots-three-vertical" size={24} color="black" />
-                        </TouchableOpacity>
+                        { notify && notify.length > 0 ?  <NewNotification>
+                            <NotificationText>
+                                { notify.length }
+                            </NotificationText>
+                        </NewNotification> : "" }
                         
                     </ClientMsgContainer>
                     
