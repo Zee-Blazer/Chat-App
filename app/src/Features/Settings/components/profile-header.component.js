@@ -12,7 +12,12 @@ import { FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Post Profile api
-import { addProfileImage, getProfileImage } from '../../../Services/API\'s/Profile.api';
+import { 
+    addProfileImage, 
+    getProfileImage, 
+    addCoverImage, 
+    getCoverImage 
+} from '../../../Services/API\'s/Profile.api';
 
 // URI-Link for images
 import { uriLink } from '../../../Services/Axios/axios-api';
@@ -31,8 +36,9 @@ export const ProfileHeader = ({ showPicFunc }) => {
     const [image, setImage] = useState(null);
     const [userId, setUserId] = useState();
     const [profileImg, setProfileImg] = useState();
+    const [coverImg, setCoverImg] = useState();
 
-    const picker = async () => {
+    const picker = async ( type ) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
@@ -53,7 +59,12 @@ export const ProfileHeader = ({ showPicFunc }) => {
             });  
             formData.append("user_id", userId);
 
-            addProfileImage(formData);
+            if(type == "pic"){
+                addProfileImage(formData);
+            }
+            else {
+                addCoverImage(formData);
+            }
         }
     }
 
@@ -62,13 +73,21 @@ export const ProfileHeader = ({ showPicFunc }) => {
         setUserId(user);
 
         getProfileImage(user, setProfileImg);
+        getCoverImage(user, setCoverImg);
     }, []);
 
     return (
         <View>
-            <CoverImage
-                source={{ uri: "https://cdn-images.zety.com/pages/best_font_for_cover_letter_6.jpg" }}
-            />
+            <TouchableOpacity onPress={ () => picker("cover") }>
+                <CoverImage
+                    source={{ uri: ` ${ 
+                        coverImg ? 
+                        uriLink + "profile/pic/" + coverImg : 
+                        "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" 
+                        } ` 
+                    }}
+                />
+            </TouchableOpacity>
 
             <TouchableOpacity
                 onPress={ showPicFunc }
@@ -83,7 +102,7 @@ export const ProfileHeader = ({ showPicFunc }) => {
                 />
             </TouchableOpacity>
             <EditProfileImage
-                onPress={picker}
+                onPress={ () => picker("pic") }
             >
                 Profile Edit
             </EditProfileImage>
