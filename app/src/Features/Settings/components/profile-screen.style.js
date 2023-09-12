@@ -40,34 +40,41 @@ export const SecurityTitle = styled.Text`
     font-weight: 600;
     margin: 36px 4px;
     text-align: center;
+    color: ${ props => props.theme.colors.dark.text.primary }
 `;
 
 export const InputBox = styled.View`
     margin: 16px 24px;
+    color: ${ props => props.theme.colors.dark.text.primary }
 `;
 
 export const InputLabel = styled.Text`
     font-size: 21px;
+    color: ${ props => props.theme.colors.dark.text.primary };
     font-weight: 400;
 `;
 
 export const MainInput = styled.TextInput.attrs({
-    placeholderTextColor: "black"
+    placeholderTextColor: `${ props => props.theme.colors.dark.text.primary }`
   })`
     margin-top: 12px;
     padding: 12px;
     color: black;
     font-size: 16px;
     height: 40px;
+    color: ${ props => props.theme.colors.dark.text.primary };
     border: 1px;
+    border-color: ${ props => props.theme.colors.dark.text.primary };
     border-radius: 3px;
 `;
 
 export const DeleteAccountText = styled.Text`
+    position: absolute;
     font-size: 16px;
     text-align: center;
     color: red;
-    margin-top: 160px;
+    left: 37%;
+    top: 100%;
 `;
 
 export const StoriesHeaderText = styled.Text`
@@ -164,7 +171,14 @@ export const ProfileDetailsCont = styled.View`
 export const ProfileUsername = styled.Text`
     font-size: ${ props => props.theme.fontSizes.caption };
     color: ${ props => props.theme.colors.dark.text.primary };
-    font-weight: ${ props => props.theme.fontWeights.bold }
+    font-weight: ${ props => props.theme.fontWeights.bold };
+    margin-bottom: 1px;
+`;
+
+export const ProfileBio = styled.Text`
+    font-size: ${ props => props.theme.fontSizes.lg };
+    color: ${ props => props.theme.colors.dark.text.primary };
+    font-weight: ${ props => props.theme.fontWeights.bold };
 `;
 
 export const ProfileEmail = styled.Text`
@@ -179,7 +193,7 @@ export const FollowersLabel = styled.Text`
 `;
 
 export const FollowBox = styled.View`
-    margin-top: ${ props => props.theme.space[4] };
+    margin-top: ${ props => props.theme.space[3] };
     display: flex;
     margin-bottom: ${ props => props.theme.space[3] };
 `;

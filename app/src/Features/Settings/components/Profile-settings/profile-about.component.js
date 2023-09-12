@@ -1,3 +1,6 @@
+import React, { useState, useContext } from 'react';
+
+import { Text } from 'react-native-paper';
 
 // Styled components
 import { 
@@ -9,19 +12,36 @@ import {
     ProfileAboutBtnLabel
 } from "../profile-screen.style";
 
+// Profile Context Version 1.2.0
+import { ProfileContext } from "../../../../Services/Profile/profile.context";
+
 // Theme 
 import { theme } from "../../../../Infrastructure/Theme";
 
 export const ProfileAbout = () => {
 
+    const { specificUser, updateBio, status } = useContext(ProfileContext);
+
+    const [bio, setBio] = useState();
+
     return (
         <>
             <ProfileAboutCont>
+                { 
+                    status && 
+                    <Text 
+                        style={{ 
+                            color: 'lightgreen', fontWeight: 700, textAlign: "center", marginBottom: 4 
+                        }} 
+                    >
+                        Your about has been updated
+                    </Text> 
+                }
                 <ProfileAboutInputBox>
                     <ProfileAboutLabel>Username:</ProfileAboutLabel>
                     <ProfileAboutInput 
                         editable={false}
-                        defaultValue="Mark Zukerburg"
+                        defaultValue={ specificUser && specificUser.username.toUpperCase() }
                     />
                 </ProfileAboutInputBox>
 
@@ -30,7 +50,7 @@ export const ProfileAbout = () => {
 
                     <ProfileAboutInput 
                         editable={false}
-                        defaultValue="mark.zukerburg@gmail.com"
+                        defaultValue={ specificUser && specificUser.email }
                     />
                 </ProfileAboutInputBox>
 
@@ -39,14 +59,20 @@ export const ProfileAbout = () => {
                     <ProfileAboutInput 
                         editable
                         multiline
-                        placeholder="Write a Bio"
+                        placeholder={ 
+                            specificUser && specificUser.bio ? 
+                                specificUser.bio : 
+                                "Write a Bio"  
+                        }
+                        value={ !bio ? specificUser && specificUser.bio : bio }
                         placeholderTextColor={ theme.colors.dark.text.secondary }
+                        onChangeText={ setBio }
                     />
                 </ProfileAboutInputBox>
 
             </ProfileAboutCont>
 
-            <ProfileAboutButton>
+            <ProfileAboutButton onPress={ () => updateBio(bio) }>
                 <ProfileAboutBtnLabel>UPDATE</ProfileAboutBtnLabel>
             </ProfileAboutButton>
         </>

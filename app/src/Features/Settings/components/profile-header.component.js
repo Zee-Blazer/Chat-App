@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 // React native paper
@@ -10,6 +10,9 @@ import { FontAwesome } from '@expo/vector-icons';
 
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Context provider
+import { ProfileContext } from '../../../Services/Profile/profile.context';
 
 // Post Profile api
 import { 
@@ -33,6 +36,9 @@ import { CoverImage, SideDisplayView, EditProfileImage, MainSpacer } from './pro
 import { ActioIconCont } from '../../../Components/Tools/Styled-Components/settings-screen.component';
 
 export const ProfileHeader = ({ showPicFunc }) => {
+
+    // const { consThings } = useContext(ProfileContext);
+
     const [image, setImage] = useState(null);
     const [userId, setUserId] = useState();
     const [profileImg, setProfileImg] = useState();
@@ -76,15 +82,17 @@ export const ProfileHeader = ({ showPicFunc }) => {
         getCoverImage(user, setCoverImg);
     }, []);
 
+    const show = () => console.log(uriLink + "profile/pic/" + coverImg);
+
     return (
         <View>
             <TouchableOpacity onPress={ () => picker("cover") }>
                 <CoverImage
-                    source={{ uri: ` ${ 
+                    source={{ uri: `${ 
                         coverImg ? 
                         uriLink + "profile/pic/" + coverImg : 
                         "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" 
-                        } ` 
+                        }` 
                     }}
                 />
             </TouchableOpacity>

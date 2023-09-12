@@ -13,6 +13,7 @@ import { specificUserPost } from '../../../Services/API\'s/Post.api';
 // Components
 import { ProfileHeader } from '../components/profile-header.component';
 import { CardStory } from '../../../Components/Posts/Card-story';
+import { TweeetPost } from '../../../Components/Posts/Card-story/tweet-post.component';
 import { ProfileBios } from '../components/Profile-settings/profile-bio.component';
 
 // Styled Components
@@ -32,7 +33,7 @@ export const StorySettingsScreen = () => {
 
     return (
         <SafeAir>
-            <StoriesHeaderText>Your Stories</StoriesHeaderText>
+            <StoriesHeaderText style={{ color: 'white' }}>Your Stories</StoriesHeaderText>
             
             {/* The profile header with all Images/profile pictures */}
             {/* <ProfileHeader /> */}
@@ -44,7 +45,9 @@ export const StorySettingsScreen = () => {
             { data ? <FlatList 
                 data={data}
                 renderItem={ ({ item }) => (
-                    <CardStory item={ item } />
+                    <>
+                        { item.fileUrl ? <CardStory item={ item } /> : <TweeetPost item={ item } /> }
+                    </>
                 ) }
                 keyExtractor={ item => item._id }
             /> : <Text>loading...</Text>}

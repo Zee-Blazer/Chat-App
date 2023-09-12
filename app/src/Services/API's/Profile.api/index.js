@@ -44,8 +44,17 @@ export const getCoverImage = (user_id, setCoverImg) => {
     } )
 }
 
-export const getSpecificUser = (user_id) => {
-    api.get(`/specific/user/${ user_id }`)
-    .then( res => console.log(res.data) )
+export const getSpecificUser = (user_id, setSpecificUser) => {
+    api.get(`/auth/read/specific/user/${ user_id }`)
+    .then( res => {
+        console.log(res.data)
+        setSpecificUser(res.data);
+    } )
+    .catch( err => console.log(err) );
+}
+
+export const updateAbout = (id, username, email, bio, setStatus) => {
+    api.post("/profile/update-about", { id, username, email, bio })
+    .then( res => setStatus(true) )
     .catch( err => console.log(err) );
 }

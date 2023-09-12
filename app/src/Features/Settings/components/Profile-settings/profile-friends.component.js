@@ -1,9 +1,13 @@
+import React, { useContext } from 'react';
 
 // React Native paper
 import { Avatar } from "react-native-paper";
 
 // React Native component
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { FlatList } from "react-native";
+
+// Context Version 1.2.0
+import { FriendsContext } from "../../../../Services/Friends/friends.context";
 
 // Components
 import { SearchBar } from "../../../Chat/components/search.component";
@@ -17,137 +21,36 @@ import {
 
 import { FollowersLabel, WhiteLabel } from "../profile-screen.style";
 
+// Component
+import { FriendDisplay } from './friend-display.component';
+
 // Expo Icons
 import { Entypo } from '@expo/vector-icons'; 
 
 export const ProfileFriends = () => {
 
+    const { data, filterData, search } = useContext(FriendsContext);
+
     return <>
         <SearchBar />
 
-        <ClientChatBox>
-            <TouchableOpacity>
-            <Avatar.Image
-                size={54}
-                source={{ uri: "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" }}
-            />
-            </TouchableOpacity>
-
-            <ClientMsg>
-                <ClientMsgContainer>
-                    <ClientChatTextFirst>Steve Jobs</ClientChatTextFirst> 
-                    
-                    <TouchableOpacity>
-                        <Entypo name="dots-three-vertical" size={24} color="white" />
-                    </TouchableOpacity>
-                    
-                </ClientMsgContainer>
-
-                <ClientMsgContainer>
-                <FollowersLabel><WhiteLabel>1,234 </WhiteLabel>Following<WhiteLabel> 2,322,728</WhiteLabel> Followers</FollowersLabel>
-                </ClientMsgContainer>
-            </ClientMsg>
-
-        </ClientChatBox>
-
-        <ClientChatBox>
-            <TouchableOpacity>
-            <Avatar.Image
-                size={54}
-                source={{ uri: "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" }}
-            />
-            </TouchableOpacity>
-
-            <ClientMsg>
-                <ClientMsgContainer>
-                    <ClientChatTextFirst>Steve Jobs</ClientChatTextFirst> 
-                    
-                    <TouchableOpacity>
-                        <Entypo name="dots-three-vertical" size={24} color="white" />
-                    </TouchableOpacity>
-                    
-                </ClientMsgContainer>
-
-                <ClientMsgContainer>
-                <FollowersLabel><WhiteLabel>1,234 </WhiteLabel>Following<WhiteLabel> 2,322,728</WhiteLabel> Followers</FollowersLabel>
-                </ClientMsgContainer>
-            </ClientMsg>
-
-        </ClientChatBox>
-
-        <ClientChatBox>
-            <TouchableOpacity>
-            <Avatar.Image
-                size={54}
-                source={{ uri: "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" }}
-            />
-            </TouchableOpacity>
-
-            <ClientMsg>
-                <ClientMsgContainer>
-                    <ClientChatTextFirst>Steve Jobs</ClientChatTextFirst> 
-                    
-                    <TouchableOpacity>
-                        <Entypo name="dots-three-vertical" size={24} color="white" />
-                    </TouchableOpacity>
-                    
-                </ClientMsgContainer>
-
-                <ClientMsgContainer>
-                <FollowersLabel><WhiteLabel>1,234 </WhiteLabel>Following<WhiteLabel> 2,322,728</WhiteLabel> Followers</FollowersLabel>
-                </ClientMsgContainer>
-            </ClientMsg>
-
-        </ClientChatBox>
-
-        <ClientChatBox>
-            <TouchableOpacity>
-            <Avatar.Image
-                size={54}
-                source={{ uri: "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" }}
-            />
-            </TouchableOpacity>
-
-            <ClientMsg>
-                <ClientMsgContainer>
-                    <ClientChatTextFirst>Steve Jobs</ClientChatTextFirst> 
-                    
-                    <TouchableOpacity>
-                        <Entypo name="dots-three-vertical" size={24} color="white" />
-                    </TouchableOpacity>
-                    
-                </ClientMsgContainer>
-
-                <ClientMsgContainer>
-                <FollowersLabel><WhiteLabel>1,234 </WhiteLabel>Following<WhiteLabel> 2,322,728</WhiteLabel> Followers</FollowersLabel>
-                </ClientMsgContainer>
-            </ClientMsg>
-
-        </ClientChatBox>
-
-        <ClientChatBox>
-            <TouchableOpacity>
-            <Avatar.Image
-                size={54}
-                source={{ uri: "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" }}
-            />
-            </TouchableOpacity>
-
-            <ClientMsg>
-                <ClientMsgContainer>
-                    <ClientChatTextFirst>Steve Jobs</ClientChatTextFirst> 
-                    
-                    <TouchableOpacity>
-                        <Entypo name="dots-three-vertical" size={24} color="white" />
-                    </TouchableOpacity>
-                    
-                </ClientMsgContainer>
-
-                <ClientMsgContainer>
-                <FollowersLabel><WhiteLabel>1,234 </WhiteLabel>Following<WhiteLabel> 2,322,728</WhiteLabel> Followers</FollowersLabel>
-                </ClientMsgContainer>
-            </ClientMsg>
-
-        </ClientChatBox>
+        { search ? 
+            filterData ? 
+                <FlatList 
+                    data={ filterData }
+                    renderItem={ ({item}) => (
+                        <FriendDisplay item={ item } />
+                    ) }
+                    keyExtractor={ item => item._id }
+                /> : ""
+            : data ? 
+                <FlatList 
+                    data={ data }
+                    renderItem={ ({item}) => (
+                        <FriendDisplay item={ item } />
+                    ) }
+                    keyExtractor={ item => item._id }
+                />
+        : "" }
     </>
 }

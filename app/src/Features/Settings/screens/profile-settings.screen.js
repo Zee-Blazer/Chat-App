@@ -7,6 +7,10 @@ import { SafeAir } from '../../../Components/Utility/safe-area.component';
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Context Provider Version 1.2.0
+import { ProfileContextProvider } from '../../../Services/Profile/profile.context';
+import { FriendsContextProvider } from '../../../Services/Friends/friends.context';
+
 // Post API call
 import { specificUserPost } from '../../../Services/API\'s/Post.api';
 
@@ -55,26 +59,32 @@ export const ProfileSettingsScreen = () => {
     return (
         <SafeAir>
             
-            <ScrollView>
+            <ProfileContextProvider>
 
-                { showPic && <ProfilePicDisplay showPicFunc={ showPicFunc } /> }
+                <ScrollView>
 
-                {/* The profile header with all Images/profile pictures */}
-                <ProfileHeader showPicFunc={ showPicFunc } />
+                    { showPic && <ProfilePicDisplay showPicFunc={ showPicFunc } /> }
 
-                {/* Information about the current profile... It's following and bios  */}
-                <ProfileInfo />
+                    {/* The profile header with all Images/profile pictures */}
+                    <ProfileHeader showPicFunc={ showPicFunc } />
 
-                {/* The Profile TabBar for smooth navigation in the profiles screen  */}
-                <ProfileTabBar changeTab={ changeTab } active={ tabDisplayer } navItems={ navItems } />
+                    {/* Information about the current profile... It's following and bios  */}
+                    <ProfileInfo />
 
-                {/* Profile Bios were you can check and update profile */}
-                {/* <ProfileBios /> */}
+                    {/* The Profile TabBar for smooth navigation in the profiles screen  */}
+                    <ProfileTabBar changeTab={ changeTab } active={ tabDisplayer } navItems={ navItems } />
 
-                {/* Profile Tab displayer... that display's all the elements of the tab  */}
-                <ProfileTabDisplayer text={ tabDisplayer } data={ data } />
+                    {/* Profile Bios were you can check and update profile */}
+                    {/* <ProfileBios /> */}
 
-            </ScrollView>
+                    {/* Profile Tab displayer... that display's all the elements of the tab  */}
+                    <FriendsContextProvider>
+                        <ProfileTabDisplayer text={ tabDisplayer } data={ data } />
+                    </FriendsContextProvider>
+
+                </ScrollView>
+
+            </ProfileContextProvider>
 
         </SafeAir>
     )

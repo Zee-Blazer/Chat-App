@@ -1,6 +1,10 @@
+import React, { useContext } from 'react';
 
 // React native component
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, Text } from "react-native";
+
+// Profile Context Version 1.2.0
+import { ProfileContext } from '../../../../Services/Profile/profile.context';
 
 // Styled component
 import { 
@@ -9,7 +13,8 @@ import {
     ProfileEmail,
     FollowBox,
     FollowersLabel,
-    WhiteLabel
+    WhiteLabel,
+    ProfileBio
 } from "../profile-screen.style";
 
 // The Navigation
@@ -19,18 +24,28 @@ export const ProfileInfo = () => {
 
     const navigation = useNavigation();
 
+    const { specificUser } = useContext(ProfileContext);
+
     return (
         <ProfileDetailsCont>
-            <ProfileUsername>Mark Zukerburg</ProfileUsername>
-            <ProfileEmail>mark.zukerburg@gmail.com</ProfileEmail>
+            <ProfileUsername>{ specificUser && specificUser.username.toUpperCase() }</ProfileUsername>
+            <ProfileEmail>{ specificUser && specificUser.email }</ProfileEmail>
 
-            <ProfileUsername>Meta CEO, Founder and CEO of Facebook, Instagram etc.</ProfileUsername>
+            <ProfileBio>
+                { 
+                    specificUser && specificUser.bio ? 
+                        specificUser.bio : 
+                        <Text style={{ color: 'grey', fontSize: 18 }}>
+                            Write a Bio in the about section.
+                        </Text>
+                }
+            </ProfileBio>
             <FollowBox>
                 <TouchableOpacity onPress={ () => navigation.navigate("SettingsSub", { screen: "Followings" }) }>
                     <FollowersLabel>
-                        <WhiteLabel>1,234 </WhiteLabel>
+                        <WhiteLabel>{ specificUser && specificUser.following.length } </WhiteLabel>
                         Following
-                        <WhiteLabel> 2,322,728</WhiteLabel> 
+                        <WhiteLabel> { specificUser && specificUser.followers.length } </WhiteLabel> 
                         Followers
                     </FollowersLabel>
                 </TouchableOpacity>

@@ -13,9 +13,6 @@ import * as RootNavigation from '../../Infrastructure/Navigation/root-navigation
 // Navigation
 import { useNavigation } from '@react-navigation/native';
 
-// Context Provider Version 1.2.0
-import { ProfileContextProvider } from '../../Services/Profile/profile.context';
-
 // Safe Area View
 import { SafeAir } from '../../Components/Utility/safe-area.component';
 
@@ -40,37 +37,35 @@ export const SettingsScreen = () => {
 
     return (
         <SafeAir>
-            
-            <ProfileContextProvider>
-                <DoubleCont>
-                    <ProfileSettings />
-                </DoubleCont>
+        
+            <DoubleCont>
+                <ProfileSettings />
+            </DoubleCont>
 
-                <DoubleCont>
-                    <TouchableOpacity onPress={() => { navigation.navigate("SettingsSub", { screen: "Security" }) }}>
-                        <Spread>
-                            <BiggerTitle>Security</BiggerTitle>
-                            <SmallerTitle>Password/Email</SmallerTitle>
-                        </Spread>
-                    </TouchableOpacity>
-                </DoubleCont>
+            <DoubleCont>
+                <TouchableOpacity onPress={() => { navigation.navigate("SettingsSub", { screen: "Security" }) }}>
+                    <Spread>
+                        <BiggerTitle>Security</BiggerTitle>
+                        <SmallerTitle>Password/Email</SmallerTitle>
+                    </Spread>
+                </TouchableOpacity>
+            </DoubleCont>
 
-                <DoubleCont>
-                    <TouchableOpacity onPress={() => { navigation.navigate("SettingsSub", { screen: "Story" }) }}>
-                        <Spread>
-                            <BiggerTitle>Story</BiggerTitle>
-                            <SmallerTitle>Videos/Photos</SmallerTitle>
-                        </Spread>
-                    </TouchableOpacity>
-                </DoubleCont>
+            <DoubleCont>
+                <TouchableOpacity onPress={() => { navigation.navigate("SettingsSub", { screen: "Story" }) }}>
+                    <Spread>
+                        <BiggerTitle>Story</BiggerTitle>
+                        <SmallerTitle>Videos/Photos</SmallerTitle>
+                    </Spread>
+                </TouchableOpacity>
+            </DoubleCont>
 
-                <DoubleCont>
-                    <ProfileSet>
-                        <AntDesign name="logout" size={24} color="red" />
-                        <Logout onPress={() => LogOut()}>Logout</Logout>
-                    </ProfileSet>
-                </DoubleCont>
-            </ProfileContextProvider>
+            <DoubleCont>
+                <ProfileSet>
+                    <AntDesign name="logout" size={24} color="red" />
+                    <Logout onPress={() => LogOut()}>Logout</Logout>
+                </ProfileSet>
+            </DoubleCont>
 
         </SafeAir>
     )

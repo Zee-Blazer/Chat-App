@@ -3,7 +3,14 @@ import { Text } from 'react-native';
 
 // Styled components elements
 import {
-    SecurityTitle, InputBox, InputLabel, MainInput, UpdateBtn, BtnUpdateCont, DeleteAccountText, ResettedPassword
+    SecurityTitle, 
+    InputBox, 
+    InputLabel, 
+    MainInput, 
+    UpdateBtn, 
+    BtnUpdateCont, 
+    DeleteAccountText, 
+    ResettedPassword
 } from '../components/profile-screen.style';
 
 // Error message styled component
