@@ -32,10 +32,17 @@ import { theme } from '../../../Infrastructure/Theme';
 import * as ImagePicker from 'expo-image-picker';
 
 // Styled
-import { CoverImage, SideDisplayView, EditProfileImage, MainSpacer } from './profile-screen.style';
+import { 
+    CoverImage, 
+    SideDisplayView, 
+    EditProfileImage, 
+    MainSpacer,
+    Follow,
+    FollowText
+} from './profile-screen.style';
 import { ActioIconCont } from '../../../Components/Tools/Styled-Components/settings-screen.component';
 
-export const ProfileHeader = ({ showPicFunc }) => {
+export const ProfileHeader = ({ showPicFunc, type }) => {
 
     // const { consThings } = useContext(ProfileContext);
 
@@ -75,18 +82,26 @@ export const ProfileHeader = ({ showPicFunc }) => {
     }
 
     useEffect(async () => {
-        let user = await AsyncStorage.getItem("@user_id")
-        setUserId(user);
+        if(type.type !== "view"){
+            let user = await AsyncStorage.getItem("@user_id")
+            setUserId(user);
 
-        getProfileImage(user, setProfileImg);
-        getCoverImage(user, setCoverImg);
+            getProfileImage(user, setProfileImg);
+            getCoverImage(user, setCoverImg);
+        }
+        else{
+            getProfileImage(type.id, setProfileImg);
+            getCoverImage(type.id, setCoverImg);
+        }
     }, []);
-
-    const show = () => console.log(uriLink + "profile/pic/" + coverImg);
 
     return (
         <View>
-            <TouchableOpacity onPress={ () => picker("cover") }>
+            <TouchableOpacity onPress={ () => {
+                if(type.type !== "view"){
+                    picker("cover")
+                }
+            } }>
                 <CoverImage
                     source={{ uri: `${ 
                         coverImg ? 
@@ -109,30 +124,41 @@ export const ProfileHeader = ({ showPicFunc }) => {
                     // style={styles.profileAvatar}
                 />
             </TouchableOpacity>
-            <EditProfileImage
-                onPress={ () => picker("pic") }
-            >
-                Profile Edit
-            </EditProfileImage>
+            {
+                type.type !== "view" &&
+                <EditProfileImage
+                    onPress={ () => picker("pic") }
+                >
+                    Profile Edit
+                </EditProfileImage>
+            }
 
             <SideDisplayView>
-                <ActioIconCont>
-                    <MaterialIcons
-                        name="image"
-                        size={27}
-                        color={ theme.colors.dark.icon.tertiary }
-                        style={styles.buttonIcon}
-                    />
-                </ActioIconCont>
+                {
+                    type.type !== "view" ?
+                        <>
+                            <ActioIconCont>
+                                <MaterialIcons
+                                    name="image"
+                                    size={27}
+                                    color={ theme.colors.dark.icon.tertiary }
+                                    style={styles.buttonIcon}
+                                />
+                            </ActioIconCont>
 
-                <ActioIconCont>
-                    <FontAwesome
-                        name="pencil"
-                        size={27}
-                        color={ theme.colors.dark.icon.primary }
-                        style={styles.buttonIcon}
-                    />
-                </ActioIconCont>
+                            <ActioIconCont>
+                                <FontAwesome
+                                    name="pencil"
+                                    size={27}
+                                    color={ theme.colors.dark.icon.primary }
+                                    style={styles.buttonIcon}
+                                />
+                            </ActioIconCont>
+                        </> : 
+                        <Follow big={ true } flw={true} style={{ marginBottom: 2 }}>
+                            <FollowText big={ true } flw={true}>Follow</FollowText>
+                        </Follow>
+                }
             </SideDisplayView>
 
             

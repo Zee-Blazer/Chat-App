@@ -8,7 +8,7 @@ import { TweeetPost } from "../../../../Components/Posts/Card-story/tweet-post.c
 import { ProfileAbout } from "./profile-about.component";
 import { ProfileFriends } from "./profile-friends.component";
 
-export const ProfileTabDisplayer = ({ text, data }) => {
+export const ProfileTabDisplayer = ({ text, data, type }) => {
 
     let renderComponent;
 
@@ -33,7 +33,7 @@ export const ProfileTabDisplayer = ({ text, data }) => {
         
         case "About":
             renderComponent = <>
-                <ProfileAbout />
+                <ProfileAbout type={ type } />
             </>
             break;
 

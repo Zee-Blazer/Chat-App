@@ -20,7 +20,7 @@ import {
 // The Navigation
 import { useNavigation } from "@react-navigation/native";
 
-export const ProfileInfo = () => {
+export const ProfileInfo = ({ type }) => {
 
     const navigation = useNavigation();
 
@@ -28,24 +28,56 @@ export const ProfileInfo = () => {
 
     return (
         <ProfileDetailsCont>
-            <ProfileUsername>{ specificUser && specificUser.username.toUpperCase() }</ProfileUsername>
-            <ProfileEmail>{ specificUser && specificUser.email }</ProfileEmail>
+            <ProfileUsername onPress={ () => console.log(type) }>
+                { 
+                    type.type !== "view"  ? 
+                        specificUser && specificUser.username.toUpperCase() :
+                        type.item.username.toUpperCase()
+                }
+            </ProfileUsername>
+            <ProfileEmail>
+                { 
+                    type.type !== "view" ? 
+                        specificUser && specificUser.email :
+                        type.item.email
+                }
+            </ProfileEmail>
 
             <ProfileBio>
                 { 
-                    specificUser && specificUser.bio ? 
+                    type.type !== "view" ?
+                        specificUser && specificUser.bio ? 
                         specificUser.bio : 
                         <Text style={{ color: 'grey', fontSize: 18 }}>
                             Write a Bio in the about section.
-                        </Text>
+                        </Text> :
+                        type.item.bio
                 }
             </ProfileBio>
             <FollowBox>
-                <TouchableOpacity onPress={ () => navigation.navigate("SettingsSub", { screen: "Followings" }) }>
+                <TouchableOpacity 
+                    onPress={ () => navigation.navigate(
+                            "SettingsSub", 
+                            { screen: "Followings", }
+                        ) 
+                    }
+                >
                     <FollowersLabel>
-                        <WhiteLabel>{ specificUser && specificUser.following.length } </WhiteLabel>
-                        Following
-                        <WhiteLabel> { specificUser && specificUser.followers.length } </WhiteLabel> 
+                        <WhiteLabel>
+                            { 
+                                type.type !== "view" ?
+                                    specificUser && specificUser.following.length :
+                                    type.item.following.length
+                            } 
+                        </WhiteLabel>
+                        Following ~ 
+                        <WhiteLabel> 
+                            { 
+                                type.type !== "view" ?
+                                    specificUser && specificUser.followers.length :
+                                    type.item.followers.length
+                            } 
+                        </WhiteLabel> 
                         Followers
                     </FollowersLabel>
                 </TouchableOpacity>

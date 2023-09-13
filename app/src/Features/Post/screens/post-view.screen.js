@@ -25,11 +25,37 @@ import {
     CommentZone
 } from '../components/PostViewHeader/post-view-header.styling';
 
+
 export const PostViewScreen = ({ route }) => {
 
     const navigation = useNavigation();
 
-    // console.log(route.params);
+    const [progress, setProgress] = useState(0);
+    const [isActive, setIsActive] = useState(false);
+
+    useEffect( () => {
+        if(route.params.type == "status"){
+            setIsActive(true)
+        }
+    }, [] )
+
+    useEffect( () => {
+        let interval;
+
+        if (isActive && progress <= 1) {
+            interval = setInterval(() => {
+            setProgress(progress + 0.1); // Decrease progress by 1% every second
+            }, 1000);
+        }
+
+        if (progress >= 1) {
+            setIsActive(false); // Stop the timer when progress reaches 0
+            navigation.goBack();
+        }
+
+        return () => clearInterval(interval);
+
+    }, [isActive, progress] )
 
     return (
         <SafeAir>
@@ -38,8 +64,10 @@ export const PostViewScreen = ({ route }) => {
                 "" : 
                 <ProgressView>
                     <ProgressBar
-                        progress={0.5}
+                        progress={progress}
                         color={Colors.green600}
+                        animationType='spring'
+                        useNativeDriver
                     />
                 </ProgressView> 
             }
@@ -48,23 +76,27 @@ export const PostViewScreen = ({ route }) => {
                 source={{ 
                     url: 
                     route.params.item.fileUrl ? 
-                    uriLink + "post/image/" + route.params.item.fileUrl : 
+                    uriLink + `${ route.params.type == "post" ? "post/image/" : "status/image/" }` + route.params.item.fileUrl : 
                     "https://lumiere-a.akamaihd.net/v1/images/sa_pixar_virtualbg_coco_16x9_9ccd7110.jpeg" 
                 }}
             />
 
             <PostCaptionBg>
-                <PostCaptionTxt>{ route.params.item.msg }</PostCaptionTxt>
+                <PostCaptionTxt>
+                    { route.params.item.msg !== "undefined" && route.params.item.msg }
+                </PostCaptionTxt>
 
                 <CommentZone 
                     onPress={ () => {
-                        navigation.navigate(
-                            "Sub", 
-                            { 
-                                screen: "PostComment", 
-                                params: { user_id: route.params.item.user_id, id: route.params.item._id } 
-                            }
-                        )
+                        if(route.params.type == "post"){
+                            navigation.navigate(
+                                "Sub", 
+                                { 
+                                    screen: "PostComment", 
+                                    params: { user_id: route.params.item.user_id, id: route.params.item._id } 
+                                }
+                            )
+                        }
                     } }
                 >
                     <AntDesign name="up" size={24} color="rgba(0, 255, 40, 1)" style={{ marginLeft: 17 }} />

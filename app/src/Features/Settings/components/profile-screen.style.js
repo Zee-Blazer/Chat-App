@@ -165,7 +165,7 @@ export const PlusMediaLabel = styled.Text`
 // Version 1.2.0 new styling
 
 export const ProfileDetailsCont = styled.View`
-    margin: ${ props => props.theme.space[6] } ${ props => props.theme.space[5] };
+    margin: ${ props => props.theme.space[6] };
 `;
 
 export const ProfileUsername = styled.Text`
@@ -286,15 +286,15 @@ export const FollowingsHeadTitle = styled.Text`
 
 export const Follow = styled.TouchableOpacity`
     background-color: ${ props => props.flw ? props.theme.colors.dark.bg.common : props.theme.colors.dark.bg.plain };
-    padding: ${ props => props.theme.space[3] } ${ props => props.theme.space[5] };;
-    border-radius: 16px;
+    padding: ${ props => props.theme.space[3] } ${ props => props.big ? props.theme.space[6] : props.theme.space[5] };;
+    border-radius: ${ props => props.big ? "24px" : "16px" };
     margin-left: 12px;
 `;
 
 export const FollowText = styled.Text`
-    font-size: ${ props => props.theme.fontSizes.medium };
+    font-size: ${ props => props.big ? props.theme.fontSizes.xlg : props.theme.fontSizes.medium };
     color: ${ props => props.flw ? props.theme.colors.dark.text.plain : props.theme.colors.dark.text.primary };
-    text-align: center
+    text-align: center;
 `;
 
 export const PersonsDetail = styled.Text`
@@ -320,4 +320,5 @@ export const ProfileImageDisplay = styled.Image`
     height: ${ props => props.height/1.67 };
     margin: 12px auto;
     margin-top: 14%;
+    border-radius: 6px;
 `;

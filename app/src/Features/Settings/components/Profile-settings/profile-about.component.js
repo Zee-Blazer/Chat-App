@@ -18,7 +18,7 @@ import { ProfileContext } from "../../../../Services/Profile/profile.context";
 // Theme 
 import { theme } from "../../../../Infrastructure/Theme";
 
-export const ProfileAbout = () => {
+export const ProfileAbout = ({ type }) => {
 
     const { specificUser, updateBio, status } = useContext(ProfileContext);
 
@@ -41,7 +41,11 @@ export const ProfileAbout = () => {
                     <ProfileAboutLabel>Username:</ProfileAboutLabel>
                     <ProfileAboutInput 
                         editable={false}
-                        defaultValue={ specificUser && specificUser.username.toUpperCase() }
+                        defaultValue={
+                            type.type !== "view" ?
+                                specificUser && specificUser.username.toUpperCase() :
+                                type.username
+                        }
                     />
                 </ProfileAboutInputBox>
 
@@ -50,7 +54,11 @@ export const ProfileAbout = () => {
 
                     <ProfileAboutInput 
                         editable={false}
-                        defaultValue={ specificUser && specificUser.email }
+                        defaultValue={
+                            type.type !== "view" ?
+                                specificUser && specificUser.username.toUpperCase() :
+                                type.item.email
+                        }
                     />
                 </ProfileAboutInputBox>
 
@@ -60,11 +68,17 @@ export const ProfileAbout = () => {
                         editable
                         multiline
                         placeholder={ 
-                            specificUser && specificUser.bio ? 
-                                specificUser.bio : 
-                                "Write a Bio"  
+                            type.type !== "view" ?
+                                specificUser && specificUser.bio ? 
+                                    specificUser.bio : 
+                                    "Write a Bio"  :
+                                type.item.bio
                         }
-                        value={ !bio ? specificUser && specificUser.bio : bio }
+                        value={ 
+                            type.type !== 'view' ?
+                                !bio ? specificUser && specificUser.bio : bio :
+                                type.item.bio
+                        }
                         placeholderTextColor={ theme.colors.dark.text.secondary }
                         onChangeText={ setBio }
                     />
@@ -72,9 +86,12 @@ export const ProfileAbout = () => {
 
             </ProfileAboutCont>
 
-            <ProfileAboutButton onPress={ () => updateBio(bio) }>
-                <ProfileAboutBtnLabel>UPDATE</ProfileAboutBtnLabel>
-            </ProfileAboutButton>
+            {
+                type.type !== "view" &&
+                <ProfileAboutButton onPress={ () => updateBio(bio) }>
+                    <ProfileAboutBtnLabel>UPDATE</ProfileAboutBtnLabel>
+                </ProfileAboutButton>
+            }
         </>
     )
 }

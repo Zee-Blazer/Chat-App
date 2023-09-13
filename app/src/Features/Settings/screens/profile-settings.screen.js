@@ -28,7 +28,10 @@ import { ProfileTabDisplayer } from '../components/Profile-settings/profile-tab-
 // Styled Components
 import { CoverImage } from '../components/profile-screen.style';
 
-export const ProfileSettingsScreen = () => {
+export const ProfileSettingsScreen = ({ route }) => {
+
+    const type = route.params; // The type of screen that should be displayed... User or friend
+
     const [user_id, setUser_id] = useState();
     const [data, setData] = useState();
 
@@ -49,7 +52,12 @@ export const ProfileSettingsScreen = () => {
     }, [])
 
     useEffect( () => {
-        specificUserPost(user_id, setData);
+        if(type.type !== "view"){
+            specificUserPost(user_id, setData);
+        }
+        else{
+            specificUserPost(type.id, setData)
+        }
     }, [user_id] );
 
     const changeTab = (text) => setTabDisplayer(text);
@@ -63,23 +71,28 @@ export const ProfileSettingsScreen = () => {
 
                 <ScrollView>
 
-                    { showPic && <ProfilePicDisplay showPicFunc={ showPicFunc } /> }
+                    { showPic && <ProfilePicDisplay showPicFunc={ showPicFunc } type={ type } /> }
 
                     {/* The profile header with all Images/profile pictures */}
-                    <ProfileHeader showPicFunc={ showPicFunc } />
+                    <ProfileHeader showPicFunc={ showPicFunc } type={ type } />
 
                     {/* Information about the current profile... It's following and bios  */}
-                    <ProfileInfo />
+                    <ProfileInfo type={ type } />
 
                     {/* The Profile TabBar for smooth navigation in the profiles screen  */}
-                    <ProfileTabBar changeTab={ changeTab } active={ tabDisplayer } navItems={ navItems } />
+                    <ProfileTabBar 
+                        changeTab={ changeTab } 
+                        active={ tabDisplayer } 
+                        navItems={ navItems } 
+                        type={ type }
+                    />
 
                     {/* Profile Bios were you can check and update profile */}
                     {/* <ProfileBios /> */}
 
                     {/* Profile Tab displayer... that display's all the elements of the tab  */}
                     <FriendsContextProvider>
-                        <ProfileTabDisplayer text={ tabDisplayer } data={ data } />
+                        <ProfileTabDisplayer text={ tabDisplayer } data={ data } type={ type } />
                     </FriendsContextProvider>
 
                 </ScrollView>

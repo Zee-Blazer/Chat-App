@@ -35,7 +35,12 @@ export const ChatFriends = () => {
 
                             return (
                                 <>
-                                    <ChatClient userProfile={ item.profile } username={ item.username } id={ item._id } />
+                                    <ChatClient 
+                                        userProfile={ item.profile } 
+                                        username={ item.username } 
+                                        id={ item._id } 
+                                        item={ item }
+                                    />
                                 </>
                             )
                         } } 
@@ -51,7 +56,12 @@ export const ChatFriends = () => {
 
                             return (
                                 <>
-                                    <ChatClient userProfile={ item.profile } username={ item.username } id={ item._id } />
+                                    <ChatClient 
+                                        userProfile={ item.profile } 
+                                        username={ item.username } 
+                                        id={ item._id } 
+                                        item={ item }
+                                    />
                                 </>
                             )
                         } } 

@@ -11,6 +11,9 @@ import { FriendsContext } from '../../../Services/Friends/friends.context';
 // Image Url Link
 import { uriLink } from '../../../Services/Axios/axios-api';
 
+// Navigation Version 1.2.0
+import { useNavigation } from '@react-navigation/native';
+
 // Firebase API Version 1.2.0
 import { getAllNewSpecificId } from '../../../Services/API\'s/ChatBox.api';
 
@@ -35,9 +38,11 @@ import {
 // This component helps display all the people that are already your friends for chatting
 // ******************************************************************** // 
 
-export const ChatClient = ({ userProfile, username, id }) => {
+export const ChatClient = ({ userProfile, username, id, item }) => {
 
     const { getLastMsg, specificNote, deleteSpecificNote } = useContext(FriendsContext);
+
+    const navigation = useNavigation();
 
     const [lastMsg, setLastMsg] = useState();
     const [time, setTime] = useState();
@@ -54,13 +59,30 @@ export const ChatClient = ({ userProfile, username, id }) => {
         <TouchableOpacity onPress={ 
             () => 
                 {
-                    RootNavigation.navigate( "ChatSub", { screen: "ChatView", params: { id, username, profile: userProfile } } )
+                    RootNavigation.navigate( 
+                        "ChatSub", 
+                        { 
+                            screen: "ChatView", 
+                            params: { id, username, profile: userProfile } 
+                        } 
+                    )
                     deleteSpecificNote(id);
                 }
             
         }>
             <ClientChatBox>
-                <TouchableOpacity>
+                <TouchableOpacity 
+                    onPress={ () => navigation.navigate(
+                        "SettingsSub", 
+                        { screen: "Profile", params: { 
+                            type: "view", 
+                            id, 
+                            username, 
+                            profile: userProfile,
+                            item
+                        } }) 
+                    }
+                >
                     <Avatar.Image 
                         size={54}
                         source={{ uri: `${ userProfile ? uriLink + "profile/pic/" + userProfile :

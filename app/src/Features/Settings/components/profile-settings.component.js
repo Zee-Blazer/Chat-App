@@ -41,7 +41,7 @@ export const ProfileSettings = () => {
     console.log(userRecord);
 
     return (
-        <ProfileSet onPress={() => navigation.navigate("SettingsSub", { screen: "Profile" })}>
+        <ProfileSet onPress={() => navigation.navigate("SettingsSub", { screen: "Profile", params: { type: "profile" } })}>
             <Avatar.Image
                 size={84}
                 source={{

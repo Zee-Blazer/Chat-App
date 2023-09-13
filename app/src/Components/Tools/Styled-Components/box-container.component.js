@@ -14,7 +14,7 @@ export const Scroller  = styled.ScrollView`
     padding: 6px;
 `;
 
-export const ProfilePost = styled.View`
+export const ProfilePost = styled.TouchableOpacity`
     padding: 0px 8px;
     margin: 2px 4px; 
 `;
