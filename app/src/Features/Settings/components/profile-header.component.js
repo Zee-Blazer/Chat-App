@@ -171,7 +171,7 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
                                 big={ true } 
                                 flw={ isFollower ? isFollower : "" }
                             >
-                                Follow
+                                { isFollower ? "Following" : "Follow" }
                             </FollowText>
                         </Follow>
                 }

@@ -12,6 +12,9 @@ import { SafeAir } from "../../../Components/Utility/safe-area.component";
 // Expo icons
 import { Ionicons } from '@expo/vector-icons';
 
+// Context Provider
+import { FollowContextProvider } from '../../../Services/Follow/follow.context';
+
 // Styled components
 import { FollowingsHeader, FollowingsHeadTitle } from "../components/profile-screen.style";
 
@@ -36,18 +39,21 @@ export const FollowingsScreen = ({ route }) => {
     const changeTab = (text) => setTabDisplayer(text);
 
     return <SafeAir>
-        <FollowingsHeader>
-            <TouchableOpacity onPress={ () => navigation.goBack() }>
-                <Ionicons name="chevron-back-sharp" size={24} color="white" />
-            </TouchableOpacity>
-            <FollowingsHeadTitle>
-                { item.username.toUpperCase() }
-            </FollowingsHeadTitle>
-        </FollowingsHeader>
+        
+        <FollowContextProvider>
+            <FollowingsHeader>
+                <TouchableOpacity onPress={ () => navigation.goBack() }>
+                    <Ionicons name="chevron-back-sharp" size={24} color="white" />
+                </TouchableOpacity>
+                <FollowingsHeadTitle>
+                    { item.username.toUpperCase() }
+                </FollowingsHeadTitle>
+            </FollowingsHeader>
 
-        <ProfileTabBar changeTab={ changeTab } active={ tabDisplayer } navItems={ navItems } />
+            <ProfileTabBar changeTab={ changeTab } active={ tabDisplayer } navItems={ navItems } />
 
-        <FollowingsDisplayer text={ tabDisplayer } type={ type } item={ item } />
+            <FollowingsDisplayer text={ tabDisplayer } type={ type } item={ item } />
+        </FollowContextProvider>
 
     </SafeAir>
 }
