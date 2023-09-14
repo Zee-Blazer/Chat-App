@@ -285,15 +285,16 @@ export const FollowingsHeadTitle = styled.Text`
 `;
 
 export const Follow = styled.TouchableOpacity`
-    background-color: ${ props => props.flw ? props.theme.colors.dark.bg.common : props.theme.colors.dark.bg.plain };
+    background-color: ${ props => !props.flw ? props.theme.colors.dark.bg.common : props.theme.colors.dark.bg.plain };
     padding: ${ props => props.theme.space[3] } ${ props => props.big ? props.theme.space[6] : props.theme.space[5] };;
     border-radius: ${ props => props.big ? "24px" : "16px" };
     margin-left: 12px;
+    justify-content: flex-end;
 `;
 
 export const FollowText = styled.Text`
     font-size: ${ props => props.big ? props.theme.fontSizes.xlg : props.theme.fontSizes.medium };
-    color: ${ props => props.flw ? props.theme.colors.dark.text.plain : props.theme.colors.dark.text.primary };
+    color: ${ props => !props.flw ? props.theme.colors.dark.text.plain : props.theme.colors.dark.text.primary };
     text-align: center;
 `;
 

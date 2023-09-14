@@ -14,7 +14,7 @@ import {
 import { AddPost } from './addPost.component';
 import { ViewPost } from './viewPost.component';
 
-export const Story = ({ changeDisplay, refresh }) => {
+export const Story = ({ changeDisplay, refresh, type }) => {
     const [stories, setStories] = useState();
 
     useEffect(() => {
@@ -32,7 +32,7 @@ export const Story = ({ changeDisplay, refresh }) => {
 
             <Scroller horizontal showsHorizontalScrollIndicator={false} >
 
-                <AddPost open={ openDisplay } />
+                { type == "post" && <AddPost open={ openDisplay } /> }
 
                 { stories && <FlatList 
                     horizontal

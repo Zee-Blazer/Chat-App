@@ -39,7 +39,7 @@ export const ProfileTabDisplayer = ({ text, data, type }) => {
 
         case "Friends":
             renderComponent = <>
-                <ProfileFriends />
+                <ProfileFriends type={ type } />
             </>
             break;
     }

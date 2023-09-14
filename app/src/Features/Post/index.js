@@ -71,7 +71,7 @@ export const PostScreen = ({ navigation }) => {
 
                 <NewPost changeDisplay={ changeDisplay } />
 
-                <Story changeDisplay={ changeDisplay } refresh={ refresh } />
+                <Story changeDisplay={ changeDisplay } refresh={ refresh } type="post" />
 
                 { data ? <FlatList 
                     data={data}

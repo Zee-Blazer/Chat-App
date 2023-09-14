@@ -51,7 +51,7 @@ export const ChatScreen = () => {
 
             <ScrollView>
 
-                <Story />
+                <Story type="chat" />
 
                 <FriendsContextProvider>
                     <SplitScreen>

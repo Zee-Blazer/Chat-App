@@ -10,6 +10,9 @@ import {
     ClientMsg,
 } from "../../../../Components/Tools/Styled-Components/chat-screen.component";
 
+// Image URI link
+import { uriLink } from "../../../../Services/Axios/axios-api";
+
 import { 
     FollowersLabel, 
     WhiteLabel, 
@@ -22,23 +25,28 @@ import {
 // React Native component
 import { TouchableOpacity, View } from "react-native";
 
-export const Following = () => (
+export const Following = ({ item }) => (
     <>
         <ClientChatBox>
             <TouchableOpacity>
             <Avatar.Image
                 size={54}
-                source={{ uri: "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" }}
+                source={{ uri: 
+                    item.profile ? 
+                        uriLink + "profile/pic/" + item.profile
+                        : 
+                        "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" 
+                }}
             />
             </TouchableOpacity>
 
             <ClientMsg>
                 <ClientMsgContainer>
-                    <View style={{ marginTop: -2 }}>
-                        <ClientChatTextFirst>Steve Jobs</ClientChatTextFirst> 
+                    <View style={{ marginTop: -2, flex: 1 }}>
+                        <ClientChatTextFirst>{ item.username.toUpperCase() }</ClientChatTextFirst> 
                         <FollowersLabel>
-                            <WhiteLabel>1,234 </WhiteLabel>Following
-                            <WhiteLabel> 2,322,728</WhiteLabel> Followers
+                            <WhiteLabel>{ item.following.length } </WhiteLabel>Following
+                            <WhiteLabel> { item.followers.length }</WhiteLabel> Followers
                         </FollowersLabel>
                     </View>
                     
@@ -49,7 +57,7 @@ export const Following = () => (
                 </ClientMsgContainer>
 
                 <ClientMsgContainer>
-                    <PersonsDetail>Meta CEO, Founder and CEO of Facebook, Instagram etc.</PersonsDetail>
+                    <PersonsDetail>{ item.bio }</PersonsDetail>
                 </ClientMsgContainer>
             </ClientMsg>
 

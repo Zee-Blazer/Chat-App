@@ -58,7 +58,13 @@ export const ProfileInfo = ({ type }) => {
                 <TouchableOpacity 
                     onPress={ () => navigation.navigate(
                             "SettingsSub", 
-                            { screen: "Followings", }
+                            { 
+                                screen: "Followings", 
+                                params: { 
+                                    type: type.type, 
+                                    item: type.type !== "view" ? specificUser : type.item 
+                                } 
+                            }
                         ) 
                     }
                 >

@@ -50,6 +50,7 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
     const [userId, setUserId] = useState();
     const [profileImg, setProfileImg] = useState();
     const [coverImg, setCoverImg] = useState();
+    const [isFollower, setIsFollower] = useState();
 
     const picker = async ( type ) => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -82,10 +83,10 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
     }
 
     useEffect(async () => {
-        if(type.type !== "view"){
-            let user = await AsyncStorage.getItem("@user_id")
-            setUserId(user);
+        let user = await AsyncStorage.getItem("@user_id")
+        setUserId(user);
 
+        if(type.type !== "view"){
             getProfileImage(user, setProfileImg);
             getCoverImage(user, setCoverImg);
         }
@@ -94,6 +95,12 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
             getCoverImage(type.id, setCoverImg);
         }
     }, []);
+
+    useEffect( () => {
+        if(type.type == 'view'){
+            setIsFollower(type.item.followers.some( item => item.user_id === userId ))
+        }
+    }, [userId] )
 
     return (
         <View>
@@ -155,8 +162,17 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
                                 />
                             </ActioIconCont>
                         </> : 
-                        <Follow big={ true } flw={true} style={{ marginBottom: 2 }}>
-                            <FollowText big={ true } flw={true}>Follow</FollowText>
+                        <Follow 
+                            big={ true } 
+                            flw={isFollower ? isFollower : ""} 
+                            style={{ marginBottom: 2 }}
+                        >
+                            <FollowText 
+                                big={ true } 
+                                flw={ isFollower ? isFollower : "" }
+                            >
+                                Follow
+                            </FollowText>
                         </Follow>
                 }
             </SideDisplayView>

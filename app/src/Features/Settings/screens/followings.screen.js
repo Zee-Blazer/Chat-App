@@ -19,9 +19,12 @@ import { FollowingsHeader, FollowingsHeadTitle } from "../components/profile-scr
 import { ProfileTabBar } from "../components/Profile-settings/profile-tab-bar.component";
 import { FollowingsDisplayer } from '../components/Followings/followings-displayer.component';
 
-export const FollowingsScreen = () => {
+export const FollowingsScreen = ({ route }) => {
 
     const navigation = useNavigation();
+
+    const type = route.params.type;
+    const item = route.params.item
 
     const [tabDisplayer, setTabDisplayer] = useState("Followers")
 
@@ -37,12 +40,14 @@ export const FollowingsScreen = () => {
             <TouchableOpacity onPress={ () => navigation.goBack() }>
                 <Ionicons name="chevron-back-sharp" size={24} color="white" />
             </TouchableOpacity>
-            <FollowingsHeadTitle>Mark Zukerburg</FollowingsHeadTitle>
+            <FollowingsHeadTitle>
+                { item.username.toUpperCase() }
+            </FollowingsHeadTitle>
         </FollowingsHeader>
 
         <ProfileTabBar changeTab={ changeTab } active={ tabDisplayer } navItems={ navItems } />
 
-        <FollowingsDisplayer text={ tabDisplayer } />
+        <FollowingsDisplayer text={ tabDisplayer } type={ type } item={ item } />
 
     </SafeAir>
 }
