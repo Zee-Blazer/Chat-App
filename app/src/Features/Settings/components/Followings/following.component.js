@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 // React Native paper
 import { Avatar } from "react-native-paper";
+
+// Follow Context 
+import { FollowContext } from '../../../../Services/Follow/follow.context';
 
 // Styled component
 import { 
@@ -30,6 +33,8 @@ import {
 import { TouchableOpacity, View } from "react-native"; 
 
 export const Following = ({ item }) => {
+
+    const { startFollowing } = useContext(FollowContext)
 
     const [userId, setUserId] = useState();
     const [isFollower, setIsFollower] = useState();
@@ -76,6 +81,7 @@ export const Following = ({ item }) => {
                         
                         <Follow 
                             flw={ isFollower ? isFollower : "" }
+                            onPress={ () => startFollowing() }
                         >
                             <FollowText
                                 flw={ isFollower ? isFollower : "" }

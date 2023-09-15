@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // Context Provider Version 1.2.0
 import { ProfileContextProvider } from '../../../Services/Profile/profile.context';
 import { FriendsContextProvider } from '../../../Services/Friends/friends.context';
+import { FollowContextProvider } from '../../../Services/Follow/follow.context';
 
 // Post API call
 import { specificUserPost } from '../../../Services/API\'s/Post.api';
@@ -74,7 +75,9 @@ export const ProfileSettingsScreen = ({ route }) => {
                     { showPic && <ProfilePicDisplay showPicFunc={ showPicFunc } type={ type } /> }
 
                     {/* The profile header with all Images/profile pictures */}
-                    <ProfileHeader showPicFunc={ showPicFunc } type={ type } />
+                    <FollowContextProvider>
+                        <ProfileHeader showPicFunc={ showPicFunc } type={ type } />
+                    </FollowContextProvider>
 
                     {/* Information about the current profile... It's following and bios  */}
                     <ProfileInfo type={ type } />

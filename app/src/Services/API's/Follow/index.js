@@ -19,3 +19,11 @@ export const getAllFollowing = (details, setFollowing) => {
             .catch(err => console.log(err));
     }
 }
+
+export const newFollower = (username, id, user_id, personname) => {
+    api.post("/follow/new-follower", { user_id, username, personname, id })
+    .then( res => console.log(res.data) )
+    .catch( err => console.log(err) );
+}
+
+export const unFollowPerson = () => {}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 // React Native component
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -41,6 +41,7 @@ export const FollowingsScreen = ({ route }) => {
     return <SafeAir>
         
         <FollowContextProvider>
+
             <FollowingsHeader>
                 <TouchableOpacity onPress={ () => navigation.goBack() }>
                     <Ionicons name="chevron-back-sharp" size={24} color="white" />
@@ -53,6 +54,7 @@ export const FollowingsScreen = ({ route }) => {
             <ProfileTabBar changeTab={ changeTab } active={ tabDisplayer } navItems={ navItems } />
 
             <FollowingsDisplayer text={ tabDisplayer } type={ type } item={ item } />
+
         </FollowContextProvider>
 
     </SafeAir>

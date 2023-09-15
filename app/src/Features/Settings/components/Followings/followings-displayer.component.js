@@ -1,6 +1,9 @@
-import React, { useState, useEffect } from 'react'; // Version 1.2.0
+import React, { useState, useEffect, useContext } from 'react'; // Version 1.2.0
 
 import { FlatList, text } from 'react-native'; // React native import
+
+// Context Provider
+import { FollowContextProvider } from '../../../../Services/Follow/follow.context';
 
 // API call 
 import { getAllFollowers, getAllFollowing } from '../../../../Services/API\'s/Follow';
@@ -54,5 +57,5 @@ export const FollowingsDisplayer = ({ text, type, item }) => {
             break;
     }
 
-    return renderComponent
+    return renderComponent 
 }

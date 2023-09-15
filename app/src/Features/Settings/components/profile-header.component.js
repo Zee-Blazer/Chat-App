@@ -11,6 +11,9 @@ import { FontAwesome } from '@expo/vector-icons';
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Context Importation Version 1.2.0
+import { FollowContext } from '../../../Services/Follow/follow.context';
+
 // Context provider
 import { ProfileContext } from '../../../Services/Profile/profile.context';
 
@@ -44,7 +47,7 @@ import { ActioIconCont } from '../../../Components/Tools/Styled-Components/setti
 
 export const ProfileHeader = ({ showPicFunc, type }) => {
 
-    // const { consThings } = useContext(ProfileContext);
+    const { startFollowing } = useContext(FollowContext);
 
     const [image, setImage] = useState(null);
     const [userId, setUserId] = useState();
@@ -166,6 +169,7 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
                             big={ true } 
                             flw={isFollower ? isFollower : ""} 
                             style={{ marginBottom: 2 }}
+                            onPress={ () => isFollower ? "" : startFollowing(type.item) }
                         >
                             <FollowText 
                                 big={ true } 
