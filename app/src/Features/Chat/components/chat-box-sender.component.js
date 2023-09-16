@@ -94,17 +94,18 @@ export const ChatBoxSender = ({ id }) => {
     Keyboard.addListener('keyboardDidHide', keyboardActiveListenerHide);
 
     return (
-        <ChatBox windowHeight={ windowHeight } dimension={ keyboardActive }>
+        <ChatBox windowHeight={ windowHeight } dimension={ keyboardActive } factor={ keyboardActive }>
 
             <MessagerNest>
                 <MessagerBox
-                    style={{ minHeight: height < 40 ? height : 40 }}
+                    // style={{ minHeight: height < 40 ? height : 40 }}
                     placeholder="Type a Message..."
                     value={msg}
                     onChangeText={setMsg}
                     autoCapitalize="none"
                     autoCorrect={false}
                     multiline={true}
+                    numberOfLines={4}
                     onContentSizeChange={
                         ({ nativeEvent: { contentSize: { width, height } } }) => setHeight(height)
                     }

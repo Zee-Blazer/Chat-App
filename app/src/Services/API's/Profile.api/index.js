@@ -47,7 +47,6 @@ export const getCoverImage = (user_id, setCoverImg) => {
 export const getSpecificUser = (user_id, setSpecificUser) => {
     api.get(`/auth/read/specific/user/${ user_id }`)
     .then( res => {
-        console.log(res.data)
         setSpecificUser(res.data);
     } )
     .catch( err => console.log(err) );

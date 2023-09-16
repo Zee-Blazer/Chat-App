@@ -47,7 +47,7 @@ import { ActioIconCont } from '../../../Components/Tools/Styled-Components/setti
 
 export const ProfileHeader = ({ showPicFunc, type }) => {
 
-    const { startFollowing } = useContext(FollowContext);
+    const { startFollowing, updated, unFollow } = useContext(FollowContext);
 
     const [image, setImage] = useState(null);
     const [userId, setUserId] = useState();
@@ -99,6 +99,8 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
         }
     }, []);
 
+    useEffect( () => setIsFollower(updated), [updated] )
+
     useEffect( () => {
         if(type.type == 'view'){
             setIsFollower(type.item.followers.some( item => item.user_id === userId ))
@@ -116,7 +118,7 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
                     source={{ uri: `${ 
                         coverImg ? 
                         uriLink + "profile/pic/" + coverImg : 
-                        "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" 
+                        "https://i1.sndcdn.com/avatars-000064006708-xvoch7-t500x500.jpg" 
                         }` 
                     }}
                 />
@@ -130,7 +132,7 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
                     size={114}
                     source={{ uri: `${ profileImg ? 
                         uriLink + "profile/pic/" + profileImg : 
-                        "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" }` }}
+                        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" }` }}
                     // style={styles.profileAvatar}
                 />
             </TouchableOpacity>
@@ -169,7 +171,11 @@ export const ProfileHeader = ({ showPicFunc, type }) => {
                             big={ true } 
                             flw={isFollower ? isFollower : ""} 
                             style={{ marginBottom: 2 }}
-                            onPress={ () => isFollower ? "" : startFollowing(type.item) }
+                            onPress={ () => isFollower ? 
+                                    unFollow(type.item) 
+                                : 
+                                    startFollowing(type.item) 
+                            }
                         >
                             <FollowText 
                                 big={ true } 

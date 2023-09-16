@@ -86,7 +86,7 @@ export const ChatClient = ({ userProfile, username, id, item }) => {
                     <Avatar.Image 
                         size={54}
                         source={{ uri: `${ userProfile ? uriLink + "profile/pic/" + userProfile :
-                            "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800"
+                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
                         }` }}
                         style={{ marginTop: 8 }}
                     />

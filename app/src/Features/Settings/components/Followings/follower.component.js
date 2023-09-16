@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 // React Native paper
 import { Avatar } from "react-native-paper";
@@ -10,6 +10,9 @@ import {
     ClientChatTextFirst,
     ClientMsg,
 } from "../../../../Components/Tools/Styled-Components/chat-screen.component";
+
+// Follow Context
+import { FollowContext } from '../../../../Services/Follow/follow.context';
 
 // Image URI link
 import { uriLink } from "../../../../Services/Axios/axios-api";
@@ -30,6 +33,8 @@ import {
 import { TouchableOpacity, View } from "react-native";
 
 export const Followers = ({ item }) => {
+
+    const { startFollowing, updated, unFollow } = useContext(FollowContext);
 
     const [userId, setUserId] = useState();
     const [isFollower, setIsFollower] = useState();
@@ -53,7 +58,7 @@ export const Followers = ({ item }) => {
                         item.profile ? 
                             uriLink + "profile/pic/" + item.profile
                             : 
-                            "https://img.freepik.com/free-photo/pleasant-looking-serious-man-stands-profile-has-confident-expression-wears-casual-white-t-shirt_273609-16959.jpg?size=626&ext=jpg&ga=GA1.2.1411842976.1640908800" 
+                            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" 
                     }}
                 />
                 </TouchableOpacity>
@@ -78,6 +83,7 @@ export const Followers = ({ item }) => {
                         
                         <Follow
                             flw={ isFollower ? isFollower : "" }
+                            onPress={ () => isFollower ? unFollow(item) : startFollowing(item) }
                         >
                             <FollowText
                                 flw={ isFollower ? isFollower : "" }

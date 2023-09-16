@@ -44,7 +44,10 @@ export const ProfilePost = ({ user_id, msg, type, item }) => {
         <GridDisplay>
             <Avatar.Image 
                 size={42}
-                source={{ uri: `${profile ? uriLink + 'profile/pic/' + profile : ""}` }} 
+                source={{ uri: `${profile ? 
+                    uriLink + 'profile/pic/' + profile : 
+                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}` 
+                }} 
             />
 
             { type != "tweet" ? <View>

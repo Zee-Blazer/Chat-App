@@ -18,13 +18,14 @@ export const AccountCover = styled.View`
 `;
 
 export const ChatBox = styled.View`
-    flex: 0.1;
+    flex: ${ props => props.factor ? "15" : "0.1" };
     margin: 8px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     z-index: 4;
+    margin-bottom: ${ props => props.factor && "12px" };
 `;
 
 export const MessagerNest = styled.View`

@@ -34,10 +34,10 @@ export const HeaderLeft = ({ navigation, route }) => {
             />
 
             <Avatar.Image
-                size={42}
+                size={41}
                 source={{ uri: route.params.profile ? 
                     uriLink + 'profile/pic/' + route.params.profile : 
-                    "https://loveshayariimages.in/wp-content/uploads/2021/10/1080p-Latest-Whatsapp-Profile-Images-1.jpg" 
+                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" 
                 }}
             />
         </GroupEle>

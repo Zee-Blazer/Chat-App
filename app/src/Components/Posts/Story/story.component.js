@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { Avatar } from 'react-native-paper'; 
 
 // Axios API
 import { getAllStatus } from '../../../Services/API\'s/Story.api';
 
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacity, Text } from 'react-native';
 
 import {
     Box,
     Scroller,
+} from '../../Tools/Styled-Components/box-container.component';
+
+import { 
+    ProfilePost,
+    ProfileLabel, 
 } from '../../Tools/Styled-Components/box-container.component';
 
 // Components that makes this work

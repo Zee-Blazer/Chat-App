@@ -20,10 +20,17 @@ export const getAllFollowing = (details, setFollowing) => {
     }
 }
 
-export const newFollower = (username, id, user_id, personname) => {
+export const newFollower = ({ username, id, user_id, personname, setUpdated }) => {
     api.post("/follow/new-follower", { user_id, username, personname, id })
-    .then( res => console.log(res.data) )
-    .catch( err => console.log(err) );
+        .then( res => setUpdated(true) )
+        .catch( err => console.log(err) );
 }
 
-export const unFollowPerson = () => {}
+export const unFollowPerson = ({ username, id, user_id, personname, setUpdated }) => {
+    api.post("/follow/unfollow", { user_id, username, personname, id })
+        .then( res => {
+            setUpdated(true)
+            setUpdated(false)
+        } )
+        .catch( err => console.log(err) );
+}

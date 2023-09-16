@@ -57,8 +57,8 @@ export const AddPost = ({ open }) => {
     }, []);
 
     return (
-        <TouchableOpacity onPress={ () => open("status") }>
-            <ProfilePost>
+        <TouchableOpacity>
+            <ProfilePost onPress={ () => open("status") }>
                 <Avatar.Text size={54} label="+" style={{ backgroundColor: "#6D6D6D" }} />
                 <ProfileLabel>Add Post</ProfileLabel>
             </ProfilePost>

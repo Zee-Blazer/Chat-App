@@ -15,9 +15,20 @@ const windowHeight = Dimensions.get("window").height;
 export const ChatViewScreen = ({ route }) => {
 
     const [reduce, setReduce] = useState(false);
+    const [keyboardActive, setKeyboardActive] = useState(false);
 
-    Keyboard.addListener("keyboardDidShow", () => setReduce(true));
-    Keyboard.addListener("keyboardDidHide", () => setReduce(false));
+    
+    const keyboardActiveListenerShow = () => {
+        setKeyboardActive(true)
+        console.log("Is Active")
+    }
+    const keyboardActiveListenerHide = () => {
+        setKeyboardActive(false)
+        console.log("Is not Active")
+    }
+
+    Keyboard.addListener("keyboardDidShow", keyboardActiveListenerShow);
+    Keyboard.addListener('keyboardDidHide', keyboardActiveListenerHide);
 
     return (
         <AccountBackground setHeight={ windowHeight }>
