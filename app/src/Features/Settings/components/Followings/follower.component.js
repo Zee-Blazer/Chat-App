@@ -50,7 +50,7 @@ export const Followers = ({ item }) => {
 
     return (
         <>
-            <ClientChatBox>
+            { item && <ClientChatBox>
                 <TouchableOpacity>
                 <Avatar.Image
                     size={54}
@@ -99,7 +99,7 @@ export const Followers = ({ item }) => {
                     </ClientMsgContainer>
                 </ClientMsg>
     
-            </ClientChatBox>
+            </ClientChatBox> }
         </>
     )
 }

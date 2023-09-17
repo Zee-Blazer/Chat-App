@@ -47,7 +47,7 @@ export const FollowingsScreen = ({ route }) => {
                     <Ionicons name="chevron-back-sharp" size={24} color="white" />
                 </TouchableOpacity>
                 <FollowingsHeadTitle>
-                    { item.username.toUpperCase() }
+                    { item && item.username.toUpperCase() }
                 </FollowingsHeadTitle>
             </FollowingsHeader>
 

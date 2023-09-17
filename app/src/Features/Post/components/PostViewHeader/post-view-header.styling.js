@@ -118,7 +118,7 @@ export const WriteCaption = styled.TextInput`
 
 export const WriteCaptionCont = styled.View`
     position: absolute;
-    top: 96%;
+    top: 90%;
     flex-direction: row;
     justify-content: space-between;
 `;
