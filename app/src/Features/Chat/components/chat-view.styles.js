@@ -18,7 +18,7 @@ export const AccountCover = styled.View`
 `;
 
 export const ChatBox = styled.View`
-    flex: ${ props => props.factor ? "15" : "0.1" };
+    flex: ${ Platform.OS === "ios" ? props => props.factor ? "1" : "0.1" : "0.1" };
     margin: 8px;
     display: flex;
     flex-direction: row;
@@ -26,6 +26,7 @@ export const ChatBox = styled.View`
     align-items: center;
     z-index: 4;
     margin-bottom: ${ props => props.factor && "12px" };
+    margin-top: ${ Platform.OS === "ios" ? props => props.factor ? "-640px" : "8px" : "8px" };
 `;
 
 export const MessagerNest = styled.View`

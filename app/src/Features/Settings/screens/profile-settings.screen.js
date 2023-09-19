@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Text, ScrollView, FlatList } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { Text, ScrollView, FlatList, RefreshControl } from 'react-native';
 
 // Safe Area
 import { SafeAir } from '../../../Components/Utility/safe-area.component';
+
+// Authentocation Context
+import { AuthContext } from '../../../Services/Authentication/auth.context';
 
 // Async Storage
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -30,6 +33,8 @@ import { ProfileTabDisplayer } from '../components/Profile-settings/profile-tab-
 import { CoverImage } from '../components/profile-screen.style';
 
 export const ProfileSettingsScreen = ({ route }) => {
+
+    const { recentRecord } = useContext(AuthContext);
 
     const type = route.params; // The type of screen that should be displayed... User or friend
 
@@ -70,7 +75,11 @@ export const ProfileSettingsScreen = ({ route }) => {
             
             <ProfileContextProvider>
 
-                <ScrollView>
+                <ScrollView
+                    refreshControl={
+                        <RefreshControl onRefresh={ recentRecord } />
+                    }
+                >
 
                     { showPic && <ProfilePicDisplay showPicFunc={ showPicFunc } type={ type } /> }
 

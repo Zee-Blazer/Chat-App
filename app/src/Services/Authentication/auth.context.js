@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // // API's
 // import { SignupApi } from '../API\'s/Signup.api\'s';
 import { ManageUsers } from '../API\'s/Signup.api\'s';
+import { getSpecificUser } from '../API\'s/Profile.api';
 
 // Express API
 import api from '../Axios/axios-api';
@@ -16,9 +17,14 @@ export const AuthContextProvider = ({ children }) => {
 
     const [user, setUser] = useState();
     const [user_id, setUser_id] = useState("");
+    const [specificUser, setSpecificUser] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [errMsg, setErrMsg] = useState("");
     const [reset, setReset] = useState("");
+
+    useEffect( async () => {
+        await AsyncStorage.setItem("@user_details", JSON.stringify(specificUser));
+    }, [specificUser] )
 
     const Login = (email, password) => {
         setIsLoading(true)
@@ -93,6 +99,10 @@ export const AuthContextProvider = ({ children }) => {
         }
     }, [] )
 
+    const recentRecord = () => {
+        getSpecificUser(user_id, setSpecificUser);
+    }
+
     return (
         <AuthContext.Provider 
             value={{
@@ -106,7 +116,8 @@ export const AuthContextProvider = ({ children }) => {
                 setReset,
                 isLoading,
                 user_id,
-                errMsg
+                errMsg,
+                recentRecord
             }}
         >
             { children }

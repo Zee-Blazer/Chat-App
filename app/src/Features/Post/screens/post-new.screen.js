@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // React Native prebuilt components
-import { StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity, Keyboard, Dimensions } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -33,6 +33,8 @@ export const PostNew = ({ route }) => {
 
     const navigation = useNavigation();
 
+    const [keyboardActive, setKeyboardActive] = useState(false);
+
     const [userId, setUserId] = useState();
     const [img, setImg] = useState();
     const [msg, setMsg] = useState();
@@ -40,7 +42,12 @@ export const PostNew = ({ route }) => {
 
     const data = route.params;
 
-    console.log(data.type);
+    const keyboardActiveListenerShow = () => setKeyboardActive(true)
+    const keyboardActiveListenerHide = () => setKeyboardActive(false)
+
+    Keyboard.addListener("keyboardDidShow", keyboardActiveListenerShow);
+    Keyboard.addListener('keyboardDidHide', keyboardActiveListenerHide);
+
 
     const sendPost = () => {
         if(data.img != undefined){
@@ -77,7 +84,7 @@ export const PostNew = ({ route }) => {
     }, []);
 
     return <>
-        <SafeAir>
+        <SafeAir onPress={ Keyboard.dismiss }>
             <TouchableOpacity onPress={ () => navigation.goBack() }>
                 <MaterialIcons 
                     name="cancel" 
@@ -93,9 +100,10 @@ export const PostNew = ({ route }) => {
                         route.params.img : 
                         "https://organicthemes.com/demo/profile/files/2018/05/profile-pic.jpg" 
                 }}  
+                onPress={ Keyboard.dismiss }
             />
 
-            <WriteCaptionCont>
+            <WriteCaptionCont factor={ keyboardActive }>
                 <WriteCaption 
                     placeholder="Add caption..."
                     placeholderTextColor="white"

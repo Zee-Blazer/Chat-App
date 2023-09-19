@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 
 // Native Paper
 import { ProgressBar, Colors } from 'react-native-paper';
+import { Platform } from 'react-native';
 
 export const FixedTopHeader = styled.View`
     display: flex;
@@ -118,7 +119,7 @@ export const WriteCaption = styled.TextInput`
 
 export const WriteCaptionCont = styled.View`
     position: absolute;
-    top: 90%;
+    top: ${ Platform.OS == "ios" ? props => props.factor ? "61%" : "96%" : "90%" };
     flex-direction: row;
     justify-content: space-between;
 `;

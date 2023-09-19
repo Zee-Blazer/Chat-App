@@ -53,16 +53,6 @@ export const PostScreen = ({ navigation }) => {
         <SafeAir>
             { display && <PostAction changeDisplay={ changeDisplay } type={ type } /> }
 
-            {/* Spinner Loader  */}
-            { 
-                refresh && 
-                <ActivityIndicator 
-                    animating={true} 
-                    color={Colors.blue300} 
-                    style={{ marginTop: 4 }} 
-                /> 
-            }
-
             <ScrollView
                 refreshControl={
                     <RefreshControl refreshing={ refresh } onRefresh={ onRefresh } />
