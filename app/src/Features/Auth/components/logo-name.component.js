@@ -22,7 +22,7 @@ export const LogoNameHeader = () => {
         <HeaderLogo>
             <Logo source={ require('../../../../assets/logo.png') } />
             <LogoTxt style={{ fontFamily: "Macondo_400Regular" }}>
-                FRIENDIFY
+                CHAT APP
             </LogoTxt>
         </HeaderLogo>
     )

@@ -1,10 +1,11 @@
 {
   "expo": {
-    "name": "chat-app",
+    "name": "CHAT APP",
     "slug": "chat-app",
-    "version": "1.0.0",
+    "description": "The CHAT APP is a social media application similar to Facebook, WhatsApp and the other social media application. But it is still fully yet to reach it's full potential",
+    "version": "1.2.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
