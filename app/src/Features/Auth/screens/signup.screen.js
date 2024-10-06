@@ -47,6 +47,7 @@ export const SignupScreen = ({ navigation }) => {
 
     const doSignUp = () => {
         SignUp(email, pwd, username);
+        console.log(email, pwd, username)
         // setIsLoading
     }
 

@@ -35,8 +35,6 @@ const windowHeight = Dimensions.get("window").height;
 export const ChatBoxSender = ({ id }) => {
     LogBox.ignoreLogs(['Setting a timer']);
 
-    // const { user_id } = useContext(AuthContext);
-
     const [keyboardActive, setKeyboardActive] = useState(false);
 
     const [user_id, setUser_id] = useState();
