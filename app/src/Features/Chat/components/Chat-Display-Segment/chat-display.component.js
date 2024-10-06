@@ -44,6 +44,8 @@ export const ChatDisplaySegment = ({ id }) => {
         allMessages(setMessages, chatId);
     }, [chatId] )
 
+    console.log(messages);
+
     return (
         <ChatDisplay>
 

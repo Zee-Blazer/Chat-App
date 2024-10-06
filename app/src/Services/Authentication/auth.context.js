@@ -41,7 +41,6 @@ export const AuthContextProvider = ({ children }) => {
             setIsLoading(false);
         } )
         .catch( err => {
-            console.log(err);
             setIsLoading(false);
         } )
     }
@@ -63,7 +62,6 @@ export const AuthContextProvider = ({ children }) => {
             setIsLoading(false);
         } )
         .catch( err => {
-            console.log(err);
             setIsLoading(false);
         } )
     }
